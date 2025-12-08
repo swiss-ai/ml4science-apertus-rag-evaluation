@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "warc-extractor"
+version = "0.0.0"
+description = "WARC to JSONL extractor for ETHZ webarchive"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "warcio",
+    "beautifulsoup4",
+    "pdfplumber",
+    "pandas",
+    "openpyxl",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+warc-extract = "extractor.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
