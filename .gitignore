@@ -207,3 +207,7 @@ marimo/_lsp/
 __marimo__/
 
 .DS_Store
+
+data_sample/jsonl_out/*
+
+*.egg-info/*
