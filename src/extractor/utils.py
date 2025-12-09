@@ -3,18 +3,23 @@ from __future__ import annotations
 
 import io
 import json
-import logging
 import os
 import sys
 import time
 from pathlib import Path
 from typing import Iterable, List, Sequence, Set
-
 import pandas as pd
-import pdfplumber
 from bs4 import BeautifulSoup
 from warcio.archiveiterator import ArchiveIterator
 
+import logging
+
+logging.getLogger("pdfminer").setLevel(logging.ERROR)
+logging.getLogger("pdfminer.pdfinterp").setLevel(logging.ERROR)
+logging.getLogger("pdfminer.layout").setLevel(logging.ERROR)
+logging.getLogger("pdfminer.pdfcolor").setLevel(logging.ERROR)
+
+import pdfplumber
 
 def require_env(name: str) -> str:
     """
@@ -189,7 +194,11 @@ def extract_text_from_pdf_bytes(payload: bytes, logger: logging.Logger) -> str:
         text_chunks: List[str] = []
         with pdfplumber.open(io.BytesIO(payload)) as pdf:
             for page in pdf.pages:
-                page_text = page.extract_text() or ""
+                try:
+                    page_text = page.extract_text() or ""
+                except Exception as e:
+                    logger.warning(f"Skipping bad PDF page: {e}")
+                    continue
                 if page_text.strip():
                     text_chunks.append(page_text)
         return "\n".join(text_chunks).strip()
