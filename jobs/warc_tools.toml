@@ -1,0 +1,22 @@
+# warc_tools.toml
+# EDF for running the WARC → JSONL extractor or indexer container on CSCS
+
+image = "${SCRATCH}/warc_tools.sqsh"
+
+# Mount main CSCS filesystems into the container
+mounts = [
+  "/capstor",
+  "/iopsstor",
+  "/scratch"
+]
+
+# Start in /app inside the container (from Dockerfile: WORKDIR /app)
+workdir = "/app"
+
+[annotations]
+# No special networking / NCCL hooks needed for this CPU-style job
+# com.hooks.cxi.enabled = "false"
+
+[env]
+# Make Python output unbuffered so logs stream nicely
+PYTHONUNBUFFERED = "1"
