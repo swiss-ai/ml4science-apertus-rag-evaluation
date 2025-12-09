@@ -29,9 +29,10 @@ dependencies = [
 ]
 
 [project.scripts]
-warc-extract = "warc_tools.extractor.cli:main"
-warc-index   = "warc_tools.indexer.cli:main"
-warc-rag     = "warc_tools.rag.cli:main"
+warc-extract  = "warc_tools.extractor.cli:main"
+warc-index    = "warc_tools.indexer.cli:main"
+warc-rag      = "warc_tools.rag.cli:main"
+warc-baseline = "warc_tools.baseline.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
