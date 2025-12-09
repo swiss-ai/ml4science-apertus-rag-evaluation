@@ -5,6 +5,7 @@ import os
 import logging
 from dataclasses import dataclass
 from typing import List
+import pandas as pd
 
 from llama_index.core import VectorStoreIndex
 from llama_index.core.schema import NodeWithScore
@@ -115,3 +116,92 @@ def run_rag_query(
         answer=str(response),
         nodes=nodes,
     )
+
+def run_rag_evaluation(
+    config: RAGConfig,
+    input_xlsx: str | os.PathLike,
+    output_xlsx: str | os.PathLike,
+    logger: logging.Logger,
+) -> None:
+    """
+    Run RAG over a dataset stored in an XLSX file and write the results out.
+
+    The input XLSX must contain at least these columns:
+        - question
+        - answer
+        - relevant_doc_1
+        - relevant_doc_2
+
+    The output XLSX will contain all original columns plus:
+        - rag_answer
+        - rag_source_urls  (semicolon-separated list of retrieved URLs)
+    """
+    input_xlsx = os.fspath(input_xlsx)
+    output_xlsx = os.fspath(output_xlsx)
+
+    logger.info(f"Loading evaluation dataset from {input_xlsx!r}")
+
+    try:
+        df = pd.read_excel(input_xlsx)
+    except Exception as e:
+        logger.error(f"Failed to read XLSX {input_xlsx!r}: {e}")
+        raise
+
+    required_cols = ["question", "answer", "relevant_doc_1", "relevant_doc_2"]
+    missing = [c for c in required_cols if c not in df.columns]
+    if missing:
+        raise ValueError(
+            f"Input XLSX is missing required columns: {missing}. "
+            f"Found columns: {list(df.columns)}"
+        )
+
+    n_rows = len(df)
+    logger.info(f"Loaded {n_rows} evaluation rows")
+
+    rag_answers: list[str] = []
+    rag_source_urls: list[str] = []
+
+    for idx, row in df.iterrows():
+        q = str(row["question"]).strip() if not pd.isna(row["question"]) else ""
+
+        if not q:
+            logger.warning(f"Row {idx}: empty question, skipping RAG call")
+            rag_answers.append("")
+            rag_source_urls.append("")
+            continue
+
+        logger.info(f"[{idx + 1}/{n_rows}] Running RAG for question: {q!r}")
+
+        try:
+            result = run_rag_query(config, q, logger)
+        except Exception as e:
+            logger.error(f"RAG query failed for row {idx}: {e}")
+            rag_answers.append("")
+            rag_source_urls.append("")
+            continue
+
+        # Store answer
+        rag_answers.append(result.answer)
+
+        # Collect URLs from retrieved nodes (unique, order-preserving)
+        urls: list[str] = []
+        for node in result.nodes:
+            meta = getattr(node.node, "metadata", None) or {}
+            url = meta.get("url")
+            if url and url not in urls:
+                urls.append(str(url))
+
+        rag_source_urls.append("; ".join(urls))
+
+    df["rag_answer"] = rag_answers
+    df["rag_source_urls"] = rag_source_urls
+
+    logger.info(f"Writing evaluation results to {output_xlsx!r}")
+    try:
+        df.to_excel(output_xlsx, index=False)
+    except Exception as e:
+        logger.error(f"Failed to write XLSX {output_xlsx!r}: {e}")
+        raise
+
+    logger.info("RAG evaluation finished successfully")
+
