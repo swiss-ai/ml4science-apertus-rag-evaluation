@@ -7,15 +7,48 @@ import time
 from pathlib import Path
 from typing import Optional
 
+import logging
+
 import pandas as pd
 import openai  # CSCS endpoint is OpenAI-compatible
 
-from warc_tools.indexer.utils import require_env, setup_logging 
-from warc_tools.rag.utils import load_env_if_dev
-
-
 DEFAULT_BASE_URL = "https://api.swissai.cscs.ch/v1"
 
+def require_env(name: str) -> str:
+    value = os.getenv(name)
+    if not value:
+        raise RuntimeError(f"Required environment variable {name!r} is not set")
+    return value
+
+
+def setup_logging(level: str = "INFO", log_file: str | None = None) -> logging.Logger:
+    logger = logging.getLogger("warc_tools.baseline")
+    logger.setLevel(getattr(logging, level.upper(), logging.INFO))
+
+    # Avoid duplicate handlers if main() is called twice in tests
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        handler.setFormatter(
+            logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s")
+        )
+        logger.addHandler(handler)
+
+        if log_file:
+            fh = logging.FileHandler(log_file)
+            fh.setFormatter(
+                logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s")
+            )
+            logger.addHandler(fh)
+
+    return logger
+
+def load_env_if_dev() -> None:
+    """Optional: mimic your rag utils; safe no-op in prod."""
+    try:
+        from dotenv import load_dotenv
+    except Exception:
+        return
+    load_dotenv()
 
 def get_cscs_client(base_url: str, api_key: str) -> openai.Client:
     """
