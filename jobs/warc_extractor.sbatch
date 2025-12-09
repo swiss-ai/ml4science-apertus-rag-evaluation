@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
-#SBATCH --account=<your_project>
+#SBATCH --account=infra01
 
 set -euo pipefail
 
@@ -32,7 +32,7 @@ export LOG_FILE=/capstor/scratch/cscs/$USER/warc_to_jsonl_${SLURM_JOB_ID}.log
 export DEV_MODE=0   # no .env in container
 
 # Path where EDF lives
-EDF_FILE=$SCRATCH/ethz-warc/ethz-warc-extractor.toml
+EDF_FILE=$SCRATCH/warc_tools.toml
 
 # --- Run inside the container environment ---
 set -x
