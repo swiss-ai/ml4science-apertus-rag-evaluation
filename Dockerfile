@@ -1,4 +1,4 @@
-# Dockerfile for WARC → JSONL extractor using pyproject.toml packaging
+# Common Dockerfile for warc_tools (extractor + indexer)
 
 FROM python:3.11-slim
 
@@ -23,5 +23,5 @@ COPY src/ ./src/
 # Installing the package (and its dependencies) defined in pyproject.toml
 RUN pip install --no-cache-dir .
 
-# Default command:
-CMD ["python", "-m", "extractor.cli"]
+# Default command: run the extractor.
+CMD ["warc-extract"]
