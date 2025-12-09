@@ -1,16 +1,12 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "warc-tools"
 version = "0.0.0"
-description = "Tools for extracting ETHZ webarchive WARC data and indexing JSONL into Elasticsearch."
+description = "Tools for extracting ETHZ webarchive WARC data, indexing JSONL into Elasticsearch, and querying via RAG."
 readme = "README.md"
 requires-python = ">=3.10"
 
 dependencies = [
-  # extractor
+  # extractor deps
   "warcio",
   "beautifulsoup4",
   "pdfplumber",
@@ -18,20 +14,24 @@ dependencies = [
   "openpyxl",
   "python-dotenv",
 
-  # indexer
+  # indexer deps
   "elasticsearch",
   "llama-index-core",
   "llama-index-embeddings-ollama",
   "llama-index-embeddings-openai",
   "llama-index-embeddings-huggingface",
   "llama-index-vector-stores-elasticsearch",
+
+  # RAG / LLM deps
+  "llama-index-llms-ollama",
+  "llama-index-llms-openai",
+  "llama-index-llms-huggingface",
 ]
 
 [project.scripts]
-# CLI for extractor: warc to JSONL
 warc-extract = "warc_tools.extractor.cli:main"
-# CLI for indexer: JSONL to Elasticsearch
-warc-index = "warc_tools.indexer.cli:main"
+warc-index   = "warc_tools.indexer.cli:main"
+warc-rag     = "warc_tools.rag.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
