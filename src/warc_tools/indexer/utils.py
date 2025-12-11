@@ -6,12 +6,83 @@ import os
 import sys
 from typing import Iterable, List, Dict, Any
 
+import openai
+
+#from openai import OpenAI # CSCS / OpenAI-compatible client
+
 from elasticsearch import Elasticsearch
 
+from llama_index.core.embeddings import BaseEmbedding
 from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
+class CSCSOpenAICompatibleEmbedding(BaseEmbedding):
+    """
+    Embedding wrapper for an OpenAI-compatible /embeddings endpoint hosted at CSCS.
+
+    Uses the official `openai` client with a custom base_url and arbitrary model name.
+    """
+
+    def __init__(
+        self,
+        model: str,
+        api_key: str,
+        base_url: str,
+        timeout: int = 60,
+    ) -> None:
+        super().__init__()
+        self._model = model
+        self._client = openai.Client(
+            api_key=api_key,
+            base_url=base_url,
+            timeout=timeout,
+        )
+
+    # ---- sync methods ----
+    def _get_query_embedding(self, query: str) -> Embedding:
+        resp = self._client.embeddings.create(
+            model=self._model,
+            input=query,
+        )
+        return resp.data[0].embedding
+
+    def _get_text_embedding(self, text: str) -> Embedding:
+        resp = self._client.embeddings.create(
+            model=self._model,
+            input=text,
+        )
+        return resp.data[0].embedding
+
+    def _get_text_embeddings(self, texts: List[str]) -> List[Embedding]:
+        # CSCS/OpenAI API supports batching
+        resp = self._client.embeddings.create(
+            model=self._model,
+            input=texts,
+        )
+        return [item.embedding for item in resp.data]
+
+    # ---- async methods ----
+    async def _aget_query_embedding(self, query: str) -> Embedding:
+        resp = await self._client.embeddings.create(
+            model=self._model,
+            input=query,
+        )
+        return resp.data[0].embedding
+
+    async def _aget_text_embedding(self, text: str) -> Embedding:
+        resp = await self._client.embeddings.create(
+            model=self._model,
+            input=text,
+        )
+        return resp.data[0].embedding
+
+    async def _aget_text_embeddings(self, texts: List[str]) -> List[Embedding]:
+        resp = await self._client.embeddings.create(
+            model=self._model,
+            input=texts,
+        )
+        return [item.embedding for item in resp.data]
 
 def require_env(name: str) -> str:
     """
@@ -55,15 +126,14 @@ def setup_logging(level: str = "INFO", log_file: str | None = None) -> logging.L
 
     return logger
 
-
 def get_embedding_model_from_env(logger: logging.Logger):
     """
     Choose an embedding backend based on env vars:
 
     EMBED_PROVIDER:
       - "ollama" : local Ollama server
-      - "cscs"   : OpenAI-compatible endpoint (e.g. SwissAI)
-      - "openai" : OpenAI-compatible endpoint
+      - "cscs"   : OpenAI-compatible endpoint (e.g. SwissAI) for embeddings
+      - "openai" : OpenAI embeddings
       - "hf"     : local / HF Hub model via HuggingFaceEmbedding
 
     EMBED_MODEL:      model name / id
@@ -80,11 +150,24 @@ def get_embedding_model_from_env(logger: logging.Logger):
     if provider == "ollama":
         return OllamaEmbedding(model_name=model, request_timeout=timeout)
 
-    elif provider in ("openai", "cscs"):
+    elif provider == "cscs":
         base_url = require_env("EMBED_BASE_URL")
         api_key = require_env("EMBED_API_KEY")
 
-        logger.info(f"Using OpenAI-compatible embeddings at {base_url}")
+        logger.info(f"Using CSCS OpenAI-compatible embeddings at {base_url}")
+        return CSCSOpenAICompatibleEmbedding(
+            model=model,
+            api_key=api_key,
+            base_url=base_url,
+            timeout=timeout,
+        )
+
+    elif provider == "openai":
+        # Real OpenAI; base_url can be omitted or overridden via env
+        api_key = require_env("EMBED_API_KEY")
+        base_url = os.getenv("EMBED_BASE_URL")  # usually None for OpenAI
+
+        logger.info(f"Using OpenAI embeddings (base_url={base_url or 'default'})")
         return OpenAIEmbedding(
             model=model,
             api_key=api_key,
