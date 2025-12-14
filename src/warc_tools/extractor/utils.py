@@ -1,243 +1,140 @@
-# src/extractor/utils.py
 from __future__ import annotations
 
 import io
-import json
-import os
-import sys
-import time
-from pathlib import Path
-from typing import Iterable, List, Sequence, Set
-import pandas as pd
-from bs4 import BeautifulSoup
-from warcio.archiveiterator import ArchiveIterator
-
 import logging
+import os
+import warnings
+from pathlib import Path
+from typing import Iterable
 
-logging.getLogger("pdfminer").setLevel(logging.ERROR)
-logging.getLogger("pdfminer.pdfinterp").setLevel(logging.ERROR)
-logging.getLogger("pdfminer.layout").setLevel(logging.ERROR)
-logging.getLogger("pdfminer.pdfcolor").setLevel(logging.ERROR)
-
+import pandas as pd
 import pdfplumber
+from bs4 import BeautifulSoup
 
-def require_env(name: str) -> str:
-    """
-    Get required environment variable or exit with a clear error.
-    """
-    value = os.getenv(name)
+from typing import Sequence, TypeVar
+
+warnings.filterwarnings("ignore", message=r".*Cannot set gray.*")
+warnings.filterwarnings("ignore", message=r".*invalid float value.*")
+
+
+def require_env_str(name: str) -> str:
+    value = (os.getenv(name) or "").strip()
     if not value:
-        print(f"[ERROR] Missing required environment variable: {name}", file=sys.stderr)
-        sys.exit(1)
+        raise RuntimeError(f"Missing required environment variable: {name}")
     return value
 
+T = TypeVar("T")
 
-def setup_logging(level: str = "INFO", log_file: str | None = None) -> logging.Logger:
-    """
-    Configure logging to stdout and optionally to a file.
-    Returns the root logger.
-    """
-    lvl = getattr(logging, level.upper(), logging.INFO)
-    logger = logging.getLogger()
-    logger.setLevel(lvl)
+def shard_items(items: Sequence[T], shard_index: int, shard_count: int) -> list[T]:
+    if shard_count <= 1:
+        return list(items)
+    return [x for i, x in enumerate(items) if i % shard_count == shard_index]
 
-    # Remove any existing handlers to avoid duplicates if called twice
-    for h in list(logger.handlers):
-        logger.removeHandler(h)
+def require_env_path(name: str) -> Path:
+    return Path(require_env_str(name))
 
-    formatter = logging.Formatter(
-        fmt="%(asctime)s [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
+def setup_logging() -> logging.Logger:
+    level_name = (os.getenv("LOG_LEVEL") or "INFO").strip().upper()
+    log_file = (os.getenv("LOG_FILE") or "").strip() or None
 
-    console = logging.StreamHandler(sys.stdout)
-    console.setFormatter(formatter)
-    console.setLevel(lvl)
-    logger.addHandler(console)
+    level = getattr(logging, level_name, None)
+    if not isinstance(level, int):
+        raise ValueError(f"Invalid LOG_LEVEL={level_name!r}")
 
-    if log_file:
-        file_handler = logging.FileHandler(log_file)
-        file_handler.setFormatter(formatter)
-        file_handler.setLevel(lvl)
-        logger.addHandler(file_handler)
+    logger = logging.getLogger("extractor")
+    logger.setLevel(level)
+    logger.propagate = False
+
+    if not logger.handlers:
+        fmt = logging.Formatter(
+            "%(asctime)s [%(levelname)s] %(message)s",
+            "%Y-%m-%d %H:%M:%S",
+        )
+        sh = logging.StreamHandler()
+        sh.setFormatter(fmt)
+        sh.setLevel(level)
+        logger.addHandler(sh)
+
+        if log_file:
+            fh = logging.FileHandler(log_file, encoding="utf-8")
+            fh.setFormatter(fmt)
+            fh.setLevel(level)
+            logger.addHandler(fh)
+
+    for name in (
+        "pdfminer",
+        "pdfminer.psparser",
+        "pdfminer.pdfinterp",
+        "pdfminer.layout",
+        "pdfminer.pdfcolor",
+    ):
+        l = logging.getLogger(name)
+        l.setLevel(logging.ERROR)
+        l.propagate = False
 
     return logger
 
+def get_base_site_from_url(url: str) -> str:
+    if "//" in url:
+        url = url.split("//", 1)[1]
+    for p in ("www.", "www0.", "www1.", "www2.", "www3."):
+        if url.startswith(p):
+            url = url[len(p):]
+    return url.split("/", 1)[0].split(":", 1)[0].rstrip(".")
 
-# --------------------------------------------------------------------
-# URL / domain helpers
-# --------------------------------------------------------------------
-
-
-def get_base_site_from_url(url_in: str) -> str:
-    """
-    Extract the base site from a URL.
-
-    Example:
-        "http://ethz.ch/about/test.png" -> "ethz.ch"
-
-    This mirrors the logic you used in prep_warc_files.py.
-    """
-    if "//" not in url_in:
-        base_site = url_in
-    else:
-        url_in_old = url_in
-        base_site = url_in.split("//", 1)[1]
-        if base_site == "":
-            # e.g. urls like: "https://ethz.ch/%0ahttps://ethz.ch/"
-            parts = url_in_old.split("//")
-            for s in parts:
-                if s:
-                    base_site = s
-                    break
-
-    # strip common www prefixes
-    for prefix in ("www.", "www0.", "www1.", "www2.", "www3."):
-        if base_site.startswith(prefix):
-            base_site = base_site[len(prefix) :]
-
-    # remove port and path
-    base_site = base_site.split(":", 1)[0]
-    base_site = base_site.split("/", 1)[0]
-
-    if base_site.endswith("."):
-        base_site = base_site[:-1]
-
-    return base_site
-
-
-def load_allowed_domains_from_xlsx(xlsx_path: Path, logger: logging.Logger) -> Set[str]:
-    """
-    Load ETHZ seed URLs from Excel and build a set of allowed base sites (domains).
-    """
-    logger.info(f"Loading seed URLs from: {xlsx_path}")
-    df = pd.read_excel(xlsx_path)
-    df = df.fillna("")
-    urls = [u for u in df["URL"] if isinstance(u, str) and u.strip()]
-
-    domains: Set[str] = set()
-    for url in urls:
+def load_allowed_domains_from_xlsx(path: Path, logger: logging.Logger) -> set[str]:
+    df = pd.read_excel(path).fillna("")
+    urls = [u for u in df.get("URL", []) if isinstance(u, str) and u.strip()]
+    domains = set()
+    for u in urls:
         try:
-            base = get_base_site_from_url(url)
-            if base:
-                domains.add(base.lower())
+            domains.add(get_base_site_from_url(u).lower())
         except Exception:
             continue
-
-    logger.info(f"Loaded {len(domains)} allowed domains from seeds.")
+    logger.info("Loaded %d allowed domains", len(domains))
     return domains
 
-
-def is_allowed_url(url: str | None, allowed_domains: Set[str]) -> bool:
-    """
-    Check whether URL belongs to one of the ETHZ seeds (by host).
-    """
-    if not url:
-        return False
-    host = get_base_site_from_url(url).lower()
-    return host in allowed_domains
-
-
-# --------------------------------------------------------------------
-# Text extraction helpers
-# --------------------------------------------------------------------
-
+def is_allowed_url(url: str | None, allowed: set[str]) -> bool:
+    return bool(url) and get_base_site_from_url(url).lower() in allowed
 
 def extract_text_from_html_bytes(payload: bytes) -> str:
-    """
-    Extract text from raw HTML bytes using BeautifulSoup.
-    """
-    if not payload:
-        return ""
-
-    try:
-        html = payload.decode("utf-8", errors="replace")
-    except Exception:
-        html = payload.decode("latin-1", errors="replace")
-
-    if not html.strip():
-        return ""
-
-    soup = BeautifulSoup(html, features="html.parser")
-
-    # remove scripts/styles
-    for tag in soup(["script", "style"]):
-        tag.extract()
-
+    html = payload.decode("utf-8", errors="replace")
+    soup = BeautifulSoup(html, "html.parser")
+    for t in soup(["script", "style"]):
+        t.extract()
     text = soup.get_text()
+    lines = [l.strip() for l in text.splitlines()]
+    chunks = [p.strip() for l in lines for p in l.split("  ")]
+    out = "\n".join(c for c in chunks if c).strip()
+    return "" if out in {"", "Redirecting"} else out
 
-    # Normalize whitespace: strip lines and collapse multiple spaces
-    lines = [line.strip() for line in text.splitlines()]
-    chunks: List[str] = [
-        phrase.strip()
-        for line in lines
-        for phrase in line.split("  ")
-    ]
-    text = "\n".join(chunk for chunk in chunks if chunk)
-
-    if text in ("", "Redirecting"):
+def extract_text_from_pdf_bytes(
+    payload: bytes,
+    logger: logging.Logger,
+    *,
+    max_pages: int = 50,
+    max_bytes: int = 25_000_000,
+) -> str:
+    if len(payload) > max_bytes:
         return ""
-
-    return text
-
-
-def extract_text_from_pdf_bytes(payload: bytes, logger: logging.Logger) -> str:
-    """
-    Extract text from PDF bytes using pdfplumber.
-
-    Returns an empty string on failure.
-    """
-    if not payload:
-        return ""
-
     try:
-        text_chunks: List[str] = []
+        chunks: list[str] = []
         with pdfplumber.open(io.BytesIO(payload)) as pdf:
-            for page in pdf.pages:
+            if getattr(pdf, "is_encrypted", False):
+                return ""
+            for page in pdf.pages[:max_pages]:
                 try:
-                    page_text = page.extract_text() or ""
-                except Exception as e:
-                    logger.warning(f"Skipping bad PDF page: {e}")
+                    t = page.extract_text() or ""
+                except Exception:
                     continue
-                if page_text.strip():
-                    text_chunks.append(page_text)
-        return "\n".join(text_chunks).strip()
+                if t.strip():
+                    chunks.append(t)
+        return "\n".join(chunks).strip()
     except Exception as e:
-        logger.warning(f"PDF extraction error: {e}")
+        logger.debug("PDF extraction error: %s", e)
         return ""
-
-
-# --------------------------------------------------------------------
-# WARC file iteration / sharding
-# --------------------------------------------------------------------
-
 
 def iter_warc_files(input_dir: Path) -> Iterable[Path]:
-    """
-    Yield all .warc / .warc.gz files recursively from input_dir.
-    """
-    for root, _, files in os.walk(input_dir):
-        for fname in files:
-            if fname.endswith(".warc") or fname.endswith(".warc.gz"):
-                yield Path(root) / fname
-
-
-def shard_files(
-    files: Sequence[Path],
-    shard_index: int,
-    shard_count: int,
-) -> List[Path]:
-    """
-    Given a sequence of files, return only those that belong to this shard.
-
-    Sharding scheme:
-        file i belongs to shard (i % shard_count)
-    """
-    if shard_count <= 1:
-        return list(files)
-
-    selected: List[Path] = []
-    for i, f in enumerate(files):
-        if i % shard_count == shard_index:
-            selected.append(f)
-    return selected
+    for p in input_dir.rglob("*"):
+        if p.is_file() and (p.name.endswith(".warc") or p.name.endswith(".warc.gz")):
+            yield p

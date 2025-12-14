@@ -1,57 +1,55 @@
-# src/extractor/cli.py
 from __future__ import annotations
 
 import os
-import sys
-from pathlib import Path
+from typing import Literal
 
 from dotenv import load_dotenv
 
-from .utils import require_env, setup_logging
-from .warc_extractor import ExtractorConfig, run_extraction
+from .config import ExtractorConfig
+from .utils import require_env_path, setup_logging
+from .warc_extractor import run_extraction
+
+ExtractMode = Literal["html", "pdf", "all"]
+_VALID_MODES = {"html", "pdf", "all"}
 
 
-def main() -> None:
-    """
-    CLI entrypoint for WARC → JSONL extraction.
+def _parse_extract_mode(raw: str | None) -> tuple[bool, bool]:
+    mode = (raw or "all").strip().lower()
+    if mode not in _VALID_MODES:
+        raise ValueError(f"Invalid EXTRACT_MODE={mode!r}")
+    return mode in {"html", "all"}, mode in {"pdf", "all"}
 
-    Reads configuration from environment variables, sets up logging,
-    and calls run_extraction().
-    """
-    # For local dev you can set DEV_MODE=1 and use a .env file.
-    dev_mode = os.getenv("DEV_MODE", "0").lower() in ("1", "true", "yes")
-    if dev_mode:
-        load_dotenv()
+def _parse_sharding() -> tuple[int, int]:
+    idx = int(os.getenv("SHARD_INDEX", os.getenv("SLURM_ARRAY_TASK_ID", "0")))
+    cnt = int(os.getenv("SHARD_COUNT", os.getenv("SLURM_ARRAY_TASK_COUNT", "1")))
+    if idx < 0 or cnt < 1 or idx >= cnt:
+        raise ValueError("Invalid shard configuration")
+    return idx, cnt
 
-    # Required env vars
-    input_dir_str = require_env("WARC_INPUT_DIR")
-    output_dir_str = require_env("JSONL_DIR")
-    seeds_xlsx_str = require_env("SEEDS_XLSX")
-    failed_warcs_str = require_env("FAILED_WARCS_FILE")
+def _build_config() -> ExtractorConfig:
+    extract_html, extract_pdf = _parse_extract_mode(os.getenv("EXTRACT_MODE"))
+    shard_index, shard_count = _parse_sharding()
 
-    # Optional env vars
-    log_level = os.getenv("LOG_LEVEL", "INFO")
-    log_file = os.getenv("LOG_FILE") or None
-    shard_idx = int(os.getenv("SHARD_INDEX", "0"))
-    shard_cnt = int(os.getenv("SHARD_COUNT", "1"))
-
-    logger = setup_logging(log_level, log_file)
-
-    config = ExtractorConfig(
-        input_dir=Path(input_dir_str),
-        output_dir=Path(output_dir_str),
-        seeds_xlsx=Path(seeds_xlsx_str),
-        failed_warcs_file=Path(failed_warcs_str),
-        shard_index=shard_idx,
-        shard_count=shard_cnt,
+    return ExtractorConfig(
+        input_dir=require_env_path("WARC_INPUT_DIR"),
+        output_dir=require_env_path("OUTPUT_DIR"),
+        seeds_xlsx=require_env_path("SEEDS_XLSX"),
+        failed_warcs_file=require_env_path("FAILED_WARCS_FILE"),
+        extract_html=extract_html,
+        extract_pdf=extract_pdf,
+        shard_index=shard_index,
+        shard_count=shard_count
     )
 
+def main() -> int:
+    load_dotenv()
+    logger = setup_logging()
     try:
-        run_extraction(config, logger)
-    except Exception as e:
-        logger.error(f"Extraction failed: {e}")
-        sys.exit(1)
-
+        run_extraction(_build_config(), logger)
+        return 0
+    except Exception:
+        logger.exception("Extraction failed")
+        return 1
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
