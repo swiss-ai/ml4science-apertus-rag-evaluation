@@ -1,73 +1,76 @@
-# src/warc_tools/indexer/indexer.py
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
+import os
 import time
-from dataclasses import dataclass
+from collections import Counter
 from pathlib import Path
-from typing import List, Set
+from typing import Any, Dict, Iterator, List, Set, Tuple
 
 from elasticsearch import Elasticsearch
-
+from elasticsearch.helpers import streaming_bulk
 from llama_index.core import Document
-from llama_index.core.ingestion import IngestionPipeline
 from llama_index.core.node_parser import SentenceSplitter
-from llama_index.vector_stores.elasticsearch import ElasticsearchStore
 
-from .utils import (
-    batched,
-    create_es_index_for_vectors,
-    get_embedding_model_from_env,
-)
+from .utils import batched, create_es_index_for_vectors, get_embedding_model_from_env
+from .config import IndexerConfig
 
+def _detect_layout(jsonl_root: Path) -> Tuple[Path, ...]:
+    """If jsonl_root contains html/ or pdf/, index under those; else index jsonl_root itself."""
+    candidates: list[Path] = []
+    for name in ("html", "pdf"):
+        p = jsonl_root / name
+        if p.exists() and p.is_dir():
+            candidates.append(p)
+    return tuple(candidates) if candidates else (jsonl_root,)
 
-@dataclass
-class IndexerConfig:
-    """
-    Configuration for JSONL → Elasticsearch vector indexing.
-    """
-    jsonl_dir: Path
-    es_url: str
-    index_name: str
-    batch_size: int
-    chunk_size: int
-    chunk_overlap: int
-    failed_warcs_file: Path
+def _iter_jsonl_files(jsonl_root: Path) -> Iterator[Path]:
+    """Recursively yield *.jsonl files."""
+    yield from sorted(p for p in jsonl_root.rglob("*.jsonl") if p.is_file())
 
-    # Optional ES auth / TLS
-    es_user: str | None = None
-    es_password: str | None = None
-    es_verify_certs: bool = False
+def _infer_modality_and_year(path: Path) -> tuple[str | None, int | None]:
+    """Infer modality from path parts (html/pdf) and year from filename 'YYYY.jsonl'."""
+    modality = None
+    parts = {p.lower() for p in path.parts}
+    if "html" in parts:
+        modality = "html"
+    elif "pdf" in parts:
+        modality = "pdf"
 
-    # Index recreation
-    no_recreate_index: bool = False
+    year = None
+    stem = path.stem
+    if stem.isdigit() and len(stem) == 4:
+        year = int(stem)
 
+    return modality, year
 
-def iter_documents_from_jsonl(
-    jsonl_dir: Path,
-    logger: logging.Logger,
-):
-    """
-    Stream LlamaIndex Documents from all *.jsonl files in jsonl_dir.
-    One Document per JSON object (line).
-    """
-    jsonl_files = sorted(jsonl_dir.glob("*.jsonl"))
-    logger.info(f"Found {len(jsonl_files)} JSONL files in {jsonl_dir}")
+def iter_documents_from_jsonl(jsonl_dir: Path, logger: logging.Logger) -> Iterator[Document]:
+    roots = _detect_layout(jsonl_dir)
+    jsonl_files: list[Path] = []
+    for root in roots:
+        jsonl_files.extend(list(_iter_jsonl_files(root)))
+
+    logger.info("Index input roots: %s", ", ".join(str(r) for r in roots))
+    logger.info("Found %d JSONL files under %s", len(jsonl_files), jsonl_dir)
 
     for file_idx, jsonl_path in enumerate(jsonl_files, start=1):
-        logger.info(f"[FILE {file_idx}/{len(jsonl_files)}] {jsonl_path.name}")
-        with jsonl_path.open("r", encoding="utf-8") as f:
-            for line_idx, line in enumerate(f, start=1):
-                line = line.strip()
+        modality, year_from_path = _infer_modality_and_year(jsonl_path)
+        logger.info("[INPUT %d/%d] READING %s", file_idx, len(jsonl_files), jsonl_path)
+
+        seen = kept = 0
+        with jsonl_path.open("r", encoding="utf-8", errors="replace") as f:
+            for line_idx, raw in enumerate(f, start=1):
+                line = raw.strip()
                 if not line:
                     continue
+                seen += 1
+
                 try:
                     obj = json.loads(line)
                 except json.JSONDecodeError:
-                    logger.warning(
-                        f"JSON decode error in {jsonl_path.name} line {line_idx}, skipping"
-                    )
+                    logger.warning("JSON decode error: %s line=%d (skipping)", jsonl_path.name, line_idx)
                     continue
 
                 text = (obj.get("text") or "").strip()
@@ -82,135 +85,243 @@ def iter_documents_from_jsonl(
                     "content_type": obj.get("content_type"),
                     "source_warc": obj.get("source_warc"),
                     "jsonl_file": str(jsonl_path),
+                    "modality": modality,
+                    "year": year_from_path,
+                    "_src_file": str(jsonl_path),
+                    "_src_line": line_idx,
                 }
 
+                kept += 1
                 yield Document(text=text, metadata=metadata)
 
+        logger.info("[INPUT %d/%d] READ DONE %s seen=%d kept=%d", file_idx, len(jsonl_files), jsonl_path.name, seen, kept)
+
+def _summarize_sources(batch: List[Document], top_n: int = 3) -> str:
+    c = Counter((d.metadata or {}).get("jsonl_file", "unknown") for d in batch)
+    items = ", ".join(f"{Path(k).name}:{v}" for k, v in c.most_common(top_n))
+    return f"{len(c)} files ({items}{'...' if len(c) > top_n else ''})"
+
+def _node_text(node) -> str:
+    if hasattr(node, "get_content"):
+        return node.get_content(metadata_mode="none")
+    return getattr(node, "text", "")
+
+def _stable_id(parts: List[str]) -> str:
+    h = hashlib.sha256()
+    for p in parts:
+        h.update((p or "").encode("utf-8", errors="ignore"))
+        h.update(b"\x00")
+    return h.hexdigest()
+
+def _estimate_action_bytes(action: Dict[str, Any]) -> int:
+    # Bulk is JSON lines; we approximate by JSON encoding the action dict once.
+    # It’s a useful upper bound for “is this single doc absurdly large?”
+    return len(json.dumps(action, ensure_ascii=False).encode("utf-8"))
 
 def run_indexing(config: IndexerConfig, logger: logging.Logger) -> None:
-    """
-    Run JSONL → Elasticsearch vector indexing according to the given configuration.
-    """
     if not config.jsonl_dir.exists():
-        logger.error(f"JSONL directory does not exist: {config.jsonl_dir}")
+        logger.error("JSONL directory does not exist: %s", config.jsonl_dir)
         raise FileNotFoundError(config.jsonl_dir)
 
+    # Bulk safety limits
+    max_chunk_mb = float(os.getenv("ES_BULK_MAX_MB", "1"))
+    max_chunk_bytes = int(max_chunk_mb * 1024 * 1024)
+    bulk_actions_chunk_size = int(os.getenv("ES_BULK_ACTIONS", "200"))
+    
+    max_text_chars = int(os.getenv("MAX_TEXT_CHARS", "0"))  # 0 = no truncation
+
     logger.info("=== Indexer configuration ===")
-    logger.info(f"JSONL_DIR:                 {config.jsonl_dir}")
-    logger.info(f"ES_URL:                    {config.es_url}")
-    logger.info(f"ES_INDEX_NAME:             {config.index_name}")
-    logger.info(f"BATCH_SIZE:                {config.batch_size}")
-    logger.info(f"CHUNK_SIZE:                {config.chunk_size}")
-    logger.info(f"CHUNK_OVERLAP:             {config.chunk_overlap}")
-    logger.info(f"FAILED_WARCS_INDEXING_FILE:{config.failed_warcs_file}")
-    logger.info(f"NO_RECREATE_INDEX:         {config.no_recreate_index}")
+    logger.info("JSONL_DIR:                  %s", config.jsonl_dir)
+    logger.info("ES_URL:                     %s", config.es_url)
+    logger.info("ES_INDEX_NAME:              %s", config.index_name)
+    logger.info("BATCH_SIZE:                 %d", config.batch_size)
+    logger.info("CHUNK_SIZE:                 %d", config.chunk_size)
+    logger.info("CHUNK_OVERLAP:              %d", config.chunk_overlap)
+    logger.info("FAILED_WARCS_INDEXING_FILE: %s", config.failed_warcs_file)
+    logger.info("NO_RECREATE_INDEX:          %s", config.no_recreate_index)
+    logger.info("ES_BULK_MAX_MB:             %.2f", max_chunk_mb)
+    logger.info("ES_BULK_ACTIONS:            %d", bulk_actions_chunk_size)
+    logger.info("MAX_TEXT_CHARS:             %d", max_text_chars)
     logger.info("============================")
 
-    # --- Elasticsearch connection ---
+    # Build ES client (compression)
+    es_kwargs = dict(
+        verify_certs=config.es_verify_certs,
+        http_compress=True,
+        request_timeout=120,
+    )
     if config.es_user and config.es_password:
         es_client = Elasticsearch(
             config.es_url,
             basic_auth=(config.es_user, config.es_password),
-            verify_certs=config.es_verify_certs,
+            **es_kwargs,
         )
     else:
-        es_client = Elasticsearch(config.es_url, verify_certs=config.es_verify_certs)
+        es_client = Elasticsearch(config.es_url, **es_kwargs)
 
     logger.info("Pinging Elasticsearch...")
     if not es_client.ping():
-        logger.error(f"Could not connect to Elasticsearch at {config.es_url}")
-        raise RuntimeError("Elasticsearch ping failed")
+        raise RuntimeError(f"Elasticsearch ping failed: {config.es_url}")
     logger.info("Elasticsearch is reachable.")
 
-    # --- Embedding model from env ---
     embed_model = get_embedding_model_from_env(logger)
 
-    # Determine embedding dimension
-    try:
-        logger.info("Testing embedding call to determine dimension...")
-        test_vec = embed_model.get_text_embedding("hello world")
-        dim = len(test_vec)
-        logger.info(f"Embedding backend OK, dimension = {dim}")
-    except Exception as e:
-        logger.error(f"Error calling embedding model: {e}")
-        raise
+    logger.info("Testing embedding call to determine dimension...")
+    dim = len(embed_model.get_text_embedding("hello world"))
+    logger.info("Embedding backend OK, dimension=%d", dim)
 
-    # --- Create / reuse ES index for vectors ---
     if config.no_recreate_index:
         logger.info("NO_RECREATE_INDEX=1 -> skipping index recreation.")
         if not es_client.indices.exists(index=config.index_name):
-            logger.info(f"Index '{config.index_name}' does not exist, creating...")
+            logger.info("Index '%s' does not exist; creating...", config.index_name)
             create_es_index_for_vectors(es_client, config.index_name, dim, logger)
     else:
         create_es_index_for_vectors(es_client, config.index_name, dim, logger)
 
-    # --- Vector store ---
-    es_store_kwargs = {
-        "es_url": config.es_url,
-        "index_name": config.index_name,
-    }
-    if config.es_user and config.es_password:
-        es_store_kwargs["es_user"] = config.es_user
-        es_store_kwargs["es_password"] = config.es_password
-        es_store_kwargs["verify_certs"] = config.es_verify_certs
+    splitter = SentenceSplitter(chunk_size=config.chunk_size, chunk_overlap=config.chunk_overlap)
 
-    logger.info("Initializing ElasticsearchStore...")
-    vector_store = ElasticsearchStore(**es_store_kwargs)
-
-    # --- Chunker + pipeline ---
-    splitter = SentenceSplitter(
-        chunk_size=config.chunk_size,
-        chunk_overlap=config.chunk_overlap,
-    )
-
-    pipeline = IngestionPipeline(
-        transformations=[splitter, embed_model],
-        vector_store=vector_store,
-    )
-
-    # --- Indexing loop with tracking failed WARCs ---
     docs_iter = iter_documents_from_jsonl(config.jsonl_dir, logger)
-    total_docs = 0          # number of original documents (pre-chunk)
-    batch_idx = 0
-    start_all = time.time()
     failed_warcs: Set[str] = set()
+
+    batch_idx = 0
+    total_input_docs = 0
+    total_nodes = 0
+    total_indexed = 0
+    start_all = time.time()
+
+    def actions_for_nodes(nodes, parent_docs: List[Document]) -> Iterator[Dict[str, Any]]:
+        nonlocal total_nodes
+
+        for i, node in enumerate(nodes):
+            text = _node_text(node)
+            if max_text_chars > 0 and len(text) > max_text_chars:
+                text = text[:max_text_chars]
+            
+            meta = {}
+            try:
+                meta.update(getattr(node, "metadata", {}) or {})
+            except Exception:
+                pass
+
+            url = meta.get("url") or meta.get("source_url") or ""
+            capture = str(meta.get("capture_time") or "")
+            src_file = str(meta.get("jsonl_file") or meta.get("_src_file") or "")
+            src_line = str(meta.get("_src_line") or "")
+
+            # A stable id helps avoid duplicates on reruns
+            doc_id = _stable_id([url, capture, src_file, src_line, str(i)])
+
+            # Embedding should already be attached
+            emb = getattr(node, "embedding", None)
+            if emb is None:
+                # As a fallback, embed here (should not happen)
+                emb = embed_model.get_text_embedding(text)
+
+            source = {
+                "text": text,
+                "metadata": meta,
+                "embedding": emb,
+            }
+
+            action = {
+                "_op_type": "index",
+                "_index": config.index_name,
+                "_id": doc_id,
+                "_source": source,
+            }
+
+            total_nodes += 1
+            yield action
 
     for batch in batched(docs_iter, config.batch_size):
         batch_idx += 1
+        total_input_docs += len(batch)
+
         logger.info(
-            f"[BATCH {batch_idx}] Processing {len(batch)} full documents "
-            f"(seen so far: {total_docs})..."
+            "[BATCH %d] INPUT docs=%d read_total=%d sources=%s",
+            batch_idx, len(batch), total_input_docs, _summarize_sources(batch)
         )
+
         t0 = time.time()
         try:
-            pipeline.run(documents=batch)
+            # Split into nodes/chunks
+            nodes = splitter.get_nodes_from_documents(batch)
+            logger.info("[BATCH %d] SPLIT nodes=%d", batch_idx, len(nodes))
+
+            # Embed nodes in one batch call
+            texts = [_node_text(n) for n in nodes]
+            if max_text_chars > 0:
+                texts = [t[:max_text_chars] for t in texts]
+            
+            vectors = embed_model.get_text_embedding_batch(texts)
+            for n, v in zip(nodes, vectors):
+                n.embedding = v
+
+            logger.info("[BATCH %d] EMBED done vectors=%d", batch_idx, len(vectors))
+
+            acts = actions_for_nodes(nodes, batch)
+
+            ok_count = 0
+            fail_count = 0
+            bytes_too_big = 0
+
+            # break up requests by both chunk_size (actions) and max_chunk_bytes (bytes)
+            for ok, info in streaming_bulk(
+                client=es_client,
+                actions=acts,
+                chunk_size=bulk_actions_chunk_size,
+                max_chunk_bytes=max_chunk_bytes,
+                raise_on_error=False,
+                raise_on_exception=False,
+                request_timeout=120,
+                refresh=False,  # keep it off for bulk loads
+            ):
+                if ok:
+                    ok_count += 1
+                else:
+                    fail_count += 1
+                    # Detect single-document-too-large style failures
+                    try:
+                        op = next(iter(info.values()))
+                        err = op.get("error")
+                        if err:
+                            pass
+                    except Exception:
+                        pass
+
+            total_indexed += ok_count
+
+            logger.info(
+                "[BATCH %d] BULK ok=%d failed=%d (chunk_limit=%.2fMB actions_limit=%d)",
+                batch_idx, ok_count, fail_count, max_chunk_mb, bulk_actions_chunk_size
+            )
+
+            if fail_count > 0:
+                # Mark WARCs touched by this batch
+                for doc in batch:
+                    sw = (doc.metadata or {}).get("source_warc")
+                    if sw:
+                        failed_warcs.add(sw)
+
         except Exception as e:
-            logger.error(f"Error in pipeline.run for batch {batch_idx}: {e}")
-            # collect source_warc values for this failed batch
+            logger.error("[BATCH %d] FAILED err=%s (continuing)", batch_idx, e)
             for doc in batch:
                 sw = (doc.metadata or {}).get("source_warc")
                 if sw:
                     failed_warcs.add(sw)
             continue
 
-        dt = time.time() - t0
-        total_docs += len(batch)
-        logger.info(
-            f"[BATCH {batch_idx}] Done. Batch time: {dt:.1f}s, "
-            f"total docs ingested (pre-chunk): {total_docs}"
-        )
+        logger.info("[BATCH %d] DONE time=%.1fs", batch_idx, time.time() - t0)
 
-    total_time = time.time() - start_all
     logger.info(
-        f"Finished indexing. Total docs (pre-chunk) processed: {total_docs}, "
-        f"total time: {total_time:.1f}s"
+        "Finished indexing: input_docs=%d nodes_created=%d docs_indexed=%d total_time=%.1fs",
+        total_input_docs, total_nodes, total_indexed, time.time() - start_all
     )
 
-    # --- Write failed WARCs (indexing failures) to file ---
     if failed_warcs:
         logger.warning(
-            f"{len(failed_warcs)} WARCs had batches that failed during indexing. "
-            f"Writing list to: {config.failed_warcs_file}"
+            "Failed batches touched %d WARCs; writing: %s",
+            len(failed_warcs), config.failed_warcs_file
         )
         config.failed_warcs_file.parent.mkdir(parents=True, exist_ok=True)
         with config.failed_warcs_file.open("w", encoding="utf-8") as f:
