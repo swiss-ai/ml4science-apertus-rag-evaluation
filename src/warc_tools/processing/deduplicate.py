@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import logging
+import shutil
 import sqlite3
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -64,46 +66,80 @@ def _upsert(conn: sqlite3.Connection, key: str, ts: int, line: str) -> None:
         )
 
 
-def _dedup_mode(input_dir: Path, conn: sqlite3.Connection) -> None:
+def _dedup_mode(input_dir: Path, conn: sqlite3.Connection, logger: logging.Logger, label: str) -> None:
     for fpath in _iter_jsonl_files(input_dir):
-        with fpath.open("r", encoding="utf-8", errors="replace") as f:
-            for line in f:
-                try:
-                    obj = json.loads(line)
-                except Exception:
-                    continue
+        logger.info("[%s] START %s", label, fpath.name)
+        seen = kept = 0
+        try:
+            with fpath.open("r", encoding="utf-8", errors="replace") as f:
+                for raw in f:
+                    line = raw.strip()
+                    if not line:
+                        continue
+                    seen += 1
+                    try:
+                        obj = json.loads(line)
+                    except Exception:
+                        continue
 
-                url = obj.get("url")
-                base = obj.get("base_site")
-                dt = _parse_capture_time(obj.get("capture_time"))
+                    url = obj.get("url")
+                    base = obj.get("base_site")
+                    dt = _parse_capture_time(obj.get("capture_time"))
+                    if not url or not base or dt is None:
+                        continue
 
-                if not url or not base or dt is None:
-                    continue
+                    key = f"{url}||{dt.year}"
+                    ts = int(dt.timestamp())
+                    _upsert(conn, key, ts, line)
+                    kept += 1
 
-                key = f"{url}||{dt.year}"
-                ts = int(dt.timestamp())
-                _upsert(conn, key, ts, line.strip())
+            conn.commit()
+            logger.info("[%s] DONE  %s seen=%d kept=%d", label, fpath.name, seen, kept)
+        except Exception as e:
+            logger.error("[%s] ERROR %s: %s (continuing)", label, fpath, e)
+            try:
+                conn.commit()
+            except Exception:
+                pass
+            continue
 
-        conn.commit()
+
+def _clear_output_dir(out_root: Path, logger: logging.Logger, label: str) -> None:
+    if out_root.exists():
+        logger.info("[%s] Clearing output dir: %s", label, out_root)
+        shutil.rmtree(out_root)
+    out_root.mkdir(parents=True, exist_ok=True)
 
 
-def _dump_by_base_site_and_year(conn: sqlite3.Connection, out_root: Path) -> None:
+def _dump_by_base_site_and_year(conn: sqlite3.Connection, out_root: Path, logger: logging.Logger, label: str) -> None:
+    _clear_output_dir(out_root, logger, label)
+
     rows = conn.execute("SELECT json_line FROM best")
+    written = 0
+    skipped = 0
+
     for (line,) in rows:
-        obj = json.loads(line)
-        base = obj["base_site"]
-        year = obj["capture_time"][:4]
+        try:
+            obj = json.loads(line)
+            base = obj["base_site"]
+            year = obj["capture_time"][:4]
 
-        out_dir = out_root / base
-        out_dir.mkdir(parents=True, exist_ok=True)
+            out_dir = out_root / base
+            out_dir.mkdir(parents=True, exist_ok=True)
 
-        out_file = out_dir / f"{year}.jsonl"
-        with out_file.open("a", encoding="utf-8") as f:
-            f.write(line)
-            f.write("\n")
+            out_file = out_dir / f"{year}.jsonl"
+            with out_file.open("a", encoding="utf-8") as f:
+                f.write(line)
+                f.write("\n")
+            written += 1
+        except Exception:
+            skipped += 1
+            continue
+
+    logger.info("[%s] WRITE done written=%d skipped=%d out=%s", label, written, skipped, out_root)
 
 
-def run_dedup(cfg: DedupConfig) -> None:
+def run_dedup(cfg: DedupConfig, logger: logging.Logger) -> None:
     input_root = Path(cfg.input_root)
     output_root = Path(cfg.output_root)
     db_dir = Path(cfg.db_dir)
@@ -114,15 +150,15 @@ def run_dedup(cfg: DedupConfig) -> None:
     if cfg.mode in {"html", "all"}:
         conn = _open_db(db_dir / "dedup_html.sqlite")
         try:
-            _dedup_mode(input_root / "html", conn)
-            _dump_by_base_site_and_year(conn, output_root / "html")
+            _dedup_mode(input_root / "html", conn, logger, "html")
+            _dump_by_base_site_and_year(conn, output_root / "html", logger, "html")
         finally:
             conn.close()
 
     if cfg.mode in {"pdf", "all"}:
         conn = _open_db(db_dir / "dedup_pdf.sqlite")
         try:
-            _dedup_mode(input_root / "pdf", conn)
-            _dump_by_base_site_and_year(conn, output_root / "pdf")
+            _dedup_mode(input_root / "pdf", conn, logger, "pdf")
+            _dump_by_base_site_and_year(conn, output_root / "pdf", logger, "pdf")
         finally:
             conn.close()
