@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import logging
 import os
+import sys
+
+from dotenv import load_dotenv
 
 from .deduplicate import DedupConfig, run_dedup
-from dotenv import load_dotenv
 
 
 def _env(name: str, default: str | None = None) -> str:
@@ -13,6 +16,24 @@ def _env(name: str, default: str | None = None) -> str:
     if default is not None:
         return default
     raise RuntimeError(f"Missing required env var: {name}")
+
+
+def _setup_logging() -> logging.Logger:
+    level = _env("LOG_LEVEL", "INFO").upper()
+    lvl = getattr(logging, level, logging.INFO)
+
+    logger = logging.getLogger("deduper")
+    logger.setLevel(lvl)
+
+    for h in list(logger.handlers):
+        logger.removeHandler(h)
+
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(lvl)
+    handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+    logger.addHandler(handler)
+
+    return logger
 
 
 def build_config_from_env() -> DedupConfig:
@@ -30,8 +51,11 @@ def build_config_from_env() -> DedupConfig:
 
 
 def run_dedup_from_env() -> int:
+    logger = _setup_logging()
     cfg = build_config_from_env()
-    run_dedup(cfg)
+    logger.info("Starting dedup: mode=%s input=%s output=%s", cfg.mode, cfg.input_root, cfg.output_root)
+    run_dedup(cfg, logger)
+    logger.info("Dedup finished")
     return 0
 
 
@@ -40,8 +64,7 @@ def main() -> int:
     try:
         return run_dedup_from_env()
     except Exception:
-        import traceback
-        traceback.print_exc()
+        logging.getLogger("deduper").exception("Dedup failed")
         return 1
 
 
