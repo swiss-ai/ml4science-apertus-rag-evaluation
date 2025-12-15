@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional
+from collections import defaultdict
 
 @dataclass(frozen=True)
 class DedupConfig:
@@ -111,12 +112,34 @@ def _clear_output_dir(out_root: Path, logger: logging.Logger, label: str) -> Non
     out_root.mkdir(parents=True, exist_ok=True)
 
 
-def _dump_by_base_site_and_year(conn: sqlite3.Connection, out_root: Path, logger: logging.Logger, label: str) -> None:
+def _dump_by_base_site_and_year(conn: sqlite3.Connection, out_root: Path, logger, label: str) -> None:
     _clear_output_dir(out_root, logger, label)
 
     rows = conn.execute("SELECT json_line FROM best")
+
+    buffers = defaultdict(list)   # (base, year) -> [lines...]
+    counts = defaultdict(int)     # (base, year) -> total written
     written = 0
     skipped = 0
+
+    FLUSH_LINES = 2000
+
+    def flush(key: tuple[str, str]) -> None:
+        base, year = key
+        lines = buffers.get(key)
+        if not lines:
+            return
+
+        out_dir = out_root / base
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_file = out_dir / f"{year}.jsonl"
+
+        with out_file.open("a", encoding="utf-8") as f:
+            f.write("\n".join(lines))
+            f.write("\n")
+
+        counts[key] += len(lines)
+        buffers[key].clear()
 
     for (line,) in rows:
         try:
@@ -124,20 +147,25 @@ def _dump_by_base_site_and_year(conn: sqlite3.Connection, out_root: Path, logger
             base = obj["base_site"]
             year = obj["capture_time"][:4]
 
-            out_dir = out_root / base
-            out_dir.mkdir(parents=True, exist_ok=True)
-
-            out_file = out_dir / f"{year}.jsonl"
-            with out_file.open("a", encoding="utf-8") as f:
-                f.write(line)
-                f.write("\n")
+            key = (base, year)
+            buffers[key].append(line)
             written += 1
+
+            if len(buffers[key]) >= FLUSH_LINES:
+                flush(key)
+
         except Exception:
             skipped += 1
             continue
 
-    logger.info("[%s] WRITE done written=%d skipped=%d out=%s", label, written, skipped, out_root)
+    # flush remaining buffers
+    for key in list(buffers.keys()):
+        flush(key)
 
+    for (base, year), n in sorted(counts.items()):
+        logger.info("[%s] WRITE %s %s records=%d → %s", label, base, year, n, out_root / base / f"{year}.jsonl")
+
+    logger.info("[%s] WRITE SUMMARY unique_keys=%d files=%d skipped=%d", label, written, len(counts), skipped)
 
 def run_dedup(cfg: DedupConfig, logger: logging.Logger) -> None:
     input_root = Path(cfg.input_root)
