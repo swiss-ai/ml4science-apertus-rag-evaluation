@@ -17,6 +17,36 @@ from llama_index.core.node_parser import SentenceSplitter
 from .utils import batched, create_es_index_for_vectors, get_embedding_model_from_env
 from .config import IndexerConfig
 
+def _parse_csv_set(v: str | None) -> Set[str]:
+    if not v:
+        return set()
+    return {x.strip() for x in v.split(",") if x.strip()}
+
+def _parse_years(v: str | None) -> Set[int]:
+    if not v:
+        return set()
+    out: Set[int] = set()
+    for x in v.split(","):
+        x = x.strip()
+        if x.isdigit():
+            out.add(int(x))
+    return out
+
+def _load_completed_files(path: Path, logger: logging.Logger) -> Set[str]:
+    if not path.exists():
+        return set()
+    try:
+        return {ln.strip() for ln in path.read_text(encoding="utf-8").splitlines() if ln.strip()}
+    except Exception as e:
+        logger.warning("Could not read completed files list %s: %s", path, e)
+        return set()
+
+def _append_completed_file(path: Path, file_path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(str(file_path) + "\n")
+
+
 def _detect_layout(jsonl_root: Path) -> Tuple[Path, ...]:
     """If jsonl_root contains html/ or pdf/, index under those; else index jsonl_root itself."""
     candidates: list[Path] = []
@@ -52,11 +82,39 @@ def iter_documents_from_jsonl(jsonl_dir: Path, logger: logging.Logger) -> Iterat
     for root in roots:
         jsonl_files.extend(list(_iter_jsonl_files(root)))
 
+    # Optional filters
+    years_filter = _parse_years(os.getenv("YEARS"))  # e.g. "2025" or "2024,2025"
+    modalities_filter = _parse_csv_set(os.getenv("MODALITIES"))  # e.g. "html" or "pdf" or "html,pdf"
+
+    # Optional checkpointing
+    skip_completed = os.getenv("SKIP_COMPLETED_FILES", "0").lower() in ("1", "true", "yes")
+    completed_path = Path(os.getenv("COMPLETED_FILES_FILE", "logs/completed_jsonl_files.txt"))
+    completed = _load_completed_files(completed_path, logger) if skip_completed else set()
+
     logger.info("Index input roots: %s", ", ".join(str(r) for r in roots))
     logger.info("Found %d JSONL files under %s", len(jsonl_files), jsonl_dir)
+    if years_filter:
+        logger.info("Filter YEARS=%s", ",".join(map(str, sorted(years_filter))))
+    if modalities_filter:
+        logger.info("Filter MODALITIES=%s", ",".join(sorted(modalities_filter)))
+    if skip_completed:
+        logger.info("Skipping completed files from %s (count=%d)", completed_path, len(completed))
+    
+    iter_documents_from_jsonl.current_file = None
 
     for file_idx, jsonl_path in enumerate(jsonl_files, start=1):
         modality, year_from_path = _infer_modality_and_year(jsonl_path)
+
+        # apply filters
+        if modalities_filter and (modality or "") not in modalities_filter:
+            continue
+        if years_filter and (year_from_path not in years_filter):
+            continue
+
+        if skip_completed and str(jsonl_path) in completed:
+            continue
+
+        iter_documents_from_jsonl.current_file = str(jsonl_path)
         logger.info("[INPUT %d/%d] READING %s", file_idx, len(jsonl_files), jsonl_path)
 
         seen = kept = 0
@@ -95,6 +153,11 @@ def iter_documents_from_jsonl(jsonl_dir: Path, logger: logging.Logger) -> Iterat
                 yield Document(text=text, metadata=metadata)
 
         logger.info("[INPUT %d/%d] READ DONE %s seen=%d kept=%d", file_idx, len(jsonl_files), jsonl_path.name, seen, kept)
+
+        # mark file completed once fully read
+        if skip_completed:
+            _append_completed_file(completed_path, jsonl_path)
+            completed.add(str(jsonl_path))
 
 def _summarize_sources(batch: List[Document], top_n: int = 3) -> str:
     c = Counter((d.metadata or {}).get("jsonl_file", "unknown") for d in batch)
@@ -188,6 +251,11 @@ def run_indexing(config: IndexerConfig, logger: logging.Logger) -> None:
     total_nodes = 0
     total_indexed = 0
     start_all = time.time()
+
+    progress_every = int(os.getenv("PROGRESS_EVERY", "200"))
+    last_t = start_all
+    last_docs = 0
+    last_nodes = 0
 
     def actions_for_nodes(nodes, parent_docs: List[Document]) -> Iterator[Dict[str, Any]]:
         nonlocal total_nodes
@@ -290,6 +358,22 @@ def run_indexing(config: IndexerConfig, logger: logging.Logger) -> None:
                         pass
 
             total_indexed += ok_count
+
+            if batch_idx % progress_every == 0:
+                now = time.time()
+                dt = now - last_t
+                total_dt = now - start_all
+                docs_rate = (total_input_docs - last_docs) / dt if dt > 0 else 0.0
+                nodes_rate = (total_indexed - last_nodes) / dt if dt > 0 else 0.0
+                curr_file = getattr(iter_documents_from_jsonl, "current_file", None)
+                logger.info(
+                    "[PROGRESS] batches=%d input_docs=%d indexed_nodes=%d rate_docs=%.1f/s rate_nodes=%.1f/s elapsed=%.1fmin current_file=%s",
+                    batch_idx, total_input_docs, total_indexed, docs_rate, nodes_rate, total_dt / 60.0,
+                    curr_file or "unknown",
+                )
+                last_t = now
+                last_docs = total_input_docs
+                last_nodes = total_indexed
 
             logger.info(
                 "[BATCH %d] BULK ok=%d failed=%d (chunk_limit=%.2fMB actions_limit=%d)",
