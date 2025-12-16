@@ -123,7 +123,7 @@ def llm_as_judge(
     - correct: bool
     """
     if not model:
-        model = os.getenv("JUDGE_LLM_MODEL") or require_env("LLM_MODEL")
+        model = os.getenv("JUDGE_LLM_MODEL") or "Mistral-7B-Instruct"
     
     prompt = f"""You are an expert evaluator. Judge whether the predicted answer correctly answers the question, compared to the reference answer.
 
@@ -204,7 +204,7 @@ def llm_compare_answers(
     - rag_improved: bool
     """
     if not model:
-        model = os.getenv("JUDGE_LLM_MODEL") or require_env("LLM_MODEL")
+        model = os.getenv("JUDGE_LLM_MODEL") or "Mistral-7B-Instruct"
     
     prompt = f"""You are an expert evaluator. Compare two answers to determine which one better answers the question.
 
@@ -294,7 +294,7 @@ def llm_compare_answers(
     - rag_improved: bool
     """
     if not model:
-        model = os.getenv("JUDGE_LLM_MODEL") or require_env("LLM_MODEL")
+        model = os.getenv("JUDGE_LLM_MODEL") or "Mistral-7B-Instruct"
     
     prompt = f"""You are an expert evaluator. Compare two answers to determine which one better answers the question.
 
@@ -445,7 +445,7 @@ def main():
     parser.add_argument(
         "--judge-model",
         type=str,
-        help="Model to use for LLM-as-judge (default: same as LLM_MODEL)"
+        help="Model to use for LLM-as-judge (default: Mistral-7B-Instruct)"
     )
     
     args = parser.parse_args()
@@ -504,17 +504,31 @@ def main():
     df["llm_compare_rag_improved"] = None
     df["llm_compare_reasoning"] = None
     
+    # Source comparison columns (compare retrieved URLs with relevant_doc_1 and relevant_doc_2)
+    df["source_match_doc1"] = None
+    df["source_match_doc2"] = None
+    df["source_match_any"] = None
+    df["retrieved_source_count"] = None
+    
     # Get LLM-as-judge client
     judge_client = None
     if not args.skip_llm_judge:
         try:
             judge_client = get_judge_llm_client()
-            judge_model = args.judge_model or os.getenv("JUDGE_LLM_MODEL") or require_env("LLM_MODEL")
-            print(f"Using LLM-as-judge model: {judge_model}")
+            judge_model = args.judge_model or os.getenv("JUDGE_LLM_MODEL") or "Mistral-7B-Instruct"
+            if not args.judge_model and not os.getenv("JUDGE_LLM_MODEL"):
+                print(f"Using default LLM-as-judge model: {judge_model}")
+            else:
+                print(f"Using LLM-as-judge model: {judge_model}")
         except Exception as e:
             print(f"WARNING: Could not initialize LLM-as-judge: {e}", file=sys.stderr)
             print("Continuing without LLM-as-judge evaluation...", file=sys.stderr)
             args.skip_llm_judge = True
+    
+    # Progress tracking file
+    progress_file = Path(str(args.output_xlsx) + ".progress")
+    total_rows = len(df)
+    print(f"Evaluating {total_rows} questions...")
     
     # Evaluate each row
     for idx, row in df.iterrows():
@@ -525,6 +539,10 @@ def main():
         
         if not question:
             continue
+        
+        # Print progress
+        if (idx + 1) % 10 == 0 or (idx + 1) == total_rows:
+            print(f"[{idx + 1}/{total_rows}] Processing question {idx + 1}...")
         
         # Exact match
         if reference:
@@ -568,8 +586,30 @@ def main():
             df.at[idx, "llm_compare_rag_improved"] = compare_result["rag_improved"]
             df.at[idx, "llm_compare_reasoning"] = compare_result["reasoning"]
         
-        if (idx + 1) % 10 == 0:
-            print(f"  Processed {idx + 1}/{len(df)} questions...")
+        # Source comparison (compare retrieved URLs with relevant_doc_1 and relevant_doc_2)
+        if "rag_source_urls" in df.columns and pd.notna(row.get("rag_source_urls")):
+            source_urls = str(row["rag_source_urls"]).split("; ") if pd.notna(row.get("rag_source_urls")) else []
+            relevant_doc1 = str(row.get("relevant_doc_1", "")) if pd.notna(row.get("relevant_doc_1")) else ""
+            relevant_doc2 = str(row.get("relevant_doc_2", "")) if pd.notna(row.get("relevant_doc_2")) else ""
+            
+            match_doc1 = any(relevant_doc1 in url or url in relevant_doc1 for url in source_urls if url and relevant_doc1)
+            match_doc2 = any(relevant_doc2 in url or url in relevant_doc2 for url in source_urls if url and relevant_doc2)
+            match_any = match_doc1 or match_doc2
+            
+            df.at[idx, "source_match_doc1"] = match_doc1
+            df.at[idx, "source_match_doc2"] = match_doc2
+            df.at[idx, "source_match_any"] = match_any
+            df.at[idx, "retrieved_source_count"] = len([u for u in source_urls if u])
+        
+        # Save progress every 10 questions
+        if (idx + 1) % 10 == 0 or (idx + 1) == total_rows:
+            print(f"\n[{idx + 1}/{total_rows}] Processed {idx + 1} questions...", flush=True)
+            try:
+                # Save current progress (don't rename columns yet, keep original)
+                df.to_excel(progress_file, index=False)
+                print(f"  ✓ Progress saved to {progress_file.name}", flush=True)
+            except Exception as e:
+                print(f"  ⚠️  Could not save progress: {e}", flush=True)
     
     # Rename columns for clarity (as requested by colleague)
     # Keep original columns, but add aliases
@@ -591,46 +631,100 @@ def main():
     df_output = df_output[priority_cols + other_cols]
     
     # Compute summary statistics
-    print("\n=== Evaluation Summary ===")
+    print("\n" + "="*60)
+    print("EVALUATION SUMMARY STATISTICS")
+    print("="*60)
     
+    total_questions = len(df_output)
+    print(f"\nTotal Questions Evaluated: {total_questions}")
+    
+    # Exact Match
     if "exact_match_baseline" in df_output.columns:
-        em_baseline = df_output["exact_match_baseline"].sum() / len(df_output)
-        em_rag = df_output["exact_match_rag"].sum() / len(df_output)
-        print(f"Exact Match - Baseline: {em_baseline:.2%} ({df_output['exact_match_baseline'].sum()}/{len(df_output)})")
-        print(f"Exact Match - RAG:      {em_rag:.2%} ({df_output['exact_match_rag'].sum()}/{len(df_output)})")
+        em_baseline = df_output["exact_match_baseline"].sum() / total_questions
+        em_rag = df_output["exact_match_rag"].sum() / total_questions
+        em_improvement = em_rag - em_baseline
+        print(f"\n📊 Exact Match Accuracy:")
+        print(f"   Baseline (no RAG): {em_baseline:.2%} ({df_output['exact_match_baseline'].sum()}/{total_questions})")
+        print(f"   RAG:               {em_rag:.2%} ({df_output['exact_match_rag'].sum()}/{total_questions})")
+        if em_improvement > 0:
+            print(f"   ✅ RAG Improvement:  +{em_improvement:.2%} ({em_improvement*100:.1f} percentage points)")
+        elif em_improvement < 0:
+            print(f"   ⚠️  RAG Change:       {em_improvement:.2%} ({em_improvement*100:.1f} percentage points)")
+        else:
+            print(f"   ➡️  No change")
     
+    # Multiple Choice
     if "multiple_choice_baseline" in df_output.columns:
-        mc_baseline = df_output["multiple_choice_baseline"].sum() / df_output["multiple_choice_baseline"].notna().sum() if df_output["multiple_choice_baseline"].notna().any() else 0
-        mc_rag = df_output["multiple_choice_rag"].sum() / df_output["multiple_choice_rag"].notna().sum() if df_output["multiple_choice_rag"].notna().any() else 0
-        mc_count = df_output["multiple_choice_baseline"].notna().sum()
-        if mc_count > 0:
-            print(f"Multiple Choice - Baseline: {mc_baseline:.2%} ({df_output['multiple_choice_baseline'].sum()}/{mc_count})")
-            print(f"Multiple Choice - RAG:      {mc_rag:.2%} ({df_output['multiple_choice_rag'].sum()}/{mc_count})")
+        mc_valid = df_output["multiple_choice_baseline"].notna().sum()
+        if mc_valid > 0:
+            mc_baseline = df_output["multiple_choice_baseline"].sum() / mc_valid
+            mc_rag = df_output["multiple_choice_rag"].sum() / df_output["multiple_choice_rag"].notna().sum() if df_output["multiple_choice_rag"].notna().any() else 0
+            mc_improvement = mc_rag - mc_baseline
+            print(f"\n📊 Multiple Choice Accuracy ({mc_valid} applicable questions):")
+            print(f"   Baseline (no RAG): {mc_baseline:.2%} ({df_output['multiple_choice_baseline'].sum()}/{mc_valid})")
+            print(f"   RAG:               {mc_rag:.2%} ({df_output['multiple_choice_rag'].sum()}/{mc_valid})")
+            if mc_improvement > 0:
+                print(f"   ✅ RAG Improvement:  +{mc_improvement:.2%}")
     
+    # LLM Judge Scores
     if "llm_judge_score_baseline" in df_output.columns:
         judge_baseline = df_output["llm_judge_score_baseline"].mean() if df_output["llm_judge_score_baseline"].notna().any() else None
         judge_rag = df_output["llm_judge_score_rag"].mean() if df_output["llm_judge_score_rag"].notna().any() else None
-        if judge_baseline is not None:
-            print(f"LLM Judge Score - Baseline: {judge_baseline:.3f}")
-        if judge_rag is not None:
-            print(f"LLM Judge Score - RAG:      {judge_rag:.3f}")
+        if judge_baseline is not None and judge_rag is not None:
+            judge_improvement = judge_rag - judge_baseline
+            print(f"\n📊 LLM-as-Judge Quality Score (0.0-1.0):")
+            print(f"   Baseline (no RAG): {judge_baseline:.3f}")
+            print(f"   RAG:               {judge_rag:.3f}")
+            if judge_improvement > 0:
+                print(f"   ✅ RAG Improvement:  +{judge_improvement:.3f} ({judge_improvement*100:.1f} points)")
+            elif judge_improvement < 0:
+                print(f"   ⚠️  RAG Change:       {judge_improvement:.3f}")
+            else:
+                print(f"   ➡️  No change")
     
+    # RAG vs Baseline Comparison
     if "llm_compare_rag_improved" in df_output.columns:
         rag_improved_count = df_output["llm_compare_rag_improved"].sum() if df_output["llm_compare_rag_improved"].notna().any() else 0
         rag_improved_total = df_output["llm_compare_rag_improved"].notna().sum()
         if rag_improved_total > 0:
             rag_improved_pct = rag_improved_count / rag_improved_total
-            print(f"\nRAG vs Baseline Comparison:")
-            print(f"  RAG improved answers: {rag_improved_pct:.2%} ({rag_improved_count}/{rag_improved_total})")
+            print(f"\n📊 RAG vs Baseline Direct Comparison ({rag_improved_total} compared):")
+            print(f"   ✅ RAG Improved:     {rag_improved_pct:.2%} ({rag_improved_count}/{rag_improved_total} questions)")
             if "llm_compare_winner" in df_output.columns:
                 winner_counts = df_output["llm_compare_winner"].value_counts()
-                print(f"  Winner breakdown:")
+                print(f"   Winner Distribution:")
                 for winner, count in winner_counts.items():
-                    print(f"    {winner}: {count} ({count/rag_improved_total:.2%})")
+                    pct = count / rag_improved_total
+                    icon = "✅" if winner == "rag" else "➡️" if winner == "tie" else "⚠️"
+                    print(f"     {icon} {winner}: {pct:.2%} ({count} questions)")
+    
+    # Source Retrieval Quality
+    if "source_match_any" in df_output.columns:
+        source_match_count = df_output["source_match_any"].sum() if df_output["source_match_any"].notna().any() else 0
+        source_match_total = df_output["source_match_any"].notna().sum()
+        if source_match_total > 0:
+            source_match_pct = source_match_count / source_match_total
+            avg_retrieved = df_output["retrieved_source_count"].mean() if "retrieved_source_count" in df_output.columns else 0
+            print(f"\n📊 Source Retrieval Quality:")
+            print(f"   ✅ Retrieved Relevant Doc: {source_match_pct:.2%} ({source_match_count}/{source_match_total} questions)")
+            print(f"   Average Sources Retrieved: {avg_retrieved:.1f} per question")
+            if "source_match_doc1" in df_output.columns:
+                doc1_match = df_output["source_match_doc1"].sum() if df_output["source_match_doc1"].notna().any() else 0
+                doc2_match = df_output["source_match_doc2"].sum() if df_output["source_match_doc2"].notna().any() else 0
+                print(f"   Matched relevant_doc_1:   {doc1_match}/{source_match_total} ({doc1_match/source_match_total:.2%})")
+                print(f"   Matched relevant_doc_2:   {doc2_match}/{source_match_total} ({doc2_match/source_match_total:.2%})")
+    
+    print("\n" + "="*60)
     
     # Save output
     args.output_xlsx.parent.mkdir(parents=True, exist_ok=True)
     df_output.to_excel(args.output_xlsx, index=False)
+    
+    # Clean up progress file
+    if progress_file.exists():
+        progress_file.unlink()
+        print(f"  Cleaned up progress file")
+    
     print(f"\n✓ Evaluation results saved to: {args.output_xlsx}")
 
 

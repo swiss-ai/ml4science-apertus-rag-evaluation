@@ -34,52 +34,9 @@ When comparing RAG vs. baseline models, we evaluate:
 
 ## Evaluation Methods
 
-We use three complementary evaluation methods:
+We use LLM-as-Judge as the primary evaluation method, which provides semantic evaluation and can handle various answer formats.
 
-### 1. Exact Match (EM)
-
-**What it measures**: Whether the predicted answer exactly matches the reference answer.
-
-**How it works**:
-- Normalizes whitespace and case
-- Compares strings character-by-character
-- Returns: `True` (match) or `False` (no match)
-
-**When to use**:
--  Good for factual questions with specific answers
--  Fast and deterministic
--  Too strict for questions with multiple valid phrasings
--  Doesn't account for semantic equivalence
-
-**Example**:
-```
-Reference: "ETHIS-Portal"
-Predicted: "ETHis Portal"
-Result: Exact Match = False (case/whitespace difference)
-```
-
-### 2. Multiple Choice
-
-**What it measures**: Whether the model selected the correct option (A, B, C, D, E).
-
-**How it works**:
-- Extracts choice letters from both reference and predicted answers
-- Compares the letters
-- Returns: `True` (correct), `False` (incorrect), or `None` (not applicable)
-
-**When to use**:
--  Perfect for multiple-choice questions
--  Objective and unambiguous
--  Only applicable to multiple-choice formats
-
-**Example**:
-```
-Reference: "Answer: B"
-Predicted: "The correct answer is B"
-Result: Multiple Choice = True
-```
-
-### 3. LLM-as-Judge
+### 1. LLM-as-Judge
 
 **What it measures**: Semantic correctness and completeness using another LLM as an evaluator.
 
@@ -89,11 +46,12 @@ Result: Multiple Choice = True
 - Returns: Score (0.0-1.0), Correct (bool), Reasoning (str)
 
 **When to use**:
--  Handles semantic equivalence
--  Can evaluate complex, multi-part answers
--  Provides reasoning for decisions
--  Slower and more expensive
--  May have bias from judge model
+- ✅ Handles semantic equivalence (answers with different phrasing but same meaning)
+- ✅ Can evaluate complex, multi-part answers
+- ✅ Provides reasoning for decisions
+- ✅ Works with any answer format (not limited to exact strings or multiple choice)
+- ⚠️ Slower and more expensive than simple string matching
+- ⚠️ May have bias from judge model (use a strong, unbiased judge model)
 
 **Example**:
 ```
@@ -104,7 +62,7 @@ Result: LLM Judge Score = 0.85, Correct = True
 Reasoning: "The answer is semantically correct and mentions the correct system, though slightly different phrasing."
 ```
 
-### 4. LLM-as-Judge Comparison (Baseline vs RAG)
+### 2. LLM-as-Judge Comparison (Baseline vs RAG)
 
 **What it measures**: Direct comparison between baseline (no RAG) and RAG answers to determine which performs better.
 
@@ -194,7 +152,7 @@ EMBED_BASE_URL=https://api.swissai.cscs.ch/v1
 EMBED_API_KEY=<your-key>
 
 # For LLM-as-judge (optional, uses LLM_* if not set)
-JUDGE_LLM_MODEL=Apertus-8B  # or use same as LLM_MODEL
+JUDGE_LLM_MODEL=Mistral-7B-Instruct  # Use different model from evaluated model
 ```
 
 ### Step 2: Run Baseline Evaluation (if not done)
@@ -230,7 +188,7 @@ python scripts/evaluate_answers.py \
     evaluation/evaluation-qwen3.xlsx \
     evaluation/evaluation-results.xlsx \
     --run-rag \
-    --judge-model Apertus-8B
+    --judge-model Mistral-7B-Instruct
 ```
 
 **Options**:
@@ -245,32 +203,19 @@ The output Excel file will contain:
 1. **Original columns**: All input columns preserved
 2. **Renamed columns**: `golden_answer`, `qwen_answer_wo_rag`, `qwen_answer_with_rag`
 3. **Evaluation metrics**:
-   - `exact_match_baseline`, `exact_match_rag`
-   - `multiple_choice_baseline`, `multiple_choice_rag`
-   - `llm_judge_score_baseline`, `llm_judge_score_rag`
-   - `llm_judge_correct_baseline`, `llm_judge_correct_rag`
-   - `llm_judge_reasoning_baseline`, `llm_judge_reasoning_rag`
+   - `llm_judge_score_baseline`, `llm_judge_score_rag` (quality scores 0.0-1.0)
+   - `llm_judge_correct_baseline`, `llm_judge_correct_rag` (boolean correctness)
+   - `llm_judge_reasoning_baseline`, `llm_judge_reasoning_rag` (explanation for each answer)
    - `llm_compare_winner` (which answer won: "baseline", "rag", or "tie")
    - `llm_compare_baseline_score` (score for baseline answer)
    - `llm_compare_rag_score` (score for RAG answer)
    - `llm_compare_rag_improved` (whether RAG improved the answer)
    - `llm_compare_reasoning` (explanation of the comparison)
+   - `source_match_any`, `source_match_doc1`, `source_match_doc2` (retrieval quality)
 
 ---
 
 ## Interpreting Results
-
-### Exact Match Scores
-
-- **High EM (>80%)**: Answers are very precise and match reference closely
-- **Low EM (<50%)**: Answers may be semantically correct but phrased differently
-- **Action**: If EM is low but answers seem correct, use LLM-as-judge
-
-### Multiple Choice Scores
-
-- **100%**: Perfect on multiple-choice questions
-- **<80%**: Model struggles with multiple-choice format
-- **Action**: Check if model is extracting choice letters correctly
 
 ### LLM-as-Judge Scores
 
@@ -285,13 +230,15 @@ The output Excel file will contain:
 
 Look for:
 
-1. **RAG improves accuracy**: `exact_match_rag > exact_match_baseline`
-2. **RAG improves completeness**: `llm_judge_score_rag > llm_judge_score_baseline`
-3. **RAG provides sources**: Check `rag_source_urls` column
-4. **Direct comparison**: Check `llm_compare_rag_improved` column
+1. **RAG improves quality**: `llm_judge_score_rag > llm_judge_score_baseline`
+2. **RAG improves correctness**: Higher percentage of `llm_judge_correct_rag = True` vs baseline
+3. **RAG provides sources**: Check `rag_source_urls` column for retrieved documents
+4. **Source retrieval quality**: Check `source_match_any` to see if relevant documents were retrieved
+5. **Direct comparison**: Check `llm_compare_rag_improved` column
    - Shows percentage of questions where RAG improved answers
-   - `llm_compare_winner` shows which answer won for each question
+   - `llm_compare_winner` shows which answer won for each question ("baseline", "rag", or "tie")
    - `llm_compare_reasoning` explains why one answer is better
+   - `llm_compare_baseline_score` vs `llm_compare_rag_score` shows the score difference
 
 ---
 
@@ -317,10 +264,10 @@ Look for:
 ❌ **Wrong**: Evaluating answers without considering question context
 ✅ **Right**: Use LLM-as-judge to account for semantic equivalence
 
-### 5. Over-relying on Exact Match
+### 5. Not Using Semantic Evaluation
 
-❌ **Wrong**: Only using exact match for all questions
-✅ **Right**: Combine multiple metrics (EM + LLM-as-judge)
+❌ **Wrong**: Only using string matching or simple metrics
+✅ **Right**: Use LLM-as-judge to account for semantic equivalence and answer quality
 
 ### 6. Not Checking Retrieved Documents
 
@@ -333,24 +280,26 @@ Look for:
 
 ### ✅ DO:
 
-1. **Use multiple evaluation methods**: Combine Exact Match, Multiple Choice, and LLM-as-Judge
+1. **Use LLM-as-Judge**: Primary evaluation method that handles semantic equivalence
 2. **Set temperature to 0.0**: For deterministic, reproducible results
 3. **Use same dataset**: Evaluate all models on identical questions
 4. **Document your setup**: Record model versions, dates, configurations
-5. **Review individual answers**: Don't just look at aggregate scores
-6. **Check retrieved documents**: Verify RAG is retrieving relevant sources
-7. **Use appropriate judge model**: Use a strong model (e.g., Apertus-8B) for LLM-as-judge
+5. **Review individual answers**: Don't just look at aggregate scores - read the reasoning
+6. **Check retrieved documents**: Verify RAG is retrieving relevant sources (check `source_match_*` columns)
+7. **Use appropriate judge model**: Use a different model from the one being evaluated (e.g., Mistral-7B-Instruct) for LLM-as-judge to avoid bias
 8. **Handle errors gracefully**: Log failed queries for manual review
+9. **Compare baseline vs RAG**: Use `llm_compare_*` columns to see direct improvements
 
 ### ❌ DON'T:
 
 1. **Don't mix evaluation datasets**: Use consistent questions across runs
 2. **Don't use high temperature**: Keep `temperature=0.0` for evaluation
-3. **Don't ignore semantic equivalence**: Use LLM-as-judge for nuanced evaluation
+3. **Don't ignore semantic equivalence**: LLM-as-judge handles different phrasings of correct answers
 4. **Don't skip error handling**: Check for empty answers, API failures, etc.
 5. **Don't evaluate without reference**: Always have ground truth answers
 6. **Don't over-interpret small differences**: Consider statistical significance
 7. **Don't forget to save configurations**: Record all environment variables and settings
+8. **Don't ignore source retrieval**: Check if RAG is actually retrieving relevant documents
 
 ---
 
@@ -371,13 +320,15 @@ python scripts/evaluate_answers.py \
     evaluation/evaluation-qwen3.xlsx \
     evaluation/evaluation-results.xlsx \
     --run-rag \
-    --judge-model Apertus-8B
+    --judge-model Mistral-7B-Instruct
 
 # 4. Review results
 # Open evaluation/evaluation-results.xlsx and check:
-# - exact_match_rag vs exact_match_baseline
-# - llm_judge_score_rag vs llm_judge_score_baseline
+# - llm_judge_score_rag vs llm_judge_score_baseline (quality scores)
+# - llm_compare_rag_improved (percentage where RAG helped)
+# - source_match_any (retrieval quality)
 # - Individual answers in qwen_answer_wo_rag vs qwen_answer_with_rag
+# - llm_judge_reasoning columns for detailed explanations
 ```
 
 ---
