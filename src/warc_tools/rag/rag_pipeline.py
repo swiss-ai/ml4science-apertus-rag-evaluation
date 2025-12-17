@@ -1,82 +1,194 @@
-# src/warc_tools/rag/rag_pipeline.py
 from __future__ import annotations
 
 import os
 import logging
 from dataclasses import dataclass
-from typing import List
-import pandas as pd
+from typing import Any, List
 
-from llama_index.core import VectorStoreIndex
-from llama_index.core.schema import NodeWithScore
-from llama_index.vector_stores.elasticsearch import ElasticsearchStore
+import pandas as pd
+from elasticsearch import Elasticsearch
 
 from warc_tools.indexer.utils import get_embedding_model_from_env
-from .utils import get_llm_from_env
+from .utils import get_cscs_llm_from_env
 
 
 @dataclass
 class RAGConfig:
     es_url: str
-    es_user: str
-    es_password: str
     index_name: str
+    es_user: str | None = None
+    es_password: str | None = None
     top_k: int = 5
+
+@dataclass
+class SimpleNode:
+    text: str
+    metadata: dict
+
+    def get_content(self, metadata_mode: str = "none") -> str:
+        return self.text
+
+
+@dataclass
+class SimpleNodeWithScore:
+    node: SimpleNode
+    score: float
 
 
 @dataclass
 class RAGResult:
     answer: str
-    nodes: List[NodeWithScore]
+    nodes: List[SimpleNodeWithScore]
 
-def _build_es_store(config: "RAGConfig", logger: logging.Logger) -> ElasticsearchStore:
+
+def _es_client(config: RAGConfig) -> Elasticsearch:
+    if config.es_user and config.es_password:
+        return Elasticsearch(config.es_url, basic_auth=(config.es_user, config.es_password))
+    return Elasticsearch(config.es_url)
+
+
+def _merge_metadata(src: dict) -> dict:
     """
-    Build an ElasticsearchStore with optional basic auth and TLS settings.
-    Uses the same env style as the indexer:
-      ES_USER, ES_PASSWORD, ES_VERIFY_CERTS
+    Supports both schemas:
+      A) nested metadata: {"text": "...", "metadata": {...}}
+      B) flattened metadata: {"text": "...", "url": "...", ...}
+    Returns a metadata dict suitable for printing (url/source_warc/capture_time...).
     """
-    es_user = os.getenv("ES_USER") or None
-    es_password = os.getenv("ES_PASSWORD") or None
-    es_verify_certs = os.getenv("ES_VERIFY_CERTS", "false").lower() in ("1", "true", "yes")
+    meta: dict[str, Any] = {}
 
-    kwargs = {
-        "es_url": config.es_url,
-        "index_name": config.index_name,
-    }
+    md = src.get("metadata")
+    if isinstance(md, dict):
+        meta.update(md)
 
-    if es_user and es_password:
-        logger.info("Using basic auth for Elasticsearch in RAG.")
-        kwargs["es_user"] = es_user
-        kwargs["es_password"] = es_password
-        kwargs["verify_certs"] = es_verify_certs
-    else:
-        if es_verify_certs:
-            kwargs["verify_certs"] = es_verify_certs
+    # bring in any top-level fields not already present
+    for k, v in src.items():
+        if k in ("text", "embedding", "metadata"):
+            continue
+        if k not in meta:
+            meta[k] = v
 
-    return ElasticsearchStore(**kwargs)
+    return meta
 
 
-def build_index_for_rag(config: RAGConfig, logger: logging.Logger) -> VectorStoreIndex:
-    """
-    Build a LlamaIndex VectorStoreIndex over the existing Elasticsearch index.
-    Assumes embeddings were already stored there with the same embed model.
-    """
-    logger.info(f"Initializing ElasticsearchStore for RAG (index={config.index_name})")
-
-    vector_store = _build_es_store(config, logger)
-
+def _retrieve_topk(
+    config: RAGConfig,
+    query: str,
+    logger: logging.Logger,
+) -> List[SimpleNodeWithScore]:
     embed_model = get_embedding_model_from_env(logger)
-    llm = get_llm_from_env(logger)
+    qvec = embed_model.get_query_embedding(query)
 
-    # Build index using the existing vector store; no re-embedding.
-    index = VectorStoreIndex.from_vector_store(
-        vector_store=vector_store,
-        embed_model=embed_model,
+    if not isinstance(qvec, list) or not qvec:
+        raise RuntimeError("Query embedding is empty/invalid.")
+    if len(qvec) != 1024:
+        raise RuntimeError(f"Query embedding dims={len(qvec)} but index expects 1024.")
+
+    es = _es_client(config)
+
+    resp: dict[str, Any] = es.search(
+        index=config.index_name,
+        size=config.top_k,
+        _source=True,
+        knn={
+            "field": "embedding",
+            "query_vector": qvec,
+            "k": config.top_k,
+            "num_candidates": max(100, config.top_k * 20),
+        },
     )
 
-    # Attach LLM + return index (we’ll create a query engine in run_rag)
-    index._llm = llm  # optional; we'll still pass llm explicitly
-    return index
+    hits = (resp.get("hits") or {}).get("hits") or []
+    out: List[SimpleNodeWithScore] = []
+
+    for h in hits:
+        src = h.get("_source") or {}
+
+        text = src.get("text")
+        if not isinstance(text, str) or not text.strip():
+            logger.warning(
+                "Skipping hit with missing/empty text: _id=%s _source_keys=%s",
+                h.get("_id"),
+                sorted(src.keys()),
+            )
+            continue
+
+        meta = _merge_metadata(src)
+
+        # debug if metadata is unexpectedly empty
+        if not meta.get("url") and not meta.get("capture_time") and not meta.get("source_warc"):
+            logger.debug(
+                "Hit has text but no expected metadata fields. _id=%s meta_keys=%s src_keys=%s",
+                h.get("_id"),
+                sorted(meta.keys()),
+                sorted(src.keys()),
+            )
+
+        out.append(
+            SimpleNodeWithScore(
+                node=SimpleNode(text=text, metadata=meta),
+                score=float(h.get("_score") or 0.0),
+            )
+        )
+
+    return out
+
+
+def _format_context_from_nodes(nodes: List[SimpleNodeWithScore]) -> str:
+    parts: list[str] = []
+    for i, n in enumerate(nodes, start=1):
+        meta = n.node.metadata or {}
+        title = meta.get("url") or meta.get("title") or f"chunk-{i}"
+        capture = meta.get("capture_time")
+        warc = meta.get("source_warc")
+
+        header_bits = [str(title)]
+        if capture:
+            header_bits.append(f"capture_time={capture}")
+        if warc:
+            header_bits.append(f"warc={warc}")
+
+        text = n.node.get_content(metadata_mode="none")
+        parts.append(f"Source {i}: " + " | ".join(header_bits) + "\n" + text)
+
+    return "\n\n".join(parts)
+
+
+def _call_cscs_llm_with_context(
+    question: str,
+    nodes: List[SimpleNodeWithScore],
+    logger: logging.Logger,
+) -> str:
+    client, model = get_cscs_llm_from_env(logger)
+    temperature = float(os.getenv("LLM_TEMPERATURE", "0.0"))
+
+    context = _format_context_from_nodes(nodes)
+
+    logger.info("Context chars=%d; first 200=%r", len(context), context[:200])
+
+    logger.info("[LLM CONTEXT PREVIEW] %r", context)
+
+    prompt = (
+        "You answer questions about ETH Zurich web pages.\n"
+        "Use the Context as your only source of information.\n"
+        "If the Context contains relevant information, answer concisely and quote/cite the supporting snippet.\n"
+        "If the Context does not contain relevant information, say: \"I don't know based on the provided sources.\".\n\n"
+        f"Context:\n{context}\n\n"
+        f"Question: {question}\n"
+        "Answer:"
+    )
+
+
+    resp = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+        temperature=temperature,
+        stream=False,
+    )
+
+    if not resp.choices:
+        return ""
+
+    return (resp.choices[0].message.content or "").strip()
 
 
 def run_rag_query(
@@ -84,38 +196,17 @@ def run_rag_query(
     query: str,
     logger: logging.Logger,
 ) -> RAGResult:
-    """
-    Run a single RAG query against Elasticsearch-backed vector store + LLM.
-    """
-    logger.info(f"Running RAG query (top_k={config.top_k}): {query!r}")
+    logger.info("Retrieving top-k chunks via Elasticsearch kNN (bypassing LlamaIndex parsing)")
+    logger.info("Using ES index=%s url=%s top_k=%d", config.index_name, config.es_url, config.top_k)
 
-    vector_store = _build_es_store(config, logger)
-    
-    embed_model = get_embedding_model_from_env(logger)
-    llm = get_llm_from_env(logger)
+    nodes = _retrieve_topk(config, query, logger)
+    logger.info("Retrieved %d source chunks.", len(nodes))
 
-    index = VectorStoreIndex.from_vector_store(
-        vector_store=vector_store,
-        embed_model=embed_model,
-    )
+    answer = _call_cscs_llm_with_context(query, nodes, logger)
+    logger.info("RAG answer length: %d chars", len(answer))
 
-    query_engine = index.as_query_engine(
-        similarity_top_k=config.top_k,
-        llm=llm,
-    )
+    return RAGResult(answer=answer, nodes=nodes)
 
-    response = query_engine.query(query)
-
-    # response.source_nodes is a list[NodeWithScore]
-    nodes: List[NodeWithScore] = list(response.source_nodes)
-
-    logger.info(f"RAG answer length: {len(str(response))} chars")
-    logger.info(f"Retrieved {len(nodes)} source chunks.")
-
-    return RAGResult(
-        answer=str(response),
-        nodes=nodes,
-    )
 
 def run_rag_evaluation(
     config: RAGConfig,
@@ -123,85 +214,50 @@ def run_rag_evaluation(
     output_xlsx: str | os.PathLike,
     logger: logging.Logger,
 ) -> None:
-    """
-    Run RAG over a dataset stored in an XLSX file and write the results out.
-
-    The input XLSX must contain at least these columns:
-        - question
-        - answer
-        - relevant_doc_1
-        - relevant_doc_2
-
-    The output XLSX will contain all original columns plus:
-        - rag_answer
-        - rag_source_urls  (semicolon-separated list of retrieved URLs)
-    """
     input_xlsx = os.fspath(input_xlsx)
     output_xlsx = os.fspath(output_xlsx)
 
-    logger.info(f"Loading evaluation dataset from {input_xlsx!r}")
-
-    try:
-        df = pd.read_excel(input_xlsx)
-    except Exception as e:
-        logger.error(f"Failed to read XLSX {input_xlsx!r}: {e}")
-        raise
+    df = pd.read_excel(input_xlsx)
 
     required_cols = ["question", "answer", "relevant_doc_1", "relevant_doc_2"]
     missing = [c for c in required_cols if c not in df.columns]
     if missing:
         raise ValueError(
-            f"Input XLSX is missing required columns: {missing}. "
-            f"Found columns: {list(df.columns)}"
+            f"Input XLSX is missing required columns: {missing}. Found columns: {list(df.columns)}"
         )
 
     n_rows = len(df)
-    logger.info(f"Loaded {n_rows} evaluation rows")
-
     rag_answers: list[str] = []
     rag_source_urls: list[str] = []
 
     for idx, row in df.iterrows():
         q = str(row["question"]).strip() if not pd.isna(row["question"]) else ""
-
         if not q:
-            logger.warning(f"Row {idx}: empty question, skipping RAG call")
+            logger.warning("Row %d: empty question, skipping", idx)
             rag_answers.append("")
             rag_source_urls.append("")
             continue
 
-        logger.info(f"[{idx + 1}/{n_rows}] Running RAG for question: {q!r}")
+        logger.info("[%d/%d] RAG question: %r", idx + 1, n_rows, q)
 
         try:
             result = run_rag_query(config, q, logger)
         except Exception as e:
-            logger.error(f"RAG query failed for row {idx}: {e}")
+            logger.error("RAG query failed for row %d: %s", idx, e)
             rag_answers.append("")
             rag_source_urls.append("")
             continue
 
-        # Store answer
         rag_answers.append(result.answer)
 
-        # Collect URLs from retrieved nodes (unique, order-preserving)
         urls: list[str] = []
-        for node in result.nodes:
-            meta = getattr(node.node, "metadata", None) or {}
+        for nws in result.nodes:
+            meta = nws.node.metadata or {}
             url = meta.get("url")
             if url and url not in urls:
                 urls.append(str(url))
-
         rag_source_urls.append("; ".join(urls))
 
     df["rag_answer"] = rag_answers
     df["rag_source_urls"] = rag_source_urls
-
-    logger.info(f"Writing evaluation results to {output_xlsx!r}")
-    try:
-        df.to_excel(output_xlsx, index=False)
-    except Exception as e:
-        logger.error(f"Failed to write XLSX {output_xlsx!r}: {e}")
-        raise
-
-    logger.info("RAG evaluation finished successfully")
-
+    df.to_excel(output_xlsx, index=False)

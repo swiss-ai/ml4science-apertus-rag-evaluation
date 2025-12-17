@@ -4,78 +4,54 @@ from __future__ import annotations
 import logging
 import os
 import sys
-from typing import Any
+from typing import Tuple
 
 from dotenv import load_dotenv
+import openai
 
-from llama_index.llms.ollama import Ollama
-from llama_index.llms.openai import OpenAI
-from llama_index.llms.huggingface import HuggingFaceLLM
-
-from warc_tools.indexer.utils import require_env, setup_logging, get_embedding_model_from_env
+from warc_tools.indexer.utils import require_env
 
 
 def load_env_if_dev() -> None:
-    """Load .env if DEV_MODE=1/true/yes."""
-    #dev_mode = os.getenv("DEV_MODE", "0").lower() in ("1", "true", "yes")
-    dev_mode = 1
-    if dev_mode:
+    """
+    Load .env only in development (ENV=dev or unset).
+
+    This mirrors what you already did before.
+    """
+    env = os.getenv("ENV", "dev").lower()
+    if env == "dev":
         load_dotenv()
 
-def get_llm_from_env(logger: logging.Logger):
+
+def get_cscs_llm_from_env(logger: logging.Logger) -> Tuple[openai.Client, str]:
     """
-    Build an LLM instance based on env vars:
+    Configure a CSCS-hosted LLM via OpenAI-compatible API.
 
-    LLM_PROVIDER:
-      - "ollama" : local Ollama
-      - "cscs"   : OpenAI-compatible endpoint (e.g. SwissAI)
-      - "openai" : OpenAI / OpenAI-compatible
-      - "hf"     : Hugging Face local / hub
+    Only supports:
+        LLM_PROVIDER = "cscs"
 
-    LLM_MODEL:      model name
-    LLM_BASE_URL:   (for cscs/openai) base URL
-    LLM_API_KEY:    (for cscs/openai) token
-    LLM_TEMPERATURE: float, default 0.1
-    LLM_MAX_TOKENS: int,   default 1024
+    Required env vars:
+        LLM_PROVIDER   = "cscs"
+        LLM_BASE_URL   = OpenAI-compatible base URL (e.g. https://api.swissai.cscs.ch/v1)
+        LLM_API_KEY    = API key / token for CSCS
+        LLM_MODEL      = model name (e.g. Qwen/Qwen3-8B)
+
+    Optional:
+        LLM_TEMPERATURE
     """
     provider = require_env("LLM_PROVIDER").lower()
+    if provider != "cscs":
+        logger.error(
+            f"Only LLM_PROVIDER='cscs' is supported for warc_tools.rag now, "
+            f"got {provider!r}"
+        )
+        sys.exit(1)
+
+    base_url = require_env("LLM_BASE_URL")
+    api_key = require_env("LLM_API_KEY")
     model = require_env("LLM_MODEL")
 
-    temperature = float(os.getenv("LLM_TEMPERATURE", "0.1"))
-    max_tokens = int(os.getenv("LLM_MAX_TOKENS", "1024"))
+    logger.info(f"Using CSCS LLM provider: model='{model}', base_url='{base_url}'")
 
-    logger.info(f"Using LLM provider='{provider}', model='{model}'")
-
-    if provider == "ollama":
-        base_url = os.getenv("LLM_BASE_URL")  # optional, defaults to 127.0.0.1
-        kwargs: dict[str, Any] = {
-            "model": model,
-            "temperature": temperature,
-            "request_timeout": int(os.getenv("LLM_TIMEOUT", "60")),
-        }
-        if base_url:
-            kwargs["base_url"] = base_url
-        return Ollama(**kwargs)
-
-    elif provider in ("openai", "cscs"):
-        base_url = require_env("LLM_BASE_URL")
-        api_key = require_env("LLM_API_KEY")
-        return OpenAI(
-            model=model,
-            api_key=api_key,
-            base_url=base_url,
-            temperature=temperature,
-            max_tokens=max_tokens,
-        )
-
-    elif provider in ("hf", "huggingface"):
-        # Hugging Face LLM (local or via transformers) – adjust kwargs as needed
-        return HuggingFaceLLM(
-            model_name=model,
-            temperature=temperature,
-            max_new_tokens=max_tokens,
-        )
-
-    else:
-        logger.error(f"Unsupported LLM_PROVIDER: {provider}")
-        sys.exit(1)
+    client = openai.Client(api_key=api_key, base_url=base_url)
+    return client, model
