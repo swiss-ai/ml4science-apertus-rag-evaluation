@@ -1,0 +1,802 @@
+[
+  {
+    "question_id": 1,
+    "question": "Wo erfasse ich meine Ferien?",
+    "language": "de",
+    "ground_truth": "Du erfasst deine Ferien im ETHIS-Portal (ETH Information and Support System). Dort findest du unter „Meine Daten > Zeiterfassung > Zeiterfassungsblatt“ die Möglichkeit, deine An- und Abwesenheiten sowie Abwesenheitsarten (z. B. Ferien, unbezahlter Urlaub) einzutragen",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/zeit-und-abwesenheitserfassung.html",
+    "relevant_doc_2": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Reglement_zur_Erfassung_der_Arbeitszeit_und_Abwesenheiten.pdf"
+  },
+  {
+    "question_id": 2,
+    "question": "Wo erfasse ich meine Arbeitszeit?",
+    "language": "de",
+    "ground_truth": "Du erfasst deine Arbeitszeit im ETHIS-Portal (ETH Information and Support System). Dort findest du unter „Meine Daten > Zeiterfassung > Zeiterfassungsblatt“ die Möglichkeit, deine An- und Abwesenheiten sowie Abwesenheitsarten (z. B. Ferien, unbezahlter Urlaub) einzutragen.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/zeit-und-abwesenheitserfassung.html",
+    "relevant_doc_2": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Reglement_zur_Erfassung_der_Arbeitszeit_und_Abwesenheiten.pdf"
+  },
+  {
+    "question_id": 3,
+    "question": "Muss ich unbezahlten Urlaub erfassen?",
+    "language": "de",
+    "ground_truth": "Ja, unbezahlter Urlaub sollte erfasst werden.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/zeit-und-abwesenheitserfassung.html",
+    "relevant_doc_2": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Reglement_zur_Erfassung_der_Arbeitszeit_und_Abwesenheiten.pdf"
+  },
+  {
+    "question_id": 4,
+    "question": "How do I access the Web Print service for staff at ETH Zurich?",
+    "language": "en",
+    "ground_truth": "You can access the Web Print service via the following web address: webprint-staff.ethz.ch. You must be connected to the ETH network or use the VPN if you are outside the ETH network",
+    "relevant_doc_1": "https://unlimited.ethz.ch/en/help/printing/manuals-and-documentation/instructions-print-service-staff/webprint",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 5,
+    "question": "What file types can I upload to the Web Print service?",
+    "language": "en",
+    "ground_truth": "Currently, you can upload PDF, HTML, EML, PostScript, TXT document files and JPEG, PNG, GIF, TIFF, BMP, PWG, URF graphic files to the Web Print service for printing.",
+    "relevant_doc_1": "https://unlimited.ethz.ch/en/help/printing/manuals-and-documentation/instructions-print-service-staff/webprint",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 6,
+    "question": "How long are my uploaded files stored on the Web Print server?",
+    "language": "en",
+    "ground_truth": "Uploaded files that are not processed further will be automatically deleted from the server after 24 hours",
+    "relevant_doc_1": "https://unlimited.ethz.ch/en/help/printing/manuals-and-documentation/instructions-print-service-staff/webprint",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 7,
+    "question": "Do I need to be on the ETH network to use the Web Print service?",
+    "language": "en",
+    "ground_truth": "Yes, the Web Print Portal can only be reached via the ETH Zurich intranet. If you are outside the ETH network, you must use the VPN service",
+    "relevant_doc_1": "https://unlimited.ethz.ch/en/help/printing/manuals-and-documentation/instructions-print-service-staff/webprint",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 8,
+    "question": "Can I chose the printer?",
+    "language": "en",
+    "ground_truth": "You do not choose a specific physical printer at the time of upload; instead, you send your job to the CARD-ETHZ queue and release it at your preferred printer later",
+    "relevant_doc_1": "https://unlimited.ethz.ch/en/help/printing/manuals-and-documentation/instructions-print-service-staff/webprint",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 9,
+    "question": "Where are the printers?",
+    "language": "en",
+    "ground_truth": "You can find a complete and up-to-date list of printer locations at ETH Zurich on the official Staffnet page: https://ethz.ch/staffnet/en/it-services/catalogue/printing/self-service/printer-locations.html#/. This page allows you to search for printers by building name, such as HG (Hauptgebäude), and provides details for each location",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/it-services/catalogue/printing/self-service/printer-locations.html#/",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 10,
+    "question": "Wie beantrage ich Kinderzulagen?",
+    "language": "de",
+    "ground_truth": "Die Familienzulagen werden ausschliesslich über das ETHIS-Portal beantragt (Meine Daten > Familie > Familienzulagen beantragen)",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/lohn/familienzulagen.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 11,
+    "question": "Was sind die offiziellen ETH Farben?",
+    "language": "de",
+    "ground_truth": "Die offizielle Hauptfarbe der ETH Zürich ist ETH-Blau mit dem HEX-Code #215CAF (RGB 33, 92, 175). Zusätzlich gibt es sechs Corporate-Design-Farben für digitale Medien und Drucksachen, darunter ETH-Petrol, ETH-Rot, ETH-Grün, ETH-Bronze, ETH-Purpur und ETH-Grau.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/service/kommunikation/corporate-design/farbe.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 12,
+    "question": "What is the ETH Zürich PowerPoint template?",
+    "language": "en",
+    "ground_truth": "You'll find the official ETH Zürich PowerPoint-Template here: https://ethz.ch/staffnet/en/service/communication/corporate-design/templates.html",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/communication/corporate-design/templates.html",
+    "relevant_doc_2": "https://ethz.ch/content/dam/ethz/associates/services/Service/kommunikation/cd/template-downloadbereich/ETH-Praesentation-Template.zip"
+  },
+  {
+    "question_id": 13,
+    "question": "Wo kann ich IT-Probleme melden oder Unterstützung anfordern?",
+    "language": "de",
+    "ground_truth": "Das kommt darauf an, um was für ein IT Problem es sich handelt. Hier: https://ethz.ch/staffnet/en/it-services/documents/useful-links.html findest du verschiedene Anlaufstellen basierend auf deinem Problem.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/it-services/documents/useful-links.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 14,
+    "question": "Wie kann ich mein ETH-Passwort ändern oder meine Benutzerdaten bearbeiten?",
+    "language": "de",
+    "ground_truth": "Passwort ändern und Benutzerdaten bearbeiten kannst du im Web Center: https://www.passwort.ethz.ch/authentication/login_en.html",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/it-services/documents/useful-links.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 15,
+    "question": "Wo kann ich Software-Lizenzen beziehen oder Software herunterladen?",
+    "language": "de",
+    "ground_truth": "Software-Lizenzen und Downloads gibt es im IT Shop: https://itshop.ethz.ch/",
+    "relevant_doc_1": "https://www.isg.inf.ethz.ch/Main/HelpSoftware",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 16,
+    "question": "Wie richte ich das VPN ein?",
+    "language": "de",
+    "ground_truth": "Lade den Cisco AnyConnect Client von der ETH IT-Seite herunter, installiere ihn und verbinde dich mit dem Server sslvpn.ethz.ch/staff-net mit deinem staffnet nethz-Login.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/it-services/katalog.html#/detail/282",
+    "relevant_doc_2": "https://unlimited.ethz.ch/help/network/vpn"
+  },
+  {
+    "question_id": 17,
+    "question": "What public transport benefits do ETH Zurich employees receive?",
+    "language": "en",
+    "ground_truth": "Employees with at least 50% employment for six months are entitled to a free Half-Fare travelcard or a 25% contribution towards a GA travelcard.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/offers-and-benefits.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 18,
+    "question": "How do I sign up for a parking space?",
+    "language": "en",
+    "ground_truth": "Fill out the application form online here: https://logistik-helpcenter.ethz.ch/hc/en-gb/categories/5275630464668-Parking-at-ETH-Zurich and send the completed form to: verkehrsmanagement@services.ethz.ch",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/mobility/parkierung.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 19,
+    "question": "Was ist die durchschnittliche Wochenarbeitszeit für Vollzeitmitarbeitende an der ETH Zürich?",
+    "language": "de",
+    "ground_truth": "Die durchschnittliche Wochenarbeitszeit beträgt 41 Stunden für Vollzeitmitarbeitende. Für Teilzeitmitarbeitende entspricht sie dem vereinbarten Beschäftigungsgrad.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 20,
+    "question": "Was ist der Unterschied zwischen Überstunden und Überzeit?",
+    "language": "de",
+    "ground_truth": "Überstunden sind Arbeitsstunden, die über das wöchentliche Pensum hinausgehen, aber die gesetzliche Höchstarbeitszeit von 45 Stunden pro Woche nicht überschreiten. Überzeit liegt vor, wenn die gesetzliche Höchstarbeitszeit von 45 Stunden pro Woche überschritten wird. Pro Jahr dürfen maximal 170 Stunden Überzeit geleistet werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 21,
+    "question": "Wie werden Überstunden und Überzeit kompensiert?",
+    "language": "de",
+    "ground_truth": "Überstunden und Überzeit sind durch Freizeit von gleicher Dauer zu kompensieren. Falls die Kompensation aus betrieblichen Gründen nicht möglich ist, können bis zu 100 Stunden ins Folgejahr übertragen und 100 Stunden ausgezahlt werden. Darüber hinausgehende Stunden verfallen.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 22,
+    "question": "Wie viele Plusstunden oder Minusstunden darf ich im Jahr haben?",
+    "language": "de",
+    "ground_truth": "Mitarbeitende sollen während des Jahres einen maximalen Zeitsaldo von 50 Plusstunden oder 20 Minusstunden einhalten. Bei Abweichungen müssen Massnahmen mit der vorgesetzten Person vereinbart werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 23,
+    "question": "Wie früh darf ich anfangen zu arbeiten oder wie spät darf ich bleiben?",
+    "language": "de",
+    "ground_truth": "Die Tagesarbeitszeit dauert von 6 bis 20 Uhr. Abweichungen können aufgrund betrieblicher Bedürfnisse vereinbart werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 24,
+    "question": "Wie sieht es aus mit remote work?",
+    "language": "de",
+    "ground_truth": "Standortunabhängiges Arbeiten in der Schweiz ist grundsätzlich möglich, sofern die Aufgaben, Arbeitsumgebung und -organisation dies zulassen. Eine mündliche oder schriftliche Vereinbarung mit der vorgesetzten Person ist erforderlich.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 25,
+    "question": "Gibt es Vorgaben zum Ferienbezug?",
+    "language": "de",
+    "ground_truth": "Mindestens zwei Wochen Ferien müssen pro Jahr zusammenhängend bezogen werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 26,
+    "question": "Können Ferien ins Folgejahr übertragen werden?",
+    "language": "de",
+    "ground_truth": "Ja, maximal zwei Wochen (bei 100% Pensum) können ins Folgejahr übertragen werden. Der Ferienübertrag muss bis zum 31. März des Folgejahres bezogen werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 27,
+    "question": "Können Ferien während des laufenden Arbeitsverhältnisses ausbezahlt werden?",
+    "language": "de",
+    "ground_truth": "Nein, Ferien können während des laufenden Arbeitsverhältnisses nicht ausbezahlt werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 28,
+    "question": "Wie lange kann unbezahlter Urlaub maximal dauern?",
+    "language": "de",
+    "ground_truth": "Unbezahlter Urlaub kann maximal ein Jahr dauern. Die Minimaldauer beträgt eine Woche.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 29,
+    "question": "Wie viel Pause wird pro Tag bezahlt?",
+    "language": "de",
+    "ground_truth": "Bei einer Arbeitszeit von 4 Stunden besteht Anspruch auf 15 Minuten bezahlte Pause.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 30,
+    "question": "Wie lange muss die Mittagspause dauern?",
+    "language": "de",
+    "ground_truth": "Die Arbeit muss über Mittag für mindestens 30 Minuten unterbrochen werden. Diese Unterbrechung gilt nicht als Arbeitszeit.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 31,
+    "question": "Ist bei Dienstreisen der Weg auch bezahlt?",
+    "language": "de",
+    "ground_truth": "Bei Dienstreisen im Inland gelten Reisezeiten zwischen Arbeits- und Zielort sowie der Einsatz am Zielort als Arbeitszeit.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 32,
+    "question": "Wie werden die Brückentage zwischen Weihnachten und Neujahr geregelt?",
+    "language": "de",
+    "ground_truth": "Die ETH Zürich ist an diesen Tagen geschlossen. Mitarbeitende können Ferientage verwenden oder die Tage kompensieren. Je nach betrieblichen Bedürfnissen kann eine Anwesenheit angeordnet werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 33,
+    "question": "Gilt ein Businesslunch mit ETH-externen Gästen als Arbeitszeit?",
+    "language": "de",
+    "ground_truth": "Ja, ein Businesslunch mit ETH-externen Gästen, an dem Anwesenheit angeordnet ist, gilt als Arbeitszeit. Die Mittagspause von 30 Minuten muss jedoch in der Zeiterfassung ausgewiesen werden.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 34,
+    "question": "Wie wird die Teilnahme an arbeitsrelevanten Veranstaltungen geregelt?",
+    "language": "de",
+    "ground_truth": "Die Teilnahme an arbeitsrelevanten ETH-externen und -internen Veranstaltungen gilt als Arbeitszeit, solange der offizielle Teil dauert. Die Anrechnung wird mit der vorgesetzten Person abgesprochen.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Einheitliche_Umsetzung_Arbeitszeit.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/einheitliche-umsetzung-arbeitszeit.html"
+  },
+  {
+    "question_id": 35,
+    "question": "Wie lange dauert der Mutterschaftsurlaub an der ETH Zürich?",
+    "language": "de",
+    "ground_truth": "Bei der Geburt eines Kindes hat die Mitarbeiterin Anspruch auf vier Monate Mutterschaftsurlaub, unabhängig von der Anstellungsdauer.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Elternschaft.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/mutterschafts-vaterschaftsurlaub.html"
+  },
+  {
+    "question_id": 36,
+    "question": "Wann kann der Mutterschaftsurlaub frühestens beginnen?",
+    "language": "de",
+    "ground_truth": "Der Mutterschaftsurlaub kann frühestens einen Monat vor dem errechneten Geburtstermin beginnen.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/infos/Merkblatt_Elternschaft.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/arbeitsumfeld/familie/mutterschaft/mutterschafts-vaterschaftsurlaub.html"
+  },
+  {
+    "question_id": 37,
+    "question": "Gibt es Mutterschaftsurlaub bei Adoption?",
+    "language": "de",
+    "ground_truth": "Ja, Eltern, die ein Kind unter sechs Jahren adoptieren, erhalten zwei Monate Mutter- bzw. Vaterschaftsurlaub.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/mutterschafts-vaterschaftsurlaub.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 38,
+    "question": "Wie lange dauert der Vaterschaftsurlaub an der ETH Zürich?",
+    "language": "de",
+    "ground_truth": "Bei der Geburt eines eigenen Kindes hat der Vater Anspruch auf 20 Tage bezahlten Vaterschaftsurlaub.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/mutterschafts-vaterschaftsurlaub.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 39,
+    "question": "Können Eltern den Mutterschaftsurlaub untereinander aufteilen?",
+    "language": "de",
+    "ground_truth": "Ja, wenn beide Elternteile im ETH-Bereich beschäftigt sind, kann der viermonatige Mutterschaftsurlaub zwischen den Eltern aufgeteilt werden. Der Vater darf dabei maximal zwei Monate beziehen.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/de/anstellung-und-arbeit/rund-um-die-anstellung/arbeitszeiten/mutterschafts-vaterschaftsurlaub.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 40,
+    "question": "What dining areas are available for rent at ETH Zurich’s Zentrum campus for an evening event?",
+    "language": "en",
+    "ground_truth": "At the Zentrum campus, you can rent several dining areas such as the bQm Bar in the MM building, which is ideal for meetings, coffee breaks, and drinks receptions. It can accommodate up to 40 people seated and up to 80 standing. The Clausiusbar in the CLA building is suitable for drinks receptions, coffee breaks, and dinners, with a capacity of up to 50 seated and 80 standing. The food&lab in the CAB building is perfect for lectures, coffee breaks, and dinners, with space for 70–80 seated and up to 150 standing. The Polysnack in the ETH main building is also available for drinks and meetings, accommodating up to 50 seated and 80 standing.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/rooms-and-buildings/foyers/dining-areas.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 41,
+    "question": "Are there dining areas available for larger events at ETH Zurich’s Hönggerberg campus?",
+    "language": "en",
+    "ground_truth": "Yes, the Alumni Lounge at Hönggerberg is ideal for concerts, celebrations, lectures, and dinners, with a capacity of up to 80 seated and 100 standing. The Bellavista restaurant is suitable for private or corporate events, accommodating up to 130 seated and 200 standing. The food market is the largest option, with space for up to 300 seated and 600 standing, making it ideal for lectures, coffee breaks, and dinners.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/rooms-and-buildings/foyers/dining-areas.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 42,
+    "question": "What dining area at ETH Zurich is suitable for a medium-sized event with technical equipment?",
+    "language": "en",
+    "ground_truth": "The Octavo restaurant in the OCT building (Oerlikon) is perfect for small to medium-sized events, including presentations and dinners. It can accommodate up to 200 seated and 300 standing and offers technical equipment such as a beamer, microphones, and professional AV equipment.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/rooms-and-buildings/foyers/dining-areas.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 43,
+    "question": "How do I rent the Dozentenfoyer at ETH Zurich for my event?",
+    "language": "en",
+    "ground_truth": "To rent the Dozentenfoyer, contact the ETH Zurich Campus Services via this request form: https://ethz.ch/staffnet/en/service/events/dozentenfoyer/abendveranstaltungen.html",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/events/dozentenfoyer.html",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/service/events/dozentenfoyer/abendveranstaltungen.html"
+  },
+  {
+    "question_id": 44,
+    "question": "What should I do if I forget or lose my ETH card?",
+    "language": "en",
+    "ground_truth": "If you can’t find your ETH card, you need to apply for a new one at the relevant issuing office (https://ethz.ch/services/en/service/eth-card/ausgabestellen.html). The replacement card costs 25 Swiss francs. Once you receive the new card, the old one will no longer be valid and should be destroyed if found.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/eth-card.html",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/service/eth-card/replacement-card.html"
+  },
+  {
+    "question_id": 45,
+    "question": "What if I forget my ETH card PIN?",
+    "language": "en",
+    "ground_truth": "If you forget your PIN, you can set a new one or change your existing PIN using this link: adressen.ethz.ch. You do not need to know your old PIN to reset it.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/service/eth-card.html",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/news-and-events/internal-news/archive/2022/01/tips-and-tricks-how-to-deal-with-locked-doors-at-eth.html"
+  },
+  {
+    "question_id": 46,
+    "question": "Wie viel kostet ein ASVZ Abo als Alumni und als Mitarbeiter der ETH?",
+    "language": "de",
+    "ground_truth": "Ein ASVZ-Abo kostet für Mitarbeitende der ETH (und anderer Zürcher Hochschulen) aktuell CHF 300 pro Jahr. Für Alumni (Absolvent:innen) beträgt der Jahresbeitrag CHF 700. Diese Preise gelten seit der letzten Erhöhung im Jahr 2023.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/news-and-events/internal-news/archive/2022/04/asvz-cards-to-increase-in-price.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 47,
+    "question": "How to I transfer large amounts of data from / to the Euler cluster?",
+    "language": "en",
+    "ground_truth": "Use rsync or scp for command-line transfers: rsync -av localdir/ username@euler.ethz.ch:remotedir/\nscp file.txt username@euler.ethz.ch:~/\nFor large transfers, consider using the data transfer nodes.",
+    "relevant_doc_1": "https://scicomp.ethz.ch/wiki/FAQ",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 48,
+    "question": "Why should I avoid using Conda on the Euler cluster?",
+    "language": "en",
+    "ground_truth": "Conda installations can create a large number of small files, which can quickly exceed your 100,000 file/directory quota in your home directory. Additionally, Conda environments on network-attached storage (like Euler’s home or work filesystems) suffer from high latency, which can significantly slow down your computations and negatively impact other users.",
+    "relevant_doc_1": "https://scicomp.ethz.ch/wiki/Conda",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 49,
+    "question": "What are the recommended alternatives to Conda on the Euler cluster?",
+    "language": "en",
+    "ground_truth": "ETH Zurich recommends using centrally provided Python installations and virtual environments (venv) that leverage these installations. If you need packages not available centrally, create a virtual environment that can access the centrally installed packages.",
+    "relevant_doc_1": "https://scicomp.ethz.ch/wiki/Python",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 50,
+    "question": "Auf was für Zeitungen haben ETH Mitarbeiter gratis Zugang über die Bibliothek?",
+    "language": "de",
+    "ground_truth": "ETH-Mitarbeitende haben über die ETH-Bibliothek kostenlosen Online-Zugang zu vielen Zeitungen, darunter NZZ, Le Temps, The Guardian, The New York Times, Financial Times, FAZ und weiteren internationalen und Schweizer Titeln. Der Zugang erfolgt über das ETH-Netzwerk oder per VPN. Die aktuelle Auswahl findest du im ETH Library Katalog.",
+    "relevant_doc_1": "https://library.ethz.ch/standorte-und-medien/medientypen/zeitschriften-zeitungen.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 51,
+    "question": "Darf ich Bilder aus E-Pics für meine Publikation oder Präsentation verwenden?",
+    "language": "de",
+    "ground_truth": "Ja, Bilder aus E-Pics dürfen unter bestimmten Bedingungen für Publikationen, Präsentationen oder andere nicht-kommerzielle Zwecke verwendet werden. Es gelten jedoch die jeweiligen Nutzungsbedingungen und Lizenzen der einzelnen Bilder. Diese sind in den Metadaten des Bildes angegeben. Bei Unsicherheit oder für kommerzielle Nutzung solltest du die ETH-Bibliothek kontaktieren.",
+    "relevant_doc_1": "https://library.ethz.ch/forschen-und-publizieren/datenmanagement-und-policies/e-pics-bildverwaltung.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 52,
+    "question": "Wie zitiere ich Bilder aus E-Pics korrekt?",
+    "language": "de",
+    "ground_truth": "Bilder aus E-Pics müssen mit einem vollständigen Bildnachweis zitiert werden. Dieser umfasst in der Regel: Titel des Bildes, Urheber:in oder Fotograf:in, Sammlung, Signatur, E-Pics-URL und das Copyright. Ein Beispiel: „Titel, Fotograf:in, Sammlung, Signatur, © ETH-Bibliothek, URL“",
+    "relevant_doc_1": "https://library.ethz.ch/forschen-und-publizieren/datenmanagement-und-policies/e-pics-bildverwaltung.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 53,
+    "question": "List all prime numbers from 1 to 1000.",
+    "language": "en",
+    "ground_truth": "This is not a question specific to the ETH Zürich Staff. Please use other means to obtain an answer.",
+    "relevant_doc_1": "",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 54,
+    "question": "what is the meaning of life?",
+    "language": "en",
+    "ground_truth": "This is not a question specific to the ETH Zürich Staff. Please use other means to obtain an answer.",
+    "relevant_doc_1": "",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 55,
+    "question": "what ETH events are on tomorrow? ",
+    "language": "en",
+    "ground_truth": "For ETH events view: https://ethz.ch/en/news-and-events/events.html",
+    "relevant_doc_1": "https://ethz.ch/en/news-and-events/events.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 56,
+    "question": "how does the ETH family allowance work?",
+    "language": "en",
+    "ground_truth": "ETH’s family allowance provides monthly financial support for employees with children, consisting of a child allowance (until age 16 or the start of post-compulsory education) and an education allowance (up to age 25 while in training). Eligibility requires earning at least CHF 7,560/year in AHV-liable income, and only one parent can claim per child following a priority order. ETH pays the statutory Swiss allowance and may add a top-up if the other parent’s employer already pays. Employees must apply through ETHIS and report any changes affecting eligibility.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/salary/family-allowance.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 57,
+    "question": "if I have another child does the family allowance change?",
+    "language": "en",
+    "ground_truth": "Yes, the family allowance increases with each additional child because the allowance is paid per child, not per family. If you have another child, you receive an additional child allowance (and later, an education allowance) for that child, following the same rules and rates. There’s no cap on the number of children; each eligible child triggers its own allowance.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/salary/family-allowance.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 58,
+    "question": "does the family allowance count for adopted children?",
+    "language": "en",
+    "ground_truth": "Yes - the allowance at ETH Zurich can be claimed for adopted children.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/salary/family-allowance.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 59,
+    "question": "if two people work for ETH, do both claim the family allowance?",
+    "language": "en",
+    "ground_truth": "If both parents work at ETH Zurich, only one parent can claim the family allowance for each child. The entitled person is determined by a priority order - for example, the parent who is gainfully employed or earns the higher AHV-income will generally claim.  ￼",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/salary/family-allowance.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 60,
+    "question": "what is the policy on taking an extended break from work?",
+    "language": "en",
+    "ground_truth": "At ETH Zurich employees may take unpaid leave for up to one year (subject to operational and organisational approval) once holiday, long-service and working-time balances have been reduced. Additionally, there is a company-sponsored sabbatical option for staff with at least seven years of service, lasting between two and six months and aimed at professional development. ",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours/holidays-leave.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 61,
+    "question": "do I get paid leave for moving apartment?",
+    "language": "en",
+    "ground_truth": "Yes, ETH employees get 1 day per calendar year to move property.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Personalverordnung_ETH_Bereich.pdf",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 62,
+    "question": "how many days per year do I get paid for moving house?",
+    "language": "en",
+    "ground_truth": "As an employee, 1 day per calendar year.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Personalverordnung_ETH_Bereich.pdf",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 63,
+    "question": "if I get married- how many days paid leave am I allowed?",
+    "language": "en",
+    "ground_truth": "Employees are entitled to receive 6 days paid leave for marriage.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Personalverordnung_ETH_Bereich.pdf",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 64,
+    "question": "I have a family wedding coming up, do I take it as leave/vacation?",
+    "language": "en",
+    "ground_truth": "As an employee, you are entitled to 1 day paid leave for family weddings, it is not required to take it as vacation",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Personalverordnung_ETH_Bereich.pdf",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 65,
+    "question": "what are the official ETH holidays?",
+    "language": "en",
+    "ground_truth": "ETH Zurich is closed for normal bank holidays e.g Easter and between Christmas and New Year. As the exact dates can change each year review the calendar: https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours/holidays-leave.html"
+  },
+  {
+    "question_id": 66,
+    "question": "what are the term start dates?",
+    "language": "en",
+    "ground_truth": "At ETH Zurich the Autumn Semester begins in calendar week 38 (which corresponds to mid-September) and ends in week 51 (just before Christmas). The Spring Semester starts in calendar week 8 (mid-February) and runs through week 22 (end of May). Generally, autumn starts around mid-September, Spring starts around mid-February.",
+    "relevant_doc_1": "https://ethz.ch/students/en/news/academic-calendar.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 67,
+    "question": "do I have to record my working hours? if so where?",
+    "language": "en",
+    "ground_truth": "Yes - at ETH Zürich you may need to record your working hours if your personnel category requires it.  You do this in the system ETHIS under My data > Time recording > Time sheet attendances and absences.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours/recording-working-time-and-absences.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 68,
+    "question": "how do I book time off work?",
+    "language": "en",
+    "ground_truth": "At ETH Zürich you book time off in the time-recording system ETHIS by going to My data > Time recording > Time sheet attendances and absences, and under “Absences” you select the appropriate absence type (holiday, paid leave, etc).",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 69,
+    "question": "what is the Apertus model?",
+    "language": "en",
+    "ground_truth": "This is not a question specific to the ETH Zürich Staff. Please use other means to obtain an answer.",
+    "relevant_doc_1": "",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 70,
+    "question": "what is the contact number for main campus?",
+    "language": "en",
+    "ground_truth": " +41 44 632 11 11",
+    "relevant_doc_1": "https://ethz.ch/en/utils/contact.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 71,
+    "question": "where is ETH main building?",
+    "language": "en",
+    "ground_truth": "The main building is at address:\nRämistrasse 101\n8092 Zurich\nSwitzerland",
+    "relevant_doc_1": "https://ethz.ch/en/utils/contact.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 72,
+    "question": "where is the ETH AI Center?",
+    "language": "en",
+    "ground_truth": "The ETH AI Center is at:\nAndreasstrasse 5\n8092 Zürich\n",
+    "relevant_doc_1": "https://ai.ethz.ch/about-us/how-to-find-us.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 73,
+    "question": "where can I find a map of the ETH Hönggerberg campus?",
+    "language": "en",
+    "ground_truth": "The following link shows a map of the ETH Hönggerberg campus:\nhttps://ethz.ch/de/campus/erreichen/hoenggerberg.html",
+    "relevant_doc_1": "https://ethz.ch/de/campus/erreichen/hoenggerberg.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 74,
+    "question": "what is the best way to get from ETH main campus to ETH Honggerberg?",
+    "language": "en",
+    "ground_truth": "The best way to get from the ETH Zürich Main Campus (Zentrum) to the ETH Hönggerberg Campus is by taking the free shuttle bus called ETH eLink, which runs several times every hour on weekdays, with a frequency of about every 20 minutes.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/main/campus/campus-erleben/lernen-arbeiten/anreise-campus-info-hoenggerberg-en.pdf",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 75,
+    "question": "who is president of the university?",
+    "language": "en",
+    "ground_truth": "Joël Mesot is the current President of ETH Zurich, a position he has held since January 1, 2019",
+    "relevant_doc_1": "https://ethz.ch/en/the-eth-zurich/organisation/executive-board/president.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 76,
+    "question": "How often should I have a performance evaluation with my supervisor?",
+    "language": "en",
+    "ground_truth": "You should have a formal performance evaluation interview at least once a year where your objectives, performance, and development needs are discussed.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 77,
+    "question": "What topics are typically covered during the annual performance evaluation interview?",
+    "language": "en",
+    "ground_truth": "The interview covers your objectives, work conditions, development needs, performance assessment, and an opportunity to give feedback to your supervisor.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 78,
+    "question": "Who is responsible for defining the details of employment regulations at my ETH institution?",
+    "language": "en",
+    "ground_truth": "Each ETH institution and research institute defines the detailed employment rules for its staff and communicates them appropriately.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 79,
+    "question": "What are the normal probation periods for different types of roles?",
+    "language": "en",
+    "ground_truth": "Most roles have a three month probation period, while scientific or specialised roles may have up to six months, and internal transfers may have reduced or waived probation periods.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 80,
+    "question": "Under what circumstances can a job be filled without a public advertisement?",
+    "language": "en",
+    "ground_truth": "Jobs may be filled internally without public advertisement for short fixed term roles, internal promotions, job rotations, or integration and reintegration measures.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 81,
+    "question": "How is my function assigned to a functional grade in the ETH Domain job grid?",
+    "language": "en",
+    "ground_truth": "Your function is assigned to a grade based on qualifications, responsibilities, complexity, and skill requirements defined in the Function Grid.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 82,
+    "question": "What should I do if I disagree with my allocated functional grade?",
+    "language": "en",
+    "ground_truth": "You can request a review by the Parity Review Commission, which handles disputes about functional grade assignments.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 83,
+    "question": "How is my starting salary determined within my functional grade?",
+    "language": "en",
+    "ground_truth": "Your starting salary is set within your grade's salary band based on experience, skills, and market conditions.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 84,
+    "question": "How does salary progression work when taking into account performance and experience?",
+    "language": "en",
+    "ground_truth": "Each year your salary may increase toward the target level for your grade based on performance and experience, depending on available resources.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 85,
+    "question": "What happens if my performance is rated below expectations?",
+    "language": "en",
+    "ground_truth": "If you do not meet expectations, your supervisor must take measures such as offering support, adjusting tasks, or reviewing your position or employment status.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 86,
+    "question": "How long must I have worked at an ETH institution before becoming eligible for early retirement due to restructuring?",
+    "language": "en",
+    "ground_truth": "You must be at least 60 years old and have worked continuously for at least ten years to qualify for early retirement during restructuring.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 87,
+    "question": "What protections do I have if I become unable to work due to illness or accident?",
+    "language": "en",
+    "ground_truth": "You are protected from termination for a defined period during long term illness or accident, and termination can only occur once certain thresholds and conditions are met.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 88,
+    "question": "How long is the employer obligated to continue my employment if I am on long term sick leave?",
+    "language": "en",
+    "ground_truth": "During the first two years of service termination is possible only after 365 days of incapacity, and after that only after 730 days, unless exceptions apply.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 89,
+    "question": "Can I continue working beyond the normal retirement age, and under what conditions?",
+    "language": "en",
+    "ground_truth": "You may continue working past retirement age with mutual agreement, and employment ends automatically no later than the month you turn 70.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 90,
+    "question": "What types of leave am I entitled to such as maternity, paternity, adoption, or caregiver leave?",
+    "language": "en",
+    "ground_truth": "You are entitled to maternity, paternity, adoption, and caregiver leave with specific salary entitlements depending on the type of leave.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 91,
+    "question": "What are my obligations regarding reporting secondary activities or potential conflicts of interest?",
+    "language": "en",
+    "ground_truth": "You must report any secondary activities and ensure they do not create conflicts of interest or interfere with your primary role.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 92,
+    "question": "What support is available if I feel discriminated against or experience a violation of my personal rights?",
+    "language": "en",
+    "ground_truth": "Each institution provides an independent advisory office where you can seek confidential help if you feel harassed, penalised, or discriminated against.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 93,
+    "question": "What benefits or allowances might I be eligible for?",
+    "language": "en",
+    "ground_truth": "You may qualify for service allowances, bonuses, family allowances, and other financial or social benefits depending on your role.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 94,
+    "question": "Where can I raise concerns if I disagree with my performance evaluation or salary progression?",
+    "language": "en",
+    "ground_truth": "You can contact the internal office designated for resolving disagreements about performance evaluations or salary development.",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/associates/services/Anstellung-Arbeiten/Downloads/files/rechtliches/Brochure_Personnel_Law.pdf",
+    "relevant_doc_2": "https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html"
+  },
+  {
+    "question_id": 95,
+    "question": "how does ETH Pension work?",
+    "language": "en",
+    "ground_truth": "ETH Zurich employees are covered by Switzerland’s three-pillar pension system: the state pension (AHV/OASI) for basic retirement and survivor protection, the occupational pension managed through PUBLICA where ETH pays 64% and employees 36% of contributions in a defined-contribution plan, and optional private savings for additional retirement income. Employees must transfer any existing Swiss pension assets into PUBLICA when joining and can make voluntary extra contributions to boost benefits. Overall, the system aims to provide basic income through the state plan and maintain living standards through the occupational plan, with private savings offering further flexibility.",
+    "relevant_doc_1": "https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/working-conditions/insurance-and-pension.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 96,
+    "question": "where can I find details on ETH pensions?",
+    "language": "en",
+    "ground_truth": "View pension information at: https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/working-conditions/insurance-and-pension.html",
+    "relevant_doc_1": "https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/working-conditions/insurance-and-pension.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 97,
+    "question": "what is the salary band for a post doc?",
+    "language": "en",
+    "ground_truth": "At ETH Zurich a post-doctoral researcher (scientific assistant II) on a 100 % position receives a fixed-rate salary which is automatically increased from year 1 to year 2 to year 3; from the fourth year onwards no further increases are specified. For the period starting 1 January 2025, the salary band is approximately CHF 92,500 in the first year, rising to CHF 97,200 in the second year and CHF 101,900 in the third year (though the official page lists only that the rates apply and the exact amounts may depend on project funding). ",
+    "relevant_doc_1": "https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/welcome-center/employment-contract-and-salary/salary.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 98,
+    "question": "how do promotions or raises work?",
+    "language": "en",
+    "ground_truth": "At ETH Zurich promotions and salary increases are not automatic but fact-based: for staff on the ETH Domain salary system, each job is assigned a “function level” with a salary band based on role, responsibility and experience. Salary increases as of 1 January each year depend on two key factors - (1) years of relevant experience (up to 15 years) and (2) individual performance relative to the “target range” of the salary band. If you move into a new higher function level (i.e., taking on significantly more responsibility or a different role), your salary is re-determined as for a new hire in that function.",
+    "relevant_doc_1": "https://ethz.ch/staffnet/en/news-and-events/internal-news/archive/2024/08/eth-zurichs-salary-system-how-does-it-work.html",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 99,
+    "question": "what is the ETH policy regarding using IT resources for personal use?",
+    "language": "en",
+    "ground_truth": "The ETH Zurich Acceptable Use Policy states that IT resources are primarily to be used for business, study or employment-related tasks. The use of ETH IT resources for private purposes is possible but explicitly not recommended. It is only allowed under strict conditions: it must not violate licenses or applicable laws; must not have a commercial character; must not cause technical impairment; and must not interfere with the fulfilment of work or study obligations. ",
+    "relevant_doc_1": "https://ethz.ch/content/dam/ethz/main/eth-zurich/organisation/rechtssammlung/203.21en.pdf",
+    "relevant_doc_2": ""
+  },
+  {
+    "question_id": 100,
+    "question": "what are the open faculty positions at ETH?",
+    "language": "en",
+    "ground_truth": "View open positions at: https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/faculty/faculty-affairs/ausgeschriebene-professuren.html",
+    "relevant_doc_1": "https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/faculty/faculty-affairs/ausgeschriebene-professuren.html",
+    "relevant_doc_2": ""
+  }
+]
