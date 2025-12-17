@@ -1,0 +1,802 @@
+[
+  {
+    "question_id": 1,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"Wo erfasse ich meine Ferien?\" (Where do I record my vacation?)\n\n**Ground Truth**: \"Du erfasst deine Ferien im ETHIS-Portal (ETH Information and Support System). Dort findest du unter „Meine Daten > Zeiterfassung > Zeiterfassungsblatt“ die Möglichkeit, deine An- und Abwesenheiten sowie Abwesenheitsarten (z. B. Ferien, unbezahlter Urlaub) einzutragen\"\n\nThis clearly states that vacation is recorded in the ETHIS-Portal, specifically under \"Meine Daten > Zeiterfassung > Zeiterfassungsblatt\".\n\n**Model Response**: The model provides generic advice about using:\n1. Calendar apps (Google Calendar, Outlook, Apple Calendar)\n2. Vacation planner apps\n3. Excel spreadsheet\n4. Paper calendar\n5. Online services (Tr"
+  },
+  {
+    "question_id": 2,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\n**Question**: \"Wo erfasse ich meine Arbeitszeit?\" (Where do I record my working time?)\n\n**Ground Truth**: \"Du erfasst deine Arbeitszeit im ETHIS-Portal (ETH Information and Support System). Dort findest du unter „Meine Daten > Zeiterfassung > Zeiterfassungsblatt“ die Möglichkeit, deine An- und Abwesenheiten sowie Abwesenheitsarten (z. B. Ferien, unbezahlter Urlaub) einzutragen.\"\n\n**Model Response**: The model gives generic advice about time tracking methods: digital tools (Toggl, Harvest, Clockify), paper calendars, emails, time management apps (Todoist, Trello), manual notes. It doesn't mention ETHIS-Portal at all.\n\n**Criteria for Scoring**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffn"
+  },
+  {
+    "question_id": 3,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"Muss ich unbezahlten Urlaub erfassen?\" (Do I need to record unpaid leave?)\n\n**Ground Truth**: \"Ja, unbezahlter Urlaub sollte erfasst werden.\" (Yes, unpaid leave should be recorded.)\n\n**Model Response**: \"Ja, unbezahlter Urlaub muss in der Regel in der Personalakte oder im Urlaubsbuch des Arbeitnehmers erfasst werden. Dies dient der Transparenz und der Nachvollziehbarkeit der Arbeitszeit und der Urlaubstage. Die genauen Anforderungen können je nach Land und Unternehmen variieren, aber in der Regel ist eine formelle Erfassung notwendig. Es ist ratsam, sich an die internen Richtlinien des Unternehmens oder an die gesetzlichen Vorschriften des jeweiligen Landes zu halten.\"\n\nNow I need to apply the criteria"
+  },
+  {
+    "question_id": 4,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question:** How do I access the Web Print service for staff at ETH Zurich?\n\n**Ground Truth:** You can access the Web Print service via the following web address: webprint-staff.ethz.ch. You must be connected to the ETH network or use the VPN if you are outside the ETH network\n\n**Model Response:** The model provides a multi-step process involving navigating the ETH Zurich website, clicking on \"Services\", then \"Printing and Scanning\", and then a \"Web Print\" link. It mentions requirements like having a staff account, staff ID, and a web browser. It does NOT mention the specific URL \"webprint-staff.ethz.ch\" and does NOT mention the VPN requirement for external access.\n\n**Criteria:**\n\n1. **FACTUAL CORRECTNESS (0-2 points):**\n   - 2: Response mentions the specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Response i"
+  },
+  {
+    "question_id": 5,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich's Web Print service. I need to be a strict auditor and check if the model has actual institutional knowledge or is giving generic advice.\n\nLet me analyze the question and responses:\n\n**Question**: What file types can I upload to the Web Print service?\n\n**Ground Truth**: \"Currently, you can upload PDF, HTML, EML, PostScript, TXT document files and JPEG, PNG, GIF, TIFF, BMP, PWG, URF graphic files to the Web Print service for printing.\"\n\n**Model Response**: Lists PDF, DOCX, PPTX, XLSX, JPG, PNG, TIFF, GIF, SVG and adds a generic disclaimer that \"specific file types supported may vary depending on the Web Print service you are using. It's always a good idea to check the service's documentation or contact their support team for the most accurate information.\"\n\nNow I need to score this based on the criteria:\n\n**1. FACTUAL CORRECTNESS (0-2 points)**:\n- The model mentions \"Web Print service\" which is the "
+  },
+  {
+    "question_id": 6,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich's Web Print server file retention policy.\n\nLet me analyze this carefully:\n\n**Question**: How long are my uploaded files stored on the Web Print server?\n\n**Ground Truth**: \"Uploaded files that are not processed further will be automatically deleted from the server after 24 hours\"\n\n**Model Response**: The model gives a generic answer about retention periods varying, ranging from days to months/years, and suggests contacting the administrator. It doesn't mention the specific 24-hour period or any ETH-specific details.\n\n**CRITERIA FOR SCORING:**\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool from Ground Truth (e.g., Web Print)\n   - 1: Partially correct but misses specific ETH tool/portal name, or mentions ETH but not the specific system\n   - 0: Provides general advice when Ground Truth specifies an internal ETH tool, OR is factually incorrect\n\n   The Ground Truth me"
+  },
+  {
+    "question_id": 7,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question:** Do I need to be on the ETH network to use the Web Print service?\n\n**Ground Truth:** Yes, the Web Print Portal can only be reached via the ETH Zurich intranet. If you are outside the ETH network, you must use the VPN service\n\n**Model Response:** No, you do not need to be on the ETH network to use the Web Print service. Web Print is a service that allows you to print documents from your web browser, regardless of the network you are connected to. However, if you want to use the service with a specific blockchain or cryptocurrency, you may need to be on the corresponding network. For example, if you want to use Web Print with a specific Ethereum-based application, you would need to be on the ETH network. But for general use of Web Print, you can use it on any network.\n\n**Criteria:**\n\n1. **FACTUAL CORRECTNESS (0-2 points):**\n   - 2: Response mentions the specif"
+  },
+  {
+    "question_id": 8,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich's printer system. Let me analyze this carefully.\n\n**Ground Truth**: \"You do not choose a specific physical printer at the time of upload; instead, you send your job to the CARD-ETHZ queue and release it at your preferred printer later\"\n\n**Model Response**: The model gives generic advice about choosing a printer for home/office use, discussing DPI, speed, connectivity, cost, etc. It completely misses the ETH-specific system.\n\n**FACTUAL CORRECTNESS (0-2 points)**:\n- The model does NOT mention \"CARD-ETHZ\" at all\n- The model does NOT mention any ETH-specific portal or tool\n- The model gives completely generic printer buying advice\n- According to the criteria: \"0: Response provides general advice (like 'use Excel', 'check calendar', 'contact admin') when Ground Truth specifies an internal ETH tool\"\n- This is exactly what happened - generic advice when a specific ETH tool (CARD-ETHZ queue) should have be"
+  },
+  {
+    "question_id": 9,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question:** Where are the printers?\n\n**Ground Truth:** You can find a complete and up-to-date list of printer locations at ETH Zurich on the official Staffnet page: https://ethz.ch/staffnet/en/it-services/catalogue/printing/self-service/printer-locations.html#/. This page allows you to search for printers by building name, such as HG (Hauptgebäude), and provides details for each location.\n\n**Model Response:** I'm sorry, but as an AI, I don't have the ability to physically locate printers or any other objects. I can provide information based on the data I have up to my knowledge cutoff in 2024. If you're looking for printers in a specific location, such as an office or a public library, you might want to check the facilities or ask someone who knows the layout.\n\n**Criteria:**\n\n1. **FACTUAL CORRECTNESS (0-2 points):**\n   - 2: Mentions specific ETH portal/tool (e.g., ETHI"
+  },
+  {
+    "question_id": 10,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question**: \"Wie beantrage ich Kinderzulagen?\" (How do I apply for child allowances?)\n\n**Ground Truth**: \"Die Familienzulagen werden ausschliesslich über das ETHIS-Portal beantragt (Meine Daten > Familie > Familienzulagen beantragen)\" (Family allowances are applied for exclusively via the ETHIS portal (My Data > Family > Apply for family allowances))\n\n**Model Response**: The model provides a generic, step-by-step guide about applying for child allowances:\n1. Check eligibility\n2. Fill out forms\n3. Gather documents (birth certificate, marriage certificate, tax return, proof of residence, proof of income)\n4. Submit forms\n5. Wait for approval\nIt then adds a disclaimer that requirements vary by canton and authority.\n\n**Evaluation Criteria**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (ETHIS, ASVZ, Moodle, etc.)\n   - 1: Mentions ETH b"
+  },
+  {
+    "question_id": 11,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response about ETH Zurich's official colors against a ground truth. I need to act as a Strict Auditor for ETH Zurich and determine if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"Was sind die offiziellen ETH Farben?\" (What are the official ETH colors?)\n\n**Ground Truth**: \n- Main color: ETH-Blau with HEX code #215CAF (RGB 33, 92, 175)\n- Additionally six corporate design colors: ETH-Petrol, ETH-Rot, ETH-Grün, ETH-Bronze, ETH-Purpur, ETH-Grau\n\n**Model Response**: \"Die offiziellen Farben der ETH Zürich sind Blau und Gelb. Diese Farben sind auch auf dem Logo der ETH Zürich zu sehen.\"\n\n**Analysis**:\n1. The model says the colors are \"Blau und Gelb\" (Blue and Yellow)\n2. The ground truth says the main color is \"ETH-Blau\" with a specific HEX code, plus six other corporate colors\n3. The model mentions \"Gelb\" (Yellow) which is NOT in the grou"
+  },
+  {
+    "question_id": 12,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\nLet me break down the task:\n- **Question**: What is the ETH Zürich PowerPoint template?\n- **Ground Truth**: \"You'll find the official ETH Zürich PowerPoint-Template here: https://ethz.ch/staffnet/en/service/communication/corporate-design/templates.html\"\n- **Model Response**: \"The ETH Zürich PowerPoint template is a customizable template designed for presentations at the Swiss Federal Institute of Technology (ETH) Zürich. It is typically used for academic, research, or professional presentations related to the institute. The template usually includes the ETH Zürich logo, color scheme, and typography to maintain a consistent visual identity. It can be downloaded from the ETH Zürich website or through other official channels.\"\n\n**Criteria for Scoring:**\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, "
+  },
+  {
+    "question_id": 13,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the question and responses:\n\n**Question**: \"Wo kann ich IT-Probleme melden oder Unterstützung anfordern?\" (Where can I report IT problems or request support?)\n\n**Ground Truth**: \"Das kommt darauf an, um was für ein IT Problem es sich handelt. Hier: https://ethz.ch/staffnet/en/it-services/documents/useful-links.html findest du verschiedene Anlaufstellen basierend auf deinem Problem.\" (It depends on what kind of IT problem it is. Here: [specific ETH link] you can find different contact points based on your problem.)\n\n**Model Response**: The model gives a completely generic list of IT support options that could apply to any organization: IT-Helpdesk, IT-Abteilung, Online-Foren, IT-Support-Service, Hersteller-Support, Freelance-IT-Profis. It doesn't mention any ETH-spec"
+  },
+  {
+    "question_id": 14,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or just generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"Wie kann ich mein ETH-Passwort ändern oder meine Benutzerdaten bearbeiten?\" (How can I change my ETH password or edit my user data?)\n\n**Ground Truth**: \"Passwort ändern und Benutzerdaten bearbeiten kannst du im Web Center: https://www.passwort.ethz.ch/authentication/login_en.html\"\n\nSo the specific ETH tool/portal is the \"Web Center\" at the URL https://www.passwort.ethz.ch/authentication/login_en.html\n\n**Model Response**: \nThe model gives generic steps:\n1. Log in to your ETH account on the official ETH website\n2. Go to your profile\n3. Change password\n4. Edit user data\n5. Save changes\n\nThen adds a disclaimer that steps may vary and to contact customer service if needed.\n\n**Analysis against criteria:**\n\n1. **FAC"
+  },
+  {
+    "question_id": 15,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\n**Question**: \"Wo kann ich Software-Lizenzen beziehen oder Software herunterladen?\" (Where can I get software licenses or download software?)\n\n**Ground Truth**: \"Software-Lizenzen und Downloads gibt es im IT Shop: https://itshop.ethz.ch/\"\n\n**Model Response**: The model gave a very generic answer about:\n1. Official software vendor websites\n2. Software distribution platforms\n3. Free and open-source software\n4. Software directories and archives\n5. Universities and research institutions (mentions \"Microsoft Academic Alliance, IBM Academic Initiative\" but NOT ETH's specific system)\n6. Warning about software piracy\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth specifically mentions the IT Shop at https://itshop.ethz.ch/\n   - The model response does"
+  },
+  {
+    "question_id": 16,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response about setting up a VPN at ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the ground truth and the model response:\n\n**Ground Truth**: \"Lade den Cisco AnyConnect Client von der ETH IT-Seite herunter, installiere ihn und verbinde dich mit dem Server sslvpn.ethz.ch/staff-net mit deinem staffnet nethz-Login.\"\n\nKey ETH-specific elements:\n1. Cisco AnyConnect Client (specific software)\n2. ETH IT-Seite (specific source)\n3. Server: sslvpn.ethz.ch/staff-net (specific ETH URL)\n4. staffnet nethz-Login (specific ETH authentication method)\n\n**Model Response**: The model gives completely generic VPN setup instructions:\n- Mentions commercial VPN providers (ExpressVPN, NordVPN, ProtonVPN)\n- General steps like \"choose a VPN service\", \"register\", \"download app\", etc.\n- No mention of ETH Zurich, Cisco AnyConnect, sslvpn.ethz.ch, staffnet, or nethz-Login\n\nTh"
+  },
+  {
+    "question_id": 17,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth for ETH Zurich's public transport benefits.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: What public transport benefits do ETH Zurich employees receive?\n\n**Ground Truth**: Employees with at least 50% employment for six months are entitled to a free Half-Fare travelcard or a 25% contribution towards a GA travelcard.\n\n**Model Response**: The model provides a very generic response about public transport benefits. It mentions:\n1. Public Transport Pass (generic)\n2. Discounts (generic)\n3. Free Travel (generic)\n4. Carpooling and Ride-Sharing (generic)\n5. Bike Sharing (generic)\n6. Parking (generic)\n\nThe model response is completely generic and does not mention the specific ETH Zurich policy details from the ground truth. It doesn't mention:\n- The 50% employment threshold\n- The six-month requirement\n- The free Half-Fare travelcard\n- The 25% contribution towards a GA travelcard\n\nThe response"
+  },
+  {
+    "question_id": 18,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth for ETH Zurich parking sign-up.\n\n**Ground Truth**: \n- Fill out the application form online here: https://logistik-helpcenter.ethz.ch/hc/en-gb/categories/5275630464668-Parking-at-ETH-Zurich\n- Send the completed form to: verkehrsmanagement@services.ethz.ch\n\n**Model Response**: \nThe model gives generic steps:\n1. Check Availability\n2. Create an Account\n3. Choose a Parking Space\n4. Sign Up for the Space\n5. Receive Confirmation\n\nIt doesn't mention:\n- The specific ETH portal (logistik-helpcenter.ethz.ch)\n- The specific email address (verkehrsmanagement@services.ethz.ch)\n- Any ETH-specific details\n\n**Scoring**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The model provides generic advice about parking sign-up but doesn't mention the specific ETH portal or email.\n   - It doesn't mention \"ETHIS\", \"ASVZ\", \"Moodle\", \"CARD-ETHZ\", \"Web Print\", \"Staffnet\" or any other ETH-specific tool.\n   - The ground truth specifies a specif"
+  },
+  {
+    "question_id": 19,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich institutional knowledge. Let me analyze this carefully.\n\n**Question**: Was ist die durchschnittliche Wochenarbeitszeit für Vollzeitmitarbeitende an der ETH Zürich?\n\n**Ground Truth**: Die durchschnittliche Wochenarbeitszeit beträgt 41 Stunden für Vollzeitmitarbeitende. Für Teilzeitmitarbeitende entspricht sie dem vereinbarten Beschäftigungsgrad.\n\n**Model Response**: Die durchschnittliche Wochenarbeitszeit für Vollzeitmitarbeitende an der ETH Zürich beträgt 42 Stunden. Dies ist eine Richtlinie, die von der ETH Zürich festgelegt wurde, um eine ausgewogene Arbeits- und Privatleben zu gewährleisten. Es ist jedoch wichtig zu beachten, dass die tatsächliche Arbeitszeit je nach Abteilung und Projekt variieren kann.\n\n**Criteria Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth states 41 hours\n   - The model response states 42 hours\n   - This is factually incorrect\n   - According to"
+  },
+  {
+    "question_id": 20,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\nLet me break down the task:\n\n**Question**: Was ist der Unterschied zwischen Überstunden und Überzeit? (What is the difference between overtime and extra time?)\n\n**Ground Truth**: \n- Überstunden = hours beyond weekly workload but NOT exceeding legal maximum of 45 hours/week\n- Überzeit = hours that exceed the legal maximum of 45 hours/week\n- Maximum 170 hours of Überzeit per year\n\n**Model Response**:\n- Provides general definitions about overtime and extra time\n- Mentions German regulations (8 hours/day, 48 hours/week) - which is NOT ETH-specific\n- No mention of ETH Zurich, its systems, or ETH-specific policies\n- The response is completely generic and doesn't reference any ETH portal or tool\n\n**Scoring Criteria**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Mentions ETH but"
+  },
+  {
+    "question_id": 21,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"Wie werden Überstunden und Überzeit kompensiert?\" (How are overtime and extra hours compensated?)\n\n**Ground Truth**: \"Überstunden und Überzeit sind durch Freizeit von gleicher Dauer zu kompensieren. Falls die Kompensation aus betrieblichen Gründen nicht möglich ist, können bis zu 100 Stunden ins Folgejahr übertragen und 100 Stunden ausgezahlt werden. Darüber hinausgehende Stunden verfallen.\"\n\nTranslation: Overtime and extra hours are to be compensated by free time of equal duration. If compensation is not possible for operational reasons, up to 100 hours can be carried over to the following year and 100 hours can be paid out. Hours beyond that expire.\n\n**Model Response**: \"In der Schweiz werden Überstu"
+  },
+  {
+    "question_id": 22,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"Wie viele Plusstunden oder Minusstunden darf ich im Jahr haben?\" (How many plus hours or minus hours can I have in a year?)\n\n**Ground Truth**: \"Mitarbeitende sollen während des Jahres einen maximalen Zeitsaldo von 50 Plusstunden oder 20 Minusstunden einhalten. Bei Abweichungen müssen Massnahmen mit der vorgesetzten Person vereinbart werden.\"\n\nThis is about ETH Zurich's specific policy on working hours (Plusstunden/Minusstunden). The ground truth gives specific numbers: 50 plus hours max, 20 minus hours max, and mentions that deviations require agreement with supervisor.\n\n**Model Response**: \"In der Schweiz gibt es keine gesetzliche Begrenzung für Plus- oder Minusstunden. Allerdings gibt es einige Richtlinien und Empfehlungen, die Arbeitgeber beachten sollten. Zum Beispiel"
+  },
+  {
+    "question_id": 23,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"Wie früh darf ich anfangen zu arbeiten oder wie spät darf ich bleiben?\" (How early can I start working or how late can I stay?)\n\n**Ground Truth**: \"Die Tagesarbeitszeit dauert von 6 bis 20 Uhr. Abweichungen können aufgrund betrieblicher Bedürfnisse vereinbart werden.\" (The daily working time lasts from 6 to 20 o'clock. Deviations can be agreed upon due to operational needs.)\n\n**Model Response**: The model gives a generic answer about Swiss labor law, mentioning:\n- No statutory regulation in Switzerland\n- Working hours are in employment contract\n- Daily work between 7-12 hours\n- Rest time of at least 11 hours\n- Overtime rules\n- Mentions shift work exceptions\n- Recommends checking contract or contacting employer/union\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:"
+  },
+  {
+    "question_id": 24,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich's remote work policy. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question and responses:\n\n**Question**: \"Wie sieht es aus mit remote work?\" (How does it look with remote work?)\n\n**Ground Truth**: \"Standortunabhängiges Arbeiten in der Schweiz ist grundsätzlich möglich, sofern die Aufgaben, Arbeitsumgebung und -organisation dies zulassen. Eine mündliche oder schriftliche Vereinbarung mit der vorgesetzten Person ist erforderlich.\"\n\nTranslation: \"Location-independent work in Switzerland is generally possible, provided that the tasks, work environment and organization allow it. An oral or written agreement with the supervisor is required.\"\n\n**Model Response**: The model gives a completely generic response about remote work in general, mentioning benefits like work-life balance, less commuting, higher pro"
+  },
+  {
+    "question_id": 25,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. The question is \"Gibt es Vorgaben zum Ferienbezug?\" (Are there guidelines for taking vacation?).\n\nThe ground truth states: \"Mindestens zwei Wochen Ferien müssen pro Jahr zusammenhängend bezogen werden.\" (At least two weeks of vacation must be taken consecutively per year.)\n\nThe model response talks about German vacation law (Bundesurlaubsgesetz) and mentions things like:\n- 20 work days minimum vacation\n- After 6 months, 24 work days\n- Vacation planning requirements\n- Vacation compensation\n- Vacation must be taken in one piece (with exceptions)\n- etc.\n\nThis is completely wrong for ETH Zurich. The model is giving generic German employment law information, not ETH-specific information. The ground truth is very specific: at least two weeks must be taken consecutively per year. This is an ETH Zurich policy, not German law.\n\nLet me check the criteria:\n\n1. FACTUAL CORRECTNESS (0-2 points):\n   - The gro"
+  },
+  {
+    "question_id": 26,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"Können Ferien ins Folgejahr übertragen werden?\" (Can vacation be carried over to the following year?)\n\n**Ground Truth**: \"Ja, maximal zwei Wochen (bei 100% Pensum) können ins Folgejahr übertragen werden. Der Ferienübertrag muss bis zum 31. März des Folgejahres bezogen werden.\" (Yes, a maximum of two weeks (at 100% workload) can be carried over to the following year. The vacation carryover must be taken by March 31 of the following year.)\n\n**Model Response**: \"Ja, in vielen Ländern können Ferien ins Folgejahr übertragen werden. Dies ist oft in Tarifverträgen oder Arbeitsverträgen geregelt. Es ist jedoch wichtig, die spezifischen Bestimmungen des jeweiligen Landes oder Unternehmens zu prüfen, da die Regelungen variieren können.\" (Yes, in many countries vacation can be car"
+  },
+  {
+    "question_id": 27,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. The question is in German: \"Können Ferien während des laufenden Arbeitsverhältnisses ausbezahlt werden?\" which translates to \"Can vacation days be paid out during an ongoing employment relationship?\"\n\nThe ground truth is: \"Nein, Ferien können während des laufenden Arbeitsverhältnisses nicht ausbezahlt werden.\" which means \"No, vacation days cannot be paid out during an ongoing employment relationship.\"\n\nThe model response says: \"Ja, Ferien können während des laufenden Arbeitsverhältnisses ausbezahlt werden...\" which is the opposite - it says yes, they can be paid out, and gives general Swiss employment law context.\n\nNow I need to evaluate this based on the strict criteria:\n\n1. FACTUAL CORRECTNESS (0-2 points):\n   - The ground truth is a simple factual statement: NO, vacation cannot be paid out during ongoing employment.\n   - The model response is factually incorrect - it says YES, which is wrong"
+  },
+  {
+    "question_id": 28,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. The question is about unpaid leave duration. The ground truth says: \"Unbezahlter Urlaub kann maximal ein Jahr dauern. Die Minimaldauer beträgt eine Woche.\" (Unpaid leave can last a maximum of one year. The minimum duration is one week.)\n\nThe model response talks about German law, mentions there's no legal regulation limiting unpaid leave in Germany, and says it doesn't count as working time. This is completely wrong for ETH Zurich context. The model is giving generic German employment law advice, not ETH-specific information.\n\nLet me analyze according to the criteria:\n\n1. FACTUAL CORRECTNESS (0-2 points):\n   - The ground truth is about ETH Zurich's policy (max 1 year, min 1 week)\n   - The model response is about German law and doesn't mention ETH at all\n   - This is factually incorrect for the ETH context\n   - Score: 0\n\n2. COMPLETENESS (0-2 points):\n   - The response doesn't answer the specific qu"
+  },
+  {
+    "question_id": 29,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. The question is \"Wie viel Pause wird pro Tag bezahlt?\" (How much break time is paid per day?).\n\nLet me analyze the ground truth and the model response:\n\n**Ground Truth**: \"Bei einer Arbeitszeit von 4 Stunden besteht Anspruch auf 15 Minuten bezahlte Pause.\"\nTranslation: \"For a working time of 4 hours, there is an entitlement to 15 minutes paid break.\"\n\n**Model Response**: The model talks about Swiss labor law in general:\n- No statutory requirement for breaks per day in Switzerland\n- Daily rest period of at least 11 hours when working more than 6 hours\n- Weekly rest period of at least 35 hours\n- Mentions that specifics vary by industry and employment contract\n- Suggests contacting employer or union\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth is about ETH Zurich's specific policy (paid break of 15 minutes for 4 hours of work)\n   - The model response is completely "
+  },
+  {
+    "question_id": 30,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response about lunch break duration at ETH Zurich. Let me analyze this carefully.\n\n**Question**: \"Wie lange muss die Mittagspause dauern?\" (How long must the lunch break be?)\n\n**Ground Truth**: \"Die Arbeit muss über Mittag für mindestens 30 Minuten unterbrochen werden. Diese Unterbrechung gilt nicht als Arbeitszeit.\" (Work must be interrupted over lunch for at least 30 minutes. This interruption does not count as working time.)\n\n**Model Response**: \"In der Schweiz beträgt die gesetzliche Mittagspause mindestens 30 Minuten. Es ist jedoch üblich, dass Arbeitnehmer eine längere Pause einlegen, oft zwischen 1 und 2 Stunden. Die genaue Dauer der Mittagspause kann je nach Arbeitsplatz, Branche und individuellen Vereinbarungen variieren.\"\n\n**Analysis**:\n\n1. **Factual Correctness**: The model mentions \"In der Schweiz beträgt die gesetzliche Mittagspause mindestens 30 Minuten\" which is correct regarding Swiss law. However, the ground truth is specific"
+  },
+  {
+    "question_id": 31,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"Ist bei Dienstreisen der Weg auch bezahlt?\" (Is the way also paid for business trips?)\n\n**Ground Truth**: \"Bei Dienstreisen im Inland gelten Reisezeiten zwischen Arbeits- und Zielort sowie der Einsatz am Zielort als Arbeitszeit.\" (For domestic business trips, travel times between workplace and destination as well as work at the destination count as working time.)\n\n**Model Response**: \"Ja, bei Dienstreisen wird in der Regel der Weg auch bezahlt. Dies ist Teil der Kosten, die durch die Dienstreise entstehen, und wird oft als Teil der Reisekostenabrechnung berücksichtigt. Die genauen Regelungen können jedoch je nach Unternehmen, Branche oder Land variieren. Es ist ratsam, die spezifischen Richtlinien des eigenen Arbeitgebers zu prüfen.\"\n\nNow I need to evaluate this based o"
+  },
+  {
+    "question_id": 32,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response about how \"Brückentage\" (bridge days) between Christmas and New Year are regulated at ETH Zurich.\n\nLet me analyze the question and the provided information:\n\n**Question**: \"Wie werden die Brückentage zwischen Weihnachten und Neujahr geregelt?\" (How are the bridge days between Christmas and New Year regulated?)\n\n**Ground Truth**: \"Die ETH Zürich ist an diesen Tagen geschlossen. Mitarbeitende können Ferientage verwenden oder die Tage kompensieren. Je nach betrieblichen Bedürfnissen kann eine Anwesenheit angeordnet werden.\"\n\nTranslation: \"ETH Zurich is closed on these days. Employees can use vacation days or compensate for the days. Depending on operational needs, attendance can be ordered.\"\n\n**Model Response**: \"Brückentage zwischen Weihnachten und Neujahr werden in der Regel durch die Kombination von Feiertagen und Wochenenden gebildet. In Deutschland gibt es beispielsweise den 26. Dezember, der als zweiter Weihnachtsfeiertag gilt, un"
+  },
+  {
+    "question_id": 33,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the question and responses:\n\n**Question**: \"Gilt ein Businesslunch mit ETH-externen Gästen als Arbeitszeit?\" (Does a business lunch with ETH-external guests count as working time?)\n\n**Ground Truth**: \"Ja, ein Businesslunch mit ETH-externen Gästen, an dem Anwesenheit angeordnet ist, gilt als Arbeitszeit. Die Mittagspause von 30 Minuten muss jedoch in der Zeiterfassung ausgewiesen werden.\"\n\nKey points in ground truth:\n1. Yes, it counts as working time\n2. Specifically when \"Anwesenheit angeordnet ist\" (attendance is ordered/required)\n3. The 30-minute lunch break must be indicated in time tracking\n\n**Model Response**: \"Ein Businesslunch mit ETH-externen Gästen kann als Arbeitszeit gelten, wenn er im Rahmen der beruflichen Tätigkeit stattfindet und der Zweck des Treffen"
+  },
+  {
+    "question_id": 34,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question**: \"Wie wird die Teilnahme an arbeitsrelevanten Veranstaltungen geregelt?\" (How is participation in work-related events regulated?)\n\n**Ground Truth**: \"Die Teilnahme an arbeitsrelevanten ETH-externen und -internen Veranstaltungen gilt als Arbeitszeit, solange der offizielle Teil dauert. Die Anrechnung wird mit der vorgesetzten Person abgesprochen.\"\n\n**Model Response**: \"Die Teilnahme an arbeitsrelevanten Veranstaltungen wird in der Regel durch den Arbeitgeber geregelt. Der Arbeitgeber kann die Teilnahme an solchen Veranstaltungen als Teil der Arbeitszeit ansehen und die Teilnahmebedingungen festlegen. In der Regel müssen die Mitarbeiter die Teilnahme an solchen Veranstaltungen beantragen und die Genehmigung des Arbeitgebers einholen. Es ist auch möglich, dass der Arbeitgeber die Teilnahme an solchen Veranstaltungen als Teil der Weiterbildung oder des Qualifika"
+  },
+  {
+    "question_id": 35,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response about maternity leave at ETH Zurich against a ground truth. I need to act as a Strict Auditor for ETH Zurich and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question and responses:\n\n**Question**: \"Wie lange dauert der Mutterschaftsurlaub an der ETH Zürich?\" (How long is maternity leave at ETH Zurich?)\n\n**Ground Truth**: \"Bei der Geburt eines Kindes hat die Mitarbeiterin Anspruch auf vier Monate Mutterschaftsurlaub, unabhängig von der Anstellungsdauer.\" (Upon the birth of a child, the employee is entitled to four months of maternity leave, regardless of length of employment.)\n\n**Model Response**: \"Der Mutterschaftsurlaub an der ETH Zürich beträgt in der Regel 14 Wochen. Dieser Zeitraum kann jedoch je nach den spezifischen Bestimmungen des Landes oder der Region variieren. Es ist ratsam, sich direkt an die Personalabteilung der ETH Zürich zu wenden, um die genauen Details "
+  },
+  {
+    "question_id": 36,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. The question is about when maternity leave can start. The ground truth says: \"Der Mutterschaftsurlaub kann frühestens einen Monat vor dem errechneten Geburtstermin beginnen.\"\n\nThe model response says: \"Der Mutterschaftsurlaub kann frühestens acht Wochen vor dem errechneten Geburtstermin beginnen. In der Regel beginnt der Mutterschaftsurlaub jedoch vier bis sechs Wochen vor dem Geburtstermin. Die genaue Dauer des Mutterschaftsurlaubs beträgt in der Regel 14 Wochen, wobei die ersten acht Wochen vor der Geburt und die letzten sechs Wochen nach der Geburt genommen werden können. Es ist jedoch wichtig zu beachten, dass die genauen Bestimmungen je nach Land und Region variieren können.\"\n\nLet me analyze this:\n\n1. **Factual Correctness**: The ground truth says \"einen Monat\" (one month) before the due date. The model says \"acht Wochen\" (eight weeks). One month is approximately 4 weeks, not 8 weeks. So th"
+  },
+  {
+    "question_id": 37,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response about maternity leave for adoption at ETH Zurich. I need to be a strict auditor checking for ETH-specific knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"Gibt es Mutterschaftsurlaub bei Adoption?\" (Is there maternity leave for adoption?)\n\n**Ground Truth**: \"Ja, Eltern, die ein Kind unter sechs Jahren adoptieren, erhalten zwei Monate Mutter- bzw. Vaterschaftsurlaub.\" (Yes, parents who adopt a child under six years old receive two months of maternity or paternity leave.)\n\n**Model Response**: \"Ja, in vielen Ländern gibt es Mutterschaftsurlaub auch bei Adoption. In Deutschland zum Beispiel haben adoptierende Eltern Anspruch auf Mutterschaftsurlaub, wenn das Kind unter einem Jahr alt ist. Die Dauer des Urlaubs beträgt in der Regel 12 Wochen, von denen 8 Wochen vor der Geburt und 4 Wochen nach der Geburt genommen werden können. Die genauen Regelungen können je nach Land und Region variieren.\"\n\nNow I need to evaluate "
+  },
+  {
+    "question_id": 38,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response about paternity leave at ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"Wie lange dauert der Vaterschaftsurlaub an der ETH Zürich?\" (How long is paternity leave at ETH Zurich?)\n\n**Ground Truth**: \"Bei der Geburt eines eigenen Kindes hat der Vater Anspruch auf 20 Tage bezahlten Vaterschaftsurlaub.\" (Upon the birth of their own child, the father is entitled to 20 days of paid paternity leave.)\n\n**Model Response**: \"Der Vaterschaftsurlaub an der ETH Zürich beträgt 10 Tage. Dieser Urlaub kann in zwei Zeiträume aufgeteilt werden, wobei jeder Zeitraum mindestens 2 Tage betragen muss. Der Vaterschaftsurlaub kann auch in Kombination mit dem Mutterschaftsurlaub genommen werden.\"\n\nThe model says 10 days, but the ground truth says 20 days. This is factually incorrect.\n\nNow I need to apply the criteria:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The "
+  },
+  {
+    "question_id": 39,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich's parental leave policy. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"Können Eltern den Mutterschaftsurlaub untereinander aufteilen?\" (Can parents split maternity leave among themselves?)\n\n**Ground Truth**: \"Ja, wenn beide Elternteile im ETH-Bereich beschäftigt sind, kann der viermonatige Mutterschaftsurlaub zwischen den Eltern aufgeteilt werden. Der Vater darf dabei maximal zwei Monate beziehen.\"\n\nKey ETH-specific details in Ground Truth:\n- Both parents must be employed in the ETH area\n- Four-month maternity leave\n- Can be split between parents\n- Father can take maximum two months\n\n**Model Response**: \"Ja, Eltern können den Mutterschaftsurlaub untereinander aufteilen. In Deutschland ist es beispielsweise möglich, dass der Vater einen Teil des Mutterschaftsurlaubs in Anspruch nimmt, während die Mutter den Rest nimmt."
+  },
+  {
+    "question_id": 40,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich's Zentrum campus dining areas for rent.\n\nLet me analyze the ground truth and the model response:\n\n**Ground Truth:**\n- Specific dining areas at Zentrum campus:\n  - bQm Bar in MM building (40 seated, 80 standing)\n  - Clausiusbar in CLA building (50 seated, 80 standing)\n  - food&lab in CAB building (70-80 seated, 150 standing)\n  - Polysnack in ETH main building (50 seated, 80 standing)\n- All are specific ETH locations with capacities and building names\n\n**Model Response:**\n- \"As of my knowledge cutoff in 2024, I don't have specific information...\" - This is a refusal/acknowledgment of lack of knowledge\n- Then suggests checking official website or contacting university - generic advice\n- Mentions \"Café am Campus\" or \"Café im Zentrum\" - these are generic names, not the specific ETH venues\n- Mentions \"Aula\", \"Hörsaal\", \"Kongressraum\" - these are generic German terms for event spaces, not specific ETH dining "
+  },
+  {
+    "question_id": 41,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich's Hönggerberg campus dining areas for larger events.\n\nLet me analyze the ground truth and model response:\n\n**Ground Truth:**\n- Mentions specific ETH Zurich venues at Hönggerberg campus:\n  - Alumni Lounge: capacity 80 seated, 100 standing (concerts, celebrations, lectures, dinners)\n  - Bellavista restaurant: capacity 130 seated, 200 standing (private/corporate events)\n  - Food market: capacity 300 seated, 600 standing (lectures, coffee breaks, dinners)\n\n**Model Response:**\n- Mentions \"Mensa\" (main dining hall) - generic term, not ETH-specific\n- Mentions \"smaller dining areas and cafes throughout the campus\" - very generic\n- Recommends \"check with the ETH Zurich's facilities management team\" - generic advice\n\n**Scoring:**\n\n1. **FACTUAL CORRECTNESS (0-2 points):**\n   - The ground truth does NOT mention any specific ETH portal/tool like ETHIS, ASVZ, Moodle, etc. It's about physical venues.\n   - The criteri"
+  },
+  {
+    "question_id": 42,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich institutional knowledge.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: What dining area at ETH Zurich is suitable for a medium-sized event with technical equipment?\n\n**Ground Truth**: The Octavo restaurant in the OCT building (Oerlikon) is perfect for small to medium-sized events, including presentations and dinners. It can accommodate up to 200 seated and 300 standing and offers technical equipment such as a beamer, microphones, and professional AV equipment.\n\n**Model Response**: Mentions \"ETH Café\" and \"ETH Library Café\" in the main building. It says they have power outlets and Wi-Fi, but for specialized equipment like projectors or sound systems, you may need to rent separately.\n\nNow I need to score based on the criteria:\n\n**1. FACTUAL CORRECTNESS (0-2 points)**:\n- The ground truth specifically mentions \"Octavo restaurant in the OCT building (Oerlikon)\"\n- The model r"
+  },
+  {
+    "question_id": 43,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich institutional knowledge.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: How do I rent the Dozentenfoyer at ETH Zurich for my event?\n\n**Ground Truth**: To rent the Dozentenfoyer, contact the ETH Zurich Campus Services via this request form: https://ethz.ch/staffnet/en/service/events/dozentenfoyer/abendveranstaltungen.html\n\n**Model Response**: The model provides a generic 6-step process:\n1. Check availability (mentions \"ETH Zurich's website\" and \"online booking system\")\n2. Contact facilities management team (generic contact methods)\n3. Submit rental request (generic info)\n4. Sign rental agreement (generic)\n5. Prepare for event (generic)\n6. Check-in/check-out (generic)\n\nThe model does NOT mention:\n- \"Campus Services\" specifically\n- The exact URL from ground truth\n- The specific request form\n- Any ETH-specific portal name\n\n**CRITERIA ANALYSIS**:\n\n1. **FACTUAL CORRECTNESS (0-"
+  },
+  {
+    "question_id": 44,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth answer about what to do if you forget or lose your ETH card.\n\nLet me break down the task:\n\n**Question**: What should I do if I forget or lose my ETH card?\n\n**Ground Truth**: \n- Apply for a new one at the relevant issuing office (https://ethz.ch/services/en/service/eth-card/ausgabestellen.html)\n- Replacement card costs 25 Swiss francs\n- Once you receive the new card, the old one will no longer be valid and should be destroyed if found\n\n**Model Response**:\n- Check your wallet\n- Check your home\n- Contact your bank or the institution that issued your ETH card\n- Report the loss\n- Get a replacement\n- Keep card info safe\n\n**Criteria**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Partially correct but misses specific ETH tool/portal name, or mentions ETH bu"
+  },
+  {
+    "question_id": 45,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"What if I forget my ETH card PIN?\"\n\n**Ground Truth**: \"If you forget your PIN, you can set a new one or change your existing PIN using this link: adressen.ethz.ch. You do not need to know your old PIN to reset it.\"\n\n**Model Response**: The model talks about \"ETH (Ethereum) card PIN\" and gives generic banking advice about contacting card issuers, using ATMs, online banking, etc. This is completely wrong - it's confusing ETH (Ethereum cryptocurrency) with ETH Zurich's ID card.\n\nKey issues:\n1. The model misinterprets \"ETH\" as Ethereum, not ETH Zurich\n2. It doesn't mention the specific ETH Zurich portal: adressen.ethz.ch\n3. It gives generic banking advice instead of ETH-specific information\n4. It doesn't mention that you don't need the old PIN to reset it\n"
+  },
+  {
+    "question_id": 46,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against ground truth.\n\nLet me break down the task:\n\n**Question**: \"Wie viel kostet ein ASVZ Abo als Alumni und als Mitarbeiter der ETH?\" (How much does an ASVZ subscription cost as Alumni and as an ETH employee?)\n\n**Ground Truth**: \n- ETH employees (and other Zurich universities): CHF 300 per year\n- Alumni: CHF 700 per year\n- Prices valid since 2023 increase\n\n**Model Response**:\n- Claims Alumni-Abo costs CHF 100 per year\n- Claims Mitarbeiter-Abo costs CHF 150 per year\n- Mentions \"ETH-Bibliothek (ASVZ)\" - this is incorrect, ASVZ is the Academic Sports Association, not the library\n- Provides generic advice about checking website or contacting library\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The model mentions \"ASVZ\" but incorrectly associates it with \"ETH-Bibliothek\". ASVZ is the Academic Sports Association Zurich (Akademischer Sportverein Zürich), not the library.\n   - The pr"
+  },
+  {
+    "question_id": 47,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response about transferring data to/from the Euler cluster at ETH Zurich. I need to act as a Strict Auditor for ETH Zurich and check if the model has actual institutional knowledge or is giving generic advice.\n\nLet me analyze the ground truth and the model response:\n\n**Ground Truth:**\n- Use rsync or scp for command-line transfers with specific examples:\n  - `rsync -av localdir/ username@euler.ethz.ch:remotedir/`\n  - `scp file.txt username@euler.ethz.ch:~/`\n- Mentions \"For large transfers, consider using the data transfer nodes.\"\n\n**Model Response:**\nThe model provides:\n1. rsync command: `rsync -avzP /path/to/local/files/ user@euler.cluster:/path/to/remote/directory/`\n2. scp command: `scp -r /path/to/local/files/ user@euler.cluster:/path/to/remote/directory/`\n3. Globus: with commands that seem incorrect/invented\n4. FTP: with `ftp -n -i user@euler.cluster`\n5. WebDAV: incomplete command `curl -T /path`\n\nLet me evaluate based on the criteria:\n\n**"
+  },
+  {
+    "question_id": 48,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth about why to avoid using Conda on the Euler cluster at ETH Zurich.\n\nLet me analyze the ground truth and the model response:\n\n**Ground Truth:**\n- Conda installations create many small files, which can exceed the 100,000 file/directory quota in your home directory\n- Conda environments on network-attached storage (like Euler's home or work filesystems) suffer from high latency\n- This slows down computations and negatively impacts other users\n\n**Model Response:**\n- Mentions \"Resource constraints\" (disk space and memory) - but this is generic, not specific to the file quota issue\n- Mentions \"Dependency conflicts\" - generic, not ETH-specific\n- Mentions \"Versioning issues\" - generic, not ETH-specific\n- Mentions \"Security risks\" - generic, not ETH-specific\n- Suggests alternatives: Miniconda, Anaconda, \"package managers provided by the cluster\" (mentions `module` and `conda-forge`)\n\n**Key issues:**\n1. The model completely m"
+  },
+  {
+    "question_id": 49,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against ground truth.\n\n**Question**: What are the recommended alternatives to Conda on the Euler cluster?\n\n**Ground Truth**: ETH Zurich recommends using centrally provided Python installations and virtual environments (venv) that leverage these installations. If you need packages not available centrally, create a virtual environment that can access the centrally installed packages.\n\n**Model Response**: Mentions Mamba, Miniconda, Spack, Modules, and Environment files. It also mentions using `conda install` and `conda env create` commands.\n\n**Criteria for Scoring**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Response mentions the specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Response is partially correct but misses the specific ETH tool/portal name, or mentions ETH but not the specific system\n   - 0: Response provides general "
+  },
+  {
+    "question_id": 50,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question**: \"Auf was für Zeitungen haben ETH Mitarbeiter gratis Zugang über die Bibliothek?\" (What newspapers do ETH employees have free access to via the library?)\n\n**Ground Truth**: \"ETH-Mitarbeitende haben über die ETH-Bibliothek kostenlosen Online-Zugang zu vielen Zeitungen, darunter NZZ, Le Temps, The Guardian, The New York Times, Financial Times, FAZ und weiteren internationalen und Schweizer Titeln. Der Zugang erfolgt über das ETH-Netzwerk oder per VPN. Die aktuelle Auswahl findest du im ETH Library Katalog.\"\n\n**Model Response**: \"ETH-Mitarbeiter haben über die Bibliothek Zugang zu einer Vielzahl von Zeitungen, darunter auch internationale und wissenschaftliche Publikationen. Die genauen Titel und die Verfügbarkeit können je nach Standort und Zeitpunkt variieren. Es ist ratsam, die Website der ETH-Bibliothek oder die Bibliothek vor Ort zu konsultieren, um die ak"
+  },
+  {
+    "question_id": 51,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"Darf ich Bilder aus E-Pics für meine Publikation oder Präsentation verwenden?\" (Can I use images from E-Pics for my publication or presentation?)\n\n**Ground Truth**: \n- Yes, images from E-Pics can be used under certain conditions for publications, presentations, or other non-commercial purposes\n- However, the respective usage conditions and licenses of the individual images apply\n- These are indicated in the image metadata\n- In case of uncertainty or for commercial use, you should contact the ETH Library\n\n**Model Response**:\n- Talks about usage depending on terms, copyrights, licenses\n- Mentions \"E-Pics\" multiple times\n- Mentions \"kostenlose Bilder\" (free images) with Creative Commons licenses\n- Mentio"
+  },
+  {
+    "question_id": 52,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich's E-Pics citation guidelines. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the ground truth and model response:\n\n**Ground Truth:**\n- Specifically about E-Pics (ETH Zurich's image database)\n- Requires complete image citation including: Title, Author/Photographer, Collection, Signature, E-Pics URL, Copyright\n- Example format: \"Titel, Fotograf:in, Sammlung, Signatur, © ETH-Bibliothek, URL\"\n\n**Model Response:**\n- Mentions E-Pics is an online database for research and teaching\n- Provides generic steps: check specific guidelines, identify necessary info, choose citation format (APA, MLA, Chicago), verify correctness, consider rights, consult expert\n- Gives generic APA and MLA examples that don't match ETH's specific format\n- The examples are: \"E-Pics. (Jahr). Titel des Bildes. Abgerufen von https://www.e-pics.org/bild-url\" and \"E-Pics. \"Titel des Bildes.\" E-Pics, "
+  },
+  {
+    "question_id": 53,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. Let me carefully analyze this.\n\n**Question**: \"List all prime numbers from 1 to 1000.\"\n\n**Ground Truth**: \"This is not a question specific to the ETH Zürich Staff. Please use other means to obtain an answer.\"\n\n**Model Response**: \"I'm sorry, but as an AI, I cannot generate a list of prime numbers from 1 to 1000. However, you can easily find this information using a variety of online tools or by writing a simple script to generate the list. If you need help with writing such a script, I can certainly assist with that.\"\n\n**Criteria Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth explicitly states this is NOT a question specific to ETH Zurich staff and to use other means.\n   - The model response correctly identifies it cannot generate the list and suggests alternative methods (online tools, scripts).\n   - Since the ground truth says it's NOT ETH-specific, the model shoul"
+  },
+  {
+    "question_id": 54,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. The question is \"what is the meaning of life?\" and the ground truth states: \"This is not a question specific to the ETH Zürich Staff. Please use other means to obtain an answer.\"\n\nThe model response is a generic philosophical answer about the meaning of life, discussing personal fulfillment, purpose, connection, contribution, and spirituality.\n\nI need to evaluate this based on the strict criteria provided:\n\n1. FACTUAL CORRECTNESS (0-2 points):\n   - 2: Response mentions specific ETH portal/tool from Ground Truth\n   - 1: Response is partially correct but misses specific ETH tool/portal name, or mentions ETH but not the specific system\n   - 0: Response provides general advice when Ground Truth specifies an internal ETH tool, OR response is factually incorrect\n\n2. COMPLETENESS (0-2 points):\n   - 2: Response addresses all parts of the question with specific ETH details\n   - 1: Response addresses main"
+  },
+  {
+    "question_id": 55,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich-specific knowledge.\n\nLet me break down the task:\n\n**Question**: \"what ETH events are on tomorrow?\"\n\n**Ground Truth**: \"For ETH events view: https://ethz.ch/en/news-and-events/events.html\"\n\n**Model Response**: \"I'm sorry, but as an AI, I don't have real-time capabilities to provide current or future events. I recommend checking the official ETH website or social media channels for the most accurate and up-to-date information on ETH events.\"\n\nNow I need to score this based on the criteria:\n\n**1. FACTUAL CORRECTNESS (0-2 points)**:\n- 2: Mentions specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n- 1: Partially correct but misses specific ETH tool/portal name, or mentions ETH but not the specific system\n- 0: Provides general advice when Ground Truth specifies an internal ETH tool, OR is factually incorrect\n\nThe Ground Truth specifically mentions: \"htt"
+  },
+  {
+    "question_id": 56,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich's family allowance.\n\nLet me analyze the ground truth and model response:\n\n**Ground Truth:**\n- ETH's family allowance provides monthly financial support for employees with children\n- Consists of: child allowance (until age 16 or start of post-compulsory education) and education allowance (up to age 25 while in training)\n- Eligibility: earning at least CHF 7,560/year in AHV-liable income\n- Only one parent can claim per child following a priority order\n- ETH pays statutory Swiss allowance and may add a top-up if other parent's employer already pays\n- Employees must apply through **ETHIS**\n- Must report any changes affecting eligibility\n\n**Model Response:**\n- \"The ETH family allowance is a financial support system in Switzerland that aims to help families with children.\"\n- \"The allowance is based on the number of children in the family and is paid monthly.\"\n- \"The amount of the allowance varies depending o"
+  },
+  {
+    "question_id": 57,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question:** \"if I have another child does the family allowance change?\"\n\n**Ground Truth:** \"Yes, the family allowance increases with each additional child because the allowance is paid per child, not per family. If you have another child, you receive an additional child allowance (and later, an education allowance) for that child, following the same rules and rates. There's no cap on the number of children; each eligible child triggers its own allowance.\"\n\n**Model Response:** \"The family allowance in Switzerland is a monthly payment made to families with children. The amount of the family allowance depends on the number of children in the family and the canton where the family resides.\n\nIf you have another chi"
+  },
+  {
+    "question_id": 58,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against ground truth.\n\nLet me break down the task:\n\n**Question**: does the family allowance count for adopted children?\n\n**Ground Truth**: Yes - the allowance at ETH Zurich can be claimed for adopted children.\n\n**Model Response**: \"Yes, the family allowance typically counts for adopted children. The family allowance is a form of social security benefit that is usually paid to families with children. Adopted children are considered part of the family unit and are therefore eligible for the family allowance. However, the specific rules and eligibility criteria may vary depending on the country and the specific social security system in place. It is always a good idea to check with the relevant authorities or social security office to confirm the eligibility and any specific requirements for adopted children.\"\n\n**Criteria**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH po"
+  },
+  {
+    "question_id": 59,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth about ETH Zurich's family allowance policy.\n\nLet me break down the task:\n\n**Question**: if two people work for ETH, do both claim the family allowance?\n\n**Ground Truth**: If both parents work at ETH Zurich, only one parent can claim the family allowance for each child. The entitled person is determined by a priority order - for example, the parent who is gainfully employed or earns the higher AHV-income will generally claim.\n\n**Model Response**: The model says:\n- In Switzerland, family allowances are typically paid to the main breadwinner\n- If both parents work for ETH and one is main breadwinner, only that parent claims\n- If no clear main breadwinner, situation is complex - either could claim or they need to agree\n- Family allowances are paid by employer, so they'd claim through respective employers\n- Suggests consulting HR department or local social security office\n\n**Criteria for Scoring**:\n\n1. **FACTUAL CORRECT"
+  },
+  {
+    "question_id": 60,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich's policy on extended breaks.\n\nLet me analyze the ground truth and model response:\n\n**Ground Truth:**\n- At ETH Zurich employees may take unpaid leave for up to one year (subject to operational and organisational approval) once holiday, long-service and working-time balances have been reduced.\n- Additionally, there is a company-sponsored sabbatical option for staff with at least seven years of service, lasting between two and six months and aimed at professional development.\n\n**Model Response:**\nThe model provides completely generic advice about extended breaks:\n- \"The policy on taking an extended break from work can vary greatly depending on the company, industry, and country.\"\n- Mentions general concepts like vacation, sick leave, sabbaticals, career breaks\n- Advises checking company policies, discussing with supervisor/HR\n- No mention of ETH Zurich specifically\n- No mention of unpaid leave for up to o"
+  },
+  {
+    "question_id": 61,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor.\n\nLet me analyze the question and responses:\n\n**Question**: \"do I get paid leave for moving apartment?\"\n\n**Ground Truth**: \"Yes, ETH employees get 1 day per calendar year to move property.\"\n\n**Model Response**: The model gives a very generic answer about Swiss labor laws, mentions that Swiss law doesn't explicitly provide for paid leave for moving, suggests checking employment contract, collective bargaining agreements, employer policies, and contacting HR or labor union. It does NOT mention ETH specifically, nor does it mention the specific policy of 1 day per calendar year.\n\nNow I need to score based on the criteria:\n\n**1. FACTUAL CORRECTNESS (0-2 points)**:\n- The ground truth is very specific: \"ETH employees get 1 day per calendar year to move property.\"\n- The model response is completely generic. It doesn't mention ETH at all. It talks about Switzerland in general"
+  },
+  {
+    "question_id": 62,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor.\n\n**Question**: \"how many days per year do I get paid for moving house?\"\n\n**Ground Truth**: \"As an employee, 1 day per calendar year.\"\n\n**Model Response**: The model gives a very generic answer about employment contracts, local labor laws, and suggests checking with HR or a labor law expert. It doesn't mention ETH Zurich at all, nor does it mention any specific ETH portal or tool.\n\n**Criteria**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Mentions ETH but not the specific system\n   - 0: Provides general advice when Ground Truth specifies an internal ETH tool, OR is factually incorrect\n\n   The Ground Truth is \"As an employee, 1 day per calendar year.\" This is a specific ETH policy. The model response is completely generic and doesn't mention ETH, any ETH portal, "
+  },
+  {
+    "question_id": 63,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. The question is about paid leave for marriage. The ground truth says: \"Employees are entitled to receive 6 days paid leave for marriage.\"\n\nThe model response is: \"In Switzerland, the amount of paid leave you are entitled to after getting married depends on your employer and the specific employment contract you have. However, as a general rule, most employers offer a few days of paid leave for weddings and honeymoons.\n\nAccording to the Swiss Federal Act on Work, the standard amount of paid leave for weddings and honeymoons is typically 3-5 days. However, this can vary depending on the company's policies and the length of the honeymoon.\n\nIt's always a good idea to check your employment contract or speak with your HR department to confirm the exact amount of paid leave you are entitled to after getting married.\"\n\nLet me analyze this against the criteria:\n\n1. FACTUAL CORRECTNESS (0-2 points):\n   - T"
+  },
+  {
+    "question_id": 64,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich institutional knowledge. Let me analyze this carefully.\n\n**Question**: \"I have a family wedding coming up, do I take it as leave/vacation?\"\n\n**Ground Truth**: \"As an employee, you are entitled to 1 day paid leave for family weddings, it is not required to take it as vacation\"\n\n**Model Response**: The model gives generic advice about checking company policy, job responsibilities, financial considerations, and personal preference. It doesn't mention any ETH-specific tool or policy.\n\n**Criteria for Scoring:**\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Mentions ETH but not specific system\n   - 0: Provides general advice when Ground Truth specifies internal ETH tool, OR is factually incorrect\n\n   The Ground Truth mentions a specific ETH policy (1 day paid leave for family weddings). The model res"
+  },
+  {
+    "question_id": 65,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question**: \"what are the official ETH holidays?\"\n\n**Ground Truth**: \"ETH Zurich is closed for normal bank holidays e.g Easter and between Christmas and New Year. As the exact dates can change each year review the calendar: https://ethz.ch/staffnet/en/employment-and-work/employment/working-hours.html\"\n\n**Model Response**: The model provides a list of Swiss holidays (New Year's Day, Epiphany, Good Friday, Easter Monday, Labour Day, Ascension Day, Whit Monday, Swiss National Day, All Saints' Day, Christmas Eve, Christmas Day, St. Stephen's Day) and mentions that dates vary and some are regional. It also mentions \"Ethnic Swiss people\" which is odd and not relevant.\n\n**Criteria**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Partially correct but mis"
+  },
+  {
+    "question_id": 66,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"what are the term start dates?\"\n\n**Ground Truth**: \"At ETH Zurich the Autumn Semester begins in calendar week 38 (which corresponds to mid-September) and ends in week 51 (just before Christmas). The Spring Semester starts in calendar week 8 (mid-February) and runs through week 22 (end of May). Generally, autumn starts around mid-September, Spring starts around mid-February.\"\n\n**Model Response**: \"The term \"start date\" refers to the initial date or time when something begins, such as a project, a job, a course, or any other activity. It is the point from which the duration or timeline of the activity is measured. For example, if you start a job on January 15, 2025, then January 15, 2025, is your start date.\"\n\nNow I need to evaluate based on the criteria:\n\n1. **FACTUAL CORRECTNESS (0-2 poin"
+  },
+  {
+    "question_id": 67,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question:** \"do I have to record my working hours? if so where?\"\n\n**Ground Truth:** \"Yes - at ETH Zürich you may need to record your working hours if your personnel category requires it. You do this in the system ETHIS under My data > Time recording > Time sheet attendances and absences.\"\n\n**Model Response:** The model gives a very generic answer about working hour recording in \"many countries\", mentions general guidelines like \"time sheets\", \"digital time tracking systems\", \"payroll records\", and suggests consulting employer/HR, checking with local labor authority, or researching online. It does NOT mention ETH Zurich specifically, does NOT mention ETHIS, and does NOT mention the specific path \"My data > Time recor"
+  },
+  {
+    "question_id": 68,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich.\n\n**Question**: \"how do I book time off work?\"\n\n**Ground Truth**: \"At ETH Zürich you book time off in the time-recording system ETHIS by going to My data > Time recording > Time sheet attendances and absences, and under “Absences” you select the appropriate absence type (holiday, paid leave, etc).\"\n\n**Model Response**: The model gave generic advice about checking company policy, notifying supervisor, using forms, providing details, following up, and being prepared for approval/denial. It does NOT mention ETHIS, ETH Zurich, or any specific ETH system.\n\n**CRITERIA FOR SCORING**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Partially correct but misses specific ETH tool/portal name, or mentions ETH but not the specific system\n   - 0: Provides general advice when Ground Truth specifies internal ETH tool, OR"
+  },
+  {
+    "question_id": 69,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"what is the Apertus model?\"\n\n**Ground Truth**: \"This is not a question specific to the ETH Zürich Staff. Please use other means to obtain an answer.\"\n\n**Model Response**: The model describes \"Apertus model\" as an AI model developed by SwissAI initiative, a general-purpose AI model for NLP, computer vision, etc., based on large pre-trained language model, modular and flexible.\n\nNow I need to evaluate this based on the criteria:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth explicitly states this is NOT a question specific to ETH Zurich Staff.\n   - The model response completely ignores this and provides a detailed (but likely hallucinated) description of some \"Apertus model\" that has nothing to do with ETH Zurich.\n   - The response does NOT mention any ETH portal/tool (l"
+  },
+  {
+    "question_id": 70,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. The question is \"what is the contact number for main campus?\" and the ground truth is \"+41 44 632 11 11\". The model response is a refusal: \"I'm sorry, but as an AI, I don't have access to specific contact numbers for institutions or their campuses. I recommend checking the official website of the institution or contacting their customer service for the most accurate and up-to-date information.\"\n\nLet me analyze this according to the criteria:\n\n1. FACTUAL CORRECTNESS (0-2 points):\n   - The ground truth is a specific phone number: +41 44 632 11 11\n   - The model response does not mention this number at all\n   - It doesn't mention any ETH-specific portal/tool\n   - According to the criteria: \"0: Response provides general advice (like 'use Excel', 'check calendar', 'contact admin') when Ground Truth specifies an internal ETH tool, OR response is factually incorrect\"\n   - The ground truth here is a phone"
+  },
+  {
+    "question_id": 71,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response about the location of ETH Zurich's main building. Let me analyze this carefully.\n\n**Question**: \"where is ETH main building?\"\n\n**Ground Truth**: \"The main building is at address: Rämistrasse 101, 8092 Zurich, Switzerland\"\n\n**Model Response**: \"The ETH Main Building, also known as the ETH Zurich Main Building, is located in the heart of the city of Zurich, Switzerland. It is situated at the ETH Zurich campus, which is accessible by public transportation or on foot. The exact address is ETH Zürich, Rämistrasse 101, 8092 Zürich, Switzerland.\"\n\nNow I need to apply the strict ETH-specific criteria:\n\n**1. FACTUAL CORRECTNESS (0-2 points):**\n- The criteria mention specific ETH portal/tool names like ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet.\n- However, this question is about a physical location (the main building), not a digital tool or portal.\n- The Ground Truth provides a specific address: Rämistrasse 101, 8092 Zurich, Switzerla"
+  },
+  {
+    "question_id": 72,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response about the location of the ETH AI Center against a ground truth.\n\nLet me analyze the question and responses:\n\n**Question**: \"where is the ETH AI Center?\"\n\n**Ground Truth**: \"The ETH AI Center is at: Andreasstrasse 5, 8092 Zürich\"\n\n**Model Response**: \"The ETH AI Center is located in Zurich, Switzerland. It is part of the Swiss Federal Institute of Technology (ETH Zurich), which is one of the leading universities in the world for research and education in the field of artificial intelligence.\"\n\nNow I need to apply the strict ETH-specific criteria:\n\n**1. FACTUAL CORRECTNESS (0-2 points):**\n- The ground truth provides a specific street address: Andreasstrasse 5, 8092 Zürich\n- The model response only says \"Zurich, Switzerland\" - it doesn't mention the specific street address\n- According to the criteria:\n  - 2: Response mentions the specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n  - 1: Re"
+  },
+  {
+    "question_id": 73,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth for ETH Zurich.\n\n**Question**: \"where can I find a map of the ETH Hönggerberg campus?\"\n\n**Ground Truth**: \"The following link shows a map of the ETH Hönggerberg campus: https://ethz.ch/de/campus/erreichen/hoenggerberg.html\"\n\n**Model Response**: The model provides general advice:\n1. Visit the ETH Website and search\n2. Use Google Maps\n3. Contact the ETH\n4. Visit the Campus in Person\n\nThe model does NOT provide the specific URL from the ground truth. It gives generic advice about how to find a map.\n\n**CRITERIA FOR SCORING:**\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Response mentions the specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Response is partially correct but misses the specific ETH tool/portal name, or mentions ETH but not the specific system\n   - 0: Response provides general advice (like 'use Excel', 'check calendar', 'contact admin') wh"
+  },
+  {
+    "question_id": 74,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth for ETH Zurich.\n\n**Question**: \"what is the best way to get from ETH main campus to ETH Honggerberg?\"\n\n**Ground Truth**: \"The best way to get from the ETH Zürich Main Campus (Zentrum) to the ETH Hönggerberg Campus is by taking the free shuttle bus called ETH eLink, which runs several times every hour on weekdays, with a frequency of about every 20 minutes.\"\n\n**Model Response**: The model provides several options:\n1. Public Transportation (Tram line 10, Bus line 100)\n2. Private Transportation (Taxi, Car Sharing/Ride-hailing)\n3. Walking or Cycling\n\nThe model says \"The best way... depends on your personal preferences, time constraints, and budget.\"\n\n**Analysis**:\n\n**FACTUAL CORRECTNESS (0-2 points)**:\n- The ground truth specifically mentions the \"ETH eLink\" shuttle bus, which is a free, ETH-specific service.\n- The model response does NOT mention the ETH eLink at all. It mentions generic public transportation options ("
+  },
+  {
+    "question_id": 75,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. The question is \"who is president of the university?\" and the ground truth is \"Joël Mesot is the current President of ETH Zurich, a position he has held since January 1, 2019\".\n\nThe model response is: \"As an AI, I don't have real-time access to specific institutions' information. However, I can guide you on how to find this information. \n\n1. Visit the official website of the university.\n2. Look for the \"About Us\" or \"Leadership\" section.\n3. There, you should find the name of the president or the head of the university.\n\nIf you provide me with the name of the university, I can try to find this information for you.\"\n\nLet me analyze this according to the criteria:\n\n1. FACTUAL CORRECTNESS (0-2 points):\n   - The ground truth is about Joël Mesot being President of ETH Zurich since January 1, 2019.\n   - The model response doesn't mention Joël Mesot at all.\n   - The model response doesn't mention any sp"
+  },
+  {
+    "question_id": 76,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: How often should I have a performance evaluation with my supervisor?\n\n**Ground Truth**: \"You should have a formal performance evaluation interview at least once a year where your objectives, performance, and development needs are discussed.\"\n\n**Model Response**: The model gives general guidelines about performance evaluations:\n- Annual Performance Review (general)\n- Mid-Year Review (general)\n- Regular Check-Ins (general)\n- Then says \"It's important to discuss the frequency... with your supervisor\"\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth says \"at least once a year\" for a formal performance evaluation.\n   - The model mentions \"Annual Performance Review\" and \"Most organizations conduct an annual performance review.\""
+  },
+  {
+    "question_id": 77,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: What topics are typically covered during the annual performance evaluation interview?\n\n**Ground Truth**: The interview covers your objectives, work conditions, development needs, performance assessment, and an opportunity to give feedback to your supervisor.\n\n**Model Response**: The model provides a very generic list of 10 topics that could apply to any organization:\n1. Performance Review\n2. Goals and Objectives\n3. Professional Development\n4. Compensation and Benefits\n5. Feedback and Recognition\n6. Challenges and Issues\n7. Future Plans and Expectations\n8. Performance Improvement Plan (PIP)\n9. Termination or Layoff\n10. Open Discussion\n\nThe model then says \"These topics can vary depending on the orga"
+  },
+  {
+    "question_id": 78,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me break down the task:\n\n**Question**: Who is responsible for defining the details of employment regulations at my ETH institution?\n\n**Ground Truth**: Each ETH institution and research institute defines the detailed employment rules for its staff and communicates them appropriately.\n\n**Model Response**: The details of employment regulations at your ETH institution are typically defined by the institution's human resources department, in collaboration with the relevant Swiss and cantonal authorities. These regulations are often based on Swiss labor law, which is overseen by the Federal Office of Social Security (Bundesamt für Sozialversicherungen) and the cantonal labor offices. Additionally, the Swiss Federal Office of Education, Research and Innovation (Bundesamt für Bi"
+  },
+  {
+    "question_id": 79,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich-specific knowledge. Let me analyze this carefully.\n\n**Question**: What are the normal probation periods for different types of roles?\n\n**Ground Truth**: \"Most roles have a three month probation period, while scientific or specialised roles may have up to six months, and internal transfers may have reduced or waived probation periods.\"\n\n**Model Response**: The model provides generic probation periods for various role types (Entry-Level, Professional, Managerial, Executive, Specialized) with ranges like 3-6 months, 6-12 months, 12-24 months, etc. It explicitly states these are \"general guidelines\" and \"may vary depending on the specific company, industry, and job requirements.\"\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth is about ETH Zurich's specific probation periods: 3 months for most roles, up to 6 months for scientific/specialized roles, and reduced/waived for "
+  },
+  {
+    "question_id": 80,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: Under what circumstances can a job be filled without a public advertisement?\n\n**Ground Truth**: Jobs may be filled internally without public advertisement for short fixed term roles, internal promotions, job rotations, or integration and reintegration measures.\n\n**Model Response**: The model provides a long list of 10 generic circumstances:\n1. Internal Promotion (this matches ground truth)\n2. Employee Referral (generic)\n3. Executive Search (generic)\n4. Networking (generic)\n5. Temporary or Contract Positions (somewhat related to \"short fixed term roles\" but generic)\n6. Government or Public Sector (generic)\n7. Small Businesses (generic)\n8. Non-Profit Organizations (generic)\n9. Family Businesses (gene"
+  },
+  {
+    "question_id": 81,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me break down the task:\n\n**Question**: How is my function assigned to a functional grade in the ETH Domain job grid?\n\n**Ground Truth**: \"Your function is assigned to a grade based on qualifications, responsibilities, complexity, and skill requirements defined in the Function Grid.\"\n\n**Model Response**: The model talks about the ETH Domain job grid, mentions it's based on the Swiss Qualification Framework (SQF), and provides a generic 4-step process. It gives an example of \"Software Engineer\" with \"Functional Grade: 6\" and some qualifications.\n\n**Criteria for Scoring**:\n\n1. **Factual Correctness (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Partially correct but misses specific ETH tool/portal name, or mentions ETH but not the speci"
+  },
+  {
+    "question_id": 82,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question**: What should I do if I disagree with my allocated functional grade?\n\n**Ground Truth**: You can request a review by the Parity Review Commission, which handles disputes about functional grade assignments.\n\n**Model Response**: The model provides a generic 6-step process:\n1. Review the criteria\n2. Gather evidence\n3. Submit a request to supervisor or HR department\n4. Prepare for a review\n5. Be open to feedback\n6. Consider an appeal\n\n**Criteria for Scoring**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Partially correct but misses specific ETH tool/portal name, or mentions ETH but not the specific system\n   - 0: Provides general advice when Ground Truth specifies an internal ETH tool, OR is factually incorrect\n\n2. **COMPLETENESS (0-2 points)**:\n   - 2: Addr"
+  },
+  {
+    "question_id": 83,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me break down the task:\n\n**Question**: How is my starting salary determined within my functional grade?\n\n**Ground Truth**: Your starting salary is set within your grade's salary band based on experience, skills, and market conditions.\n\n**Model Response**: The model gives a very generic answer about starting salaries being determined by job requirements, location, experience, education, etc. It mentions \"minimum salary range for that grade, which is set by the employer or the relevant regulatory body\" but doesn't mention any ETH-specific system or portal.\n\n**Criteria for Scoring**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Mentions ETH but not the specific system\n"
+  },
+  {
+    "question_id": 84,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: How does salary progression work when taking into account performance and experience?\n\n**Ground Truth**: \"Each year your salary may increase toward the target level for your grade based on performance and experience, depending on available resources.\"\n\n**Model Response**: The model gives a very generic, multi-point explanation about salary progression that could apply to any company. It mentions:\n- Initial salary\n- Performance-based increases\n- Experience-based increases\n- Merit-based increases\n- Market adjustments\n- Automatic increases\n- Salary ranges\n- Salary negotiation\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS**: The ground truth is very specific to ETH Zurich's system. It mentions:\n   - \"target "
+  },
+  {
+    "question_id": 85,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"What happens if my performance is rated below expectations?\"\n\n**Ground Truth**: \"If you do not meet expectations, your supervisor must take measures such as offering support, adjusting tasks, or reviewing your position or employment status.\"\n\n**Model Response**: The model provides a very generic response covering professional, academic, and personal contexts. It mentions things like:\n- Performance Improvement Plan (PIP)\n- Reduction in responsibilities\n- Training or coaching\n- Salary adjustment\n- Termination\n- Academic probation\n- Lower grades\n- etc.\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS**: The ground truth is about ETH Zurich's specific policy (likely from Staffnet or HR guidelines). The model "
+  },
+  {
+    "question_id": 86,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\nLet me break down the task:\n\n**Question**: How long must I have worked at an ETH institution before becoming eligible for early retirement due to restructuring?\n\n**Ground Truth**: You must be at least 60 years old and have worked continuously for at least ten years to qualify for early retirement during restructuring.\n\n**Model Response**: The model gives a generic answer about early retirement in Switzerland, mentions \"58 or 60 years old\" for age, and \"certain number of years\" for service length. It doesn't mention the specific 10-year requirement or the exact age requirement from the ground truth. It also doesn't mention any specific ETH portal or tool.\n\n**Criteria for Scoring**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Mentions specific ETH portal/tool (ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffnet)\n   - 1: Partially correct but misses specific ETH tool/"
+  },
+  {
+    "question_id": 87,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"What protections do I have if I become unable to work due to illness or accident?\"\n\n**Ground Truth**: \"You are protected from termination for a defined period during long term illness or accident, and termination can only occur once certain thresholds and conditions are met.\"\n\n**Model Response**: The model provides a list of protections including:\n1. Sickness Insurance (Krankenversicherung) - mentions 720 days, CHF 150/day\n2. Accident Insurance (Unfallversicherung)\n3. Disability Insurance (Invalidenversicherung, IV)\n4. Unemployment Insurance (Arbeitslosenversicherung) - mentions 520 days\n5. Social Security (Sozialversicherung) - mentions Grundversicherung, Ergänzungsleistungen\n\nThe model also give"
+  },
+  {
+    "question_id": 88,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking if the model has actual institutional knowledge or just gives generic advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: How long is the employer obligated to continue my employment if I am on long term sick leave?\n\n**Ground Truth**: During the first two years of service termination is possible only after 365 days of incapacity, and after that only after 730 days, unless exceptions apply.\n\n**Model Response**: The model gives a generic answer about employment law, mentioning Switzerland generally, 26 weeks (6 months), and advises consulting HR or legal professionals. It does NOT mention any specific ETH Zurich tool or portal.\n\nNow I need to apply the scoring criteria:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth is about ETH Zurich's specific policy (365 days for first 2 years, 730 days after that)\n   - "
+  },
+  {
+    "question_id": 89,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The model response provides generic Swiss retirement age information (65 for men, 64 for women) and general pension plan categories (VPL, SPP) without any mention of ETH Zurich's specific policy. The ground truth clearly states ETH's rule: employment may continue past retirement age with mutual agreement but ends automatically by the month you turn 70. The model completely misses these ETH-specific conditions and provides no information about any ETH portal, tool, or institutional policy. This is generic advice that fails to address the ETH Zurich context of the question."
+  },
+  {
+    "question_id": 90,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich-specific information about leave entitlements.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: What types of leave am I entitled to such as maternity, paternity, adoption, or caregiver leave?\n\n**Ground Truth**: You are entitled to maternity, paternity, adoption, and caregiver leave with specific salary entitlements depending on the type of leave.\n\n**Model Response**: The model gives a completely generic answer about leave entitlements \"in many countries\" with no mention of ETH Zurich, any ETH-specific portal, tool, or policy. It mentions checking with employer or government agency, but doesn't reference any ETH system.\n\nNow I need to apply the strict ETH-specific criteria:\n\n**CRITERIA FOR SCORING:**\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - 2: Response mentions the specific ETH portal/tool from Ground Truth (e.g., ETHIS, ASVZ, Moodle, CARD-ETHZ, Web Print, Staffn"
+  },
+  {
+    "question_id": 91,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question and responses:\n\n**Question**: \"What are my obligations regarding reporting secondary activities or potential conflicts of interest?\"\n\n**Ground Truth**: \"You must report any secondary activities and ensure they do not create conflicts of interest or interfere with your primary role.\"\n\n**Model Response**: The model gives a very generic answer about conflicts of interest, mentioning general principles like \"consulting or advisory work\", \"financial investments\", \"membership on boards\", etc. It says \"specific obligations...can vary depending on the context\" and recommends \"consulting the relevant professional codes of conduct, organizational policies, or regulatory requirements\".\n\nNow I need to apply the scoring criteria:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The Ground Truth is very simple: \"You"
+  },
+  {
+    "question_id": 92,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich. I need to be a strict auditor checking for institutional knowledge.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: What support is available if I feel discriminated against or experience a violation of my personal rights?\n\n**Ground Truth**: Each institution provides an independent advisory office where you can seek confidential help if you feel harassed, penalised, or discriminated against.\n\n**Model Response**: The model gives generic advice about:\n1. Contacting a Human Rights Organization\n2. Contacting a Lawyer\n3. Contacting a Government Agency\n4. Contacting a Support Group\n5. Contacting a Mental Health Professional\n\nThis is completely generic advice that could apply anywhere in the world. It does NOT mention:\n- ETH Zurich specifically\n- Any ETH-specific advisory office\n- Any ETH-specific portal or tool\n- The concept of \"independent advisory office\" per institution"
+  },
+  {
+    "question_id": 93,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response against ground truth for ETH Zurich-specific knowledge. Let me analyze this carefully.\n\n**Question**: \"What benefits or allowances might I be eligible for?\"\n\n**Ground Truth**: \"You may qualify for service allowances, bonuses, family allowances, and other financial or social benefits depending on your role.\"\n\n**Model Response**: The model gives a very generic response about benefits like unemployment benefits, social security, housing benefits, food assistance, etc. It explicitly states it doesn't have access to personal data and cannot determine eligibility. It then provides general information about benefits in \"various countries\" and suggests contacting \"relevant government agency or social services department in your country.\"\n\n**Analysis**:\n\n1. **FACTUAL CORRECTNESS (0-2 points)**:\n   - The ground truth mentions specific ETH-related benefits: \"service allowances, bonuses, family allowances, and other financial or social benefits "
+  },
+  {
+    "question_id": 94,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against a ground truth for ETH Zurich. I need to be a strict auditor.\n\nLet me break down the task:\n\n**Question**: Where can I raise concerns if I disagree with my performance evaluation or salary progression?\n\n**Ground Truth**: \"You can contact the internal office designated for resolving disagreements about performance evaluations or salary development.\"\n\n**Model Response**: The model gave a generic 6-step process:\n1. Review the Evaluation Process\n2. Talk to Your Manager\n3. Seek Feedback\n4. Document Everything\n5. Consider a Mediator or HR\n6. File a Formal Complaint\n\nThe model response is completely generic corporate advice. It doesn't mention any ETH-specific portal, tool, or office. The ground truth mentions \"the internal office designated for resolving disagreements\" - this is likely a specific ETH office or process, but the ground truth itself is somewhat generic. However, the key is that the model response doesn't mention any ETH-sp"
+  },
+  {
+    "question_id": 95,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Hallucination",
+    "reasoning": "The user is asking me to evaluate a model's response about ETH Pension against a ground truth. I need to be a strict auditor for ETH Zurich and check if the model has actual institutional knowledge or is giving generic/incorrect advice.\n\nLet me analyze the question, ground truth, and model response:\n\n**Question**: \"how does ETH Pension work?\"\n\n**Ground Truth**: \n- ETH Zurich employees are covered by Switzerland's three-pillar pension system\n- Pillar 1: state pension (AHV/OASI)\n- Pillar 2: occupational pension managed through PUBLICA (ETH pays 64%, employees 36%)\n- Pillar 3: optional private savings\n- Employees must transfer existing Swiss pension assets into PUBLICA when joining\n- Can make voluntary extra contributions\n- Goal: basic income through state plan, maintain living standards through occupational plan, private savings for flexibility\n\n**Model Response**:\n- Claims \"ETH Pension is a pension scheme in Switzerland that is managed by the Ethereum Foundation\"\n- Talks about eligibili"
+  },
+  {
+    "question_id": 96,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user wants me to act as a Strict Auditor for ETH Zurich and evaluate a model's response against a ground truth.\n\n**Question:** \"where can I find details on ETH pensions?\"\n\n**Ground Truth:** \"View pension information at: https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/working-conditions/insurance-and-pension.html\"\n\n**Model Response:** The model response talks about ETH pensions being related to the Swiss canton of Aargau, which is completely wrong. It provides a generic URL for the canton of Aargau and general steps to find information. It does NOT mention the correct ETH-specific URL or portal.\n\nLet me break down the scoring:\n\n**1. FACTUAL CORRECTNESS (0-2 points):**\n- The ground truth provides a specific ETH Zurich URL: https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/working-conditions/insurance-and-pension.html\n- The model response is completely factually incorrect. It confuses ETH Zurich pensions with the canton of Aargau's pension system. ETH Zur"
+  },
+  {
+    "question_id": 97,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich institutional knowledge.\n\n**Question**: what is the salary band for a post doc?\n\n**Ground Truth**: \n- At ETH Zurich a post-doctoral researcher (scientific assistant II) on a 100% position receives a fixed-rate salary\n- Automatically increased from year 1 to year 2 to year 3\n- From the fourth year onwards no further increases are specified\n- For the period starting 1 January 2025:\n  - Year 1: approximately CHF 92,500\n  - Year 2: CHF 97,200\n  - Year 3: CHF 101,900\n- Official page lists only that the rates apply and exact amounts may depend on project funding\n\n**Model Response**:\n- Provides generic salary ranges for postdocs in US, Europe, and Asia\n- No mention of ETH Zurich\n- No mention of CHF currency\n- No mention of specific salary bands\n- No mention of the year-based progression\n- No mention of \"scientific assistant II\" classification\n- Completely generic information\n\n**Scoring**:\n\n1. **FACTUAL CORREC"
+  },
+  {
+    "question_id": 98,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich's promotion/raise system.\n\nLet me analyze the ground truth and model response:\n\n**Ground Truth:**\n- At ETH Zurich promotions and salary increases are not automatic but fact-based\n- For staff on the ETH Domain salary system\n- Each job has a \"function level\" with a salary band based on role, responsibility, experience\n- Salary increases as of 1 January each year depend on:\n  1. Years of relevant experience (up to 15 years)\n  2. Individual performance relative to \"target range\" of salary band\n- Moving to higher function level = salary re-determined as for new hire\n\n**Model Response:**\nThe model gives completely generic advice about promotions/raises:\n- Performance-based raises\n- Tenure-based raises\n- Market-based raises\n- Merit-based promotions\n- Automatic raises\n- Voluntary raises\n- \"Overall, the process... can vary widely depending on the company and industry\"\n\n**Analysis:**\n\n1. **FACTUAL CORRECTNESS (0"
+  },
+  {
+    "question_id": 99,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Generic",
+    "reasoning": "The user wants me to evaluate a model's response against ground truth for ETH Zurich's IT policy on personal use.\n\nLet me analyze the ground truth and model response:\n\n**Ground Truth:**\n- ETH Zurich Acceptable Use Policy\n- IT resources primarily for business, study, or employment-related tasks\n- Private use is possible but explicitly NOT recommended\n- Allowed under strict conditions:\n  - Must not violate licenses or applicable laws\n  - Must not have commercial character\n  - Must not cause technical impairment\n  - Must not interfere with work/study obligations\n\n**Model Response:**\n- Mentions \"ETH (Eidgenössische Technische Hochschule Zürich)\" - good, it identifies the institution\n- Mentions \"policy regarding the use of IT resources for personal use\" - relevant\n- Says \"generally allowed\" - this is PARTIALLY correct but misses the \"not recommended\" part\n- Mentions compliance with laws and regulations - correct\n- Mentions \"university's IT policies and procedures\" - generic\n- Mentions prohi"
+  },
+  {
+    "question_id": 100,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "Refusal",
+    "reasoning": "The user is asking me to evaluate a model's response against a ground truth for ETH Zurich. I need to act as a Strict Auditor for ETH Zurich and check if the model has actual institutional knowledge or is just giving generic advice.\n\nLet me break down the task:\n\n**Question**: \"what are the open faculty positions at ETH?\"\n\n**Ground Truth**: \"View open positions at: https://ethz.ch/en/the-eth-zurich/working-teaching-and-research/faculty/faculty-affairs/ausgeschriebene-professuren.html\"\n\n**Model Response**: \"As an AI, I don't have real-time access to current job postings or faculty positions at ETH Zurich or any other institution. However, you can check the official ETH Zurich website or job boards for the latest open faculty positions. Additionally, you can also check other job boards and academic job search platforms for open positions at ETH Zurich.\"\n\nNow I need to evaluate this based on the criteria:\n\n**1. FACTUAL CORRECTNESS (0-2 points)**:\n- 2: Mentions specific ETH portal/tool from"
+  }
+]
