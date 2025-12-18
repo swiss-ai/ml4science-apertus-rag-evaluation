@@ -1,3 +1,13 @@
+"""
+Extractor Utilities Module
+
+Utility functions for WARC extraction including:
+- Environment variable handling
+- Logging setup
+- HTML and PDF text extraction
+- URL domain extraction and filtering
+- WARC file iteration
+"""
 from __future__ import annotations
 
 import io

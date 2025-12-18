@@ -1,3 +1,18 @@
+"""
+Indexer CLI Module
+
+Command-line interface for indexing extracted content into Elasticsearch.
+Reads configuration from environment variables and processes JSONL files
+to create vector embeddings and index them.
+
+Environment Variables:
+    - JSONL_DIR: Directory containing JSONL files to index
+    - ES_URL: Elasticsearch URL
+    - ES_INDEX_NAME: Name of the Elasticsearch index
+    - BATCH_SIZE: Number of documents per batch
+    - CHUNK_SIZE: Text chunk size for splitting
+    - CHUNK_OVERLAP: Overlap between chunks
+"""
 # src/warc_tools/indexer/cli.py
 from __future__ import annotations
 

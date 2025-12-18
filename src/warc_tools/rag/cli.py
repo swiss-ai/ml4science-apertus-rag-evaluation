@@ -1,3 +1,13 @@
+"""
+RAG CLI Module
+
+Command-line interface for RAG (Retrieval-Augmented Generation) queries.
+Supports both single queries and batch evaluation from Excel files.
+
+Usage:
+    Single query: python -m warc_tools.rag.cli "your question"
+    Batch eval: python -m warc_tools.rag.cli --eval-xlsx input.xlsx output.xlsx
+"""
 # src/warc_tools/rag/cli.py
 from __future__ import annotations
 
@@ -7,7 +17,7 @@ from pathlib import Path
 
 from .utils import load_env_if_dev
 from warc_tools.indexer.utils import require_env, setup_logging
-from .rag_pipeline import RAGConfig, run_rag_query, run_rag_evaluation  # <-- add run_rag_evaluation
+from .rag_pipeline import RAGConfig, run_rag_query, run_rag_evaluation
 
 
 def main() -> None:

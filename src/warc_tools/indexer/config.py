@@ -1,3 +1,9 @@
+"""
+Indexer Configuration Module
+
+Defines the configuration dataclass for Elasticsearch indexing process.
+Contains settings for Elasticsearch connection, chunking, and batch processing.
+"""
 from __future__ import annotations
 
 from dataclasses import dataclass

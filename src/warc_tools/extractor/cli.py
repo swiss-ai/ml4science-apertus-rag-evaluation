@@ -1,3 +1,16 @@
+"""
+WARC Extractor CLI Module
+
+Command-line interface for extracting content from WARC files.
+Reads configuration from environment variables and processes WARC files
+to extract HTML and/or PDF content.
+
+Environment Variables:
+    - WARC_INPUT_DIR: Directory containing WARC files
+    - OUTPUT_DIR: Output directory for extracted content
+    - SEEDS_XLSX: Excel file with seed URLs
+    - EXTRACT_MODE: "html", "pdf", or "all"
+"""
 from __future__ import annotations
 
 import os
