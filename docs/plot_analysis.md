@@ -6,7 +6,7 @@ This document provides detailed analysis of the visualizations generated from th
 
 The evaluation compares baseline LLM performance (without RAG) against RAG-enhanced performance for two models:
 - **Apertus-8B**: 8B parameter model
-- **Qwen3-80B**: 80B parameter model
+- **Qwen3-8B**: 8B parameter model
 
 ## Plot 1: Performance Comparison (`performance_comparison.png`)
 
@@ -27,7 +27,7 @@ This multi-panel visualization shows aggregate scores, correctness, completeness
 
 3. **Improvement Rate**:
    - Apertus-8B shows 45% of questions improved with RAG
-   - Qwen3-80B shows 35% of questions improved with RAG
+   - Qwen3-8B shows 35% of questions improved with RAG
    - This indicates that smaller models may benefit more from RAG assistance
 
 ### Interpretation
@@ -82,7 +82,7 @@ This comprehensive analysis shows winner distribution, score improvements, and c
 3. **Correct Answers Count**:
    - RAG increases the number of correct/partial answers
    - Apertus-8B: ~79 correct/partial answers with RAG vs ~50 with baseline
-   - Qwen3-80B: ~70 correct/partial answers with RAG vs ~50 with baseline
+   - Qwen3-8B: ~70 correct/partial answers with RAG vs ~50 with baseline
    - This represents a 40-60% increase in useful answers
 
 ### Interpretation
@@ -126,7 +126,7 @@ The tag distribution reveals that baseline models are "institutionally blind" - 
 2. **Institutional Knowledge Gap**: Baseline performance is low because models lack ETH-specific knowledge, confirming the need for RAG.
 
 3. **Consistent Improvement**: RAG improves performance across:
-   - Different models (Apertus-8B, Qwen3-80B)
+   - Different models (Apertus-8B, Qwen3-8B)
    - Different languages (English, German)
    - Different metrics (correctness, completeness, aggregate score)
 
@@ -147,4 +147,5 @@ The tag distribution reveals that baseline models are "institutionally blind" - 
 4. **Multilingual Support**: Ensure retrieval system handles both English and German queries effectively.
 
 5. **Evaluation Refinement**: Consider adjusting evaluation criteria to better account for partial matches between retrieved documents and ground truth.
+
 

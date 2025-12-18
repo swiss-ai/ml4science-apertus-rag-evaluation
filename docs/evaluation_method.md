@@ -110,7 +110,7 @@ For each model:
 
 ### Self-Hosted Models (CSCS)
 - **Apertus-8B**: `swiss-ai/Apertus-8B-Instruct-2509`
-- **Qwen3-80B**: `Qwen/Qwen3-Next-80B-A3B-Instruct`
+- **Qwen3-8B**: `Qwen/Qwen3-8B`
 - **Mistral-7B**: `mistralai/Mistral-7B-v0.1` (run on CSCS cluster)
 - **Llama-8B**: `meta-llama/Llama-3.1-8B-Instruct` (latest version, run on CSCS cluster)
 

@@ -2,8 +2,6 @@
 
 This report compares baseline performance (without RAG) across all evaluated models.
 
-**Evaluation Method**: All responses are scored using **LLM-as-Judge** with `moonshotai/Kimi-K2-Thinking` as the judge model. The judge uses the `judge_prompt_baseline.txt` prompt to provide consistent, automated scoring based on ETH-specific criteria.
-
 ## Summary Statistics
 
 | Model | Avg Correctness | Avg Completeness | Avg Aggregate | Perfect (2/2) | Zero (0/0) |
