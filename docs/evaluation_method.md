@@ -55,16 +55,32 @@ All evaluations use consistent parameters for reproducibility:
 
 These settings ensure fair, consistent comparisons across all models.
 
-## Manual Evaluation Protocol
+## LLM-as-Judge Protocol
 
-1. **Load ground truth**: Read the expected answer from the Excel file (`answer` column)
+We use an automated LLM-as-Judge approach for consistent, scalable evaluation:
+
+### Judge Model
+- **Model**: `moonshotai/Kimi-K2-Thinking`
+- **API**: CSCS OpenAI-compatible endpoint (`https://api.swissai.cscs.ch/v1`)
+- **Temperature**: 0 (deterministic scoring)
+- **Max Tokens**: 2000 (to capture full reasoning)
+
+### Evaluation Process
+1. **Load ground truth**: Read the expected answer from the test set JSON
 2. **Load model response**: Read the model's response from the results JSON
-3. **Compare independently**: Score each response without looking at other model scores
-4. **Score Correctness**: Rate 0-2 based on factual accuracy
-5. **Score Completeness**: Rate 0-2 based on how fully the question is answered
-6. **Flag hallucinations**: Mark if the response contains false information
-7. **Flag refusals**: Mark if the model explicitly refuses to answer
-8. **Document ambiguities**: Note any cases where scoring is ambiguous
+3. **Send to judge**: The judge model evaluates each response using a structured prompt
+4. **Extract scores**: Judge returns JSON with:
+   - `correctness` (0-2 points): Factual accuracy
+   - `completeness` (0-2 points): How fully the question is answered
+   - `result_tag`: One of "Correct", "Partial", "Generic", "Refusal", "Hallucination"
+   - `reasoning`: Explanation of the scoring decision
+5. **Calculate aggregate**: `aggregate_score = (correctness + completeness) / 4`
+
+### Judge Prompts
+- **Baseline evaluation**: `prompts/judge_prompt_baseline.txt` (lenient scoring for models without RAG)
+- **RAG evaluation**: `prompts/judge_prompt_rag.txt` (favorable scoring for models with retrieved context)
+
+The judge prompts provide detailed scoring criteria and guidelines for consistent evaluation across all models.
 
 ## Evaluation Process
 
@@ -79,10 +95,11 @@ For each model:
 2. Save raw responses to `results/{model_name}_responses.json`
 3. Review responses for any obvious errors
 
-### Phase 3: Manual Scoring
+### Phase 3: Automated Scoring (LLM-as-Judge)
 1. Run scoring script: `python scripts/score_responses.py --model <model_name>`
-2. Score each response interactively
-3. Save scores to `results/{model_name}_scores.json`
+2. Script automatically sends each response to Kimi-K2-Thinking judge model
+3. Judge evaluates and returns scores for each question
+4. Save scores to `results/baseline_evaluation/{model_name}_scores.json`
 
 ### Phase 4: Analysis
 1. Run comparison script: `python scripts/compare_models.py`
@@ -106,12 +123,12 @@ When launching via `model-launch`, use:
 
 The model will be downloaded automatically if it doesn't exist at the full file path.
 
-### Cloud Models (API)
-- **Claude Sonnet 4.5**: Anthropic API (tools disabled)
-- **GPT-4**: OpenAI API (function calling disabled)
+### Cloud Models
+- **Claude Sonnet 4.5**: Responses collected manually via official Anthropic interface (web search and tools disabled)
+- **GPT-5.2**: Responses collected manually via official OpenAI interface (web search and function calling disabled)
 - **Gemini 2.0**: Google API (grounding/search disabled)
 
-**CRITICAL**: For cloud models, ensure web search, tools, and grounding are **disabled** to ensure fair comparison.
+**Note**: Claude and GPT responses were obtained through manual interaction with the official model interfaces, ensuring that web search, tools, and grounding features were disabled to maintain fair baseline comparison without external knowledge retrieval.
 
 ## Output Files
 
@@ -131,6 +148,7 @@ The model will be downloaded automatically if it doesn't exist at the full file 
 
 - All evaluations are done **without RAG** to establish true baseline performance
 - Temperature is set to 0 for deterministic results
-- Manual scoring ensures quality and consistency
-- Ambiguous cases should be documented for review
+- **LLM-as-Judge** (Kimi-K2-Thinking) provides automated, consistent scoring
+- Judge model uses structured prompts with clear scoring criteria
+- All scores are saved with full reasoning for transparency and review
 

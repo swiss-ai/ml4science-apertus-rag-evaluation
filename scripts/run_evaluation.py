@@ -303,7 +303,7 @@ def run_evaluation(
         results_dir = Path(__file__).parent.parent / "results"
         results_dir.mkdir(exist_ok=True)
         model_safe = model_name.replace("/", "_").replace(" ", "_")
-        output_file = results_dir / f"{model_safe}_responses.json"
+        output_file = results_dir / "baseline_evaluation" / f"{model_safe}_responses.json"
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
     with open(output_file, "w", encoding="utf-8") as f:
@@ -333,7 +333,7 @@ def main():
     parser.add_argument(
         "--output",
         type=Path,
-        help="Output JSON file path (default: results/{model_name}_responses.json)",
+        help="Output JSON file path (default: results/baseline_evaluation/{model_name}_responses.json)",
     )
 
     args = parser.parse_args()

@@ -82,7 +82,7 @@ def calculate_metrics(scores: List[Dict[str, Any]], questions: Dict[int, Dict[st
 
 def find_all_score_files() -> List[Path]:
     """Find all score files in results directory."""
-    results_dir = Path("results")
+    results_dir = Path("results") / "baseline_evaluation"
     return list(results_dir.glob("*_scores.json"))
 
 def get_model_name_from_file(file_path: Path) -> str:
@@ -281,7 +281,7 @@ def main():
         "--score-files",
         type=Path,
         nargs="+",
-        help="Specific score files to compare (default: all *_scores.json in results/)",
+        help="Specific score files to compare (default: all *_scores.json in results/baseline_evaluation/)",
     )
     
     args = parser.parse_args()
