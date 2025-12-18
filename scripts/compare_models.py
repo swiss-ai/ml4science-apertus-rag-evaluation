@@ -18,7 +18,7 @@ def load_scores(scores_file: Path) -> List[Dict[str, Any]]:
 
 def load_questions() -> Dict[int, Dict[str, Any]]:
     """Load questions to get language info."""
-    with open("test_set/eth_questions_100.json", 'r', encoding='utf-8') as f:
+    with open("data/test_set/eth_questions_100.json", 'r', encoding='utf-8') as f:
         questions = json.load(f)
     return {q['question_id']: q for q in questions}
 

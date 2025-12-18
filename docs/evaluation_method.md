@@ -85,7 +85,7 @@ The judge prompts provide detailed scoring criteria and guidelines for consisten
 ## Evaluation Process
 
 ### Phase 1: Data Preparation
-- Convert Excel file to JSON format (`test_set/eth_questions_100.json`)
+- Convert Excel file to JSON format (`data/test_set/eth_questions_100.json`)
 - Validate all questions have ground truth answers
 - Check language distribution (German vs English)
 

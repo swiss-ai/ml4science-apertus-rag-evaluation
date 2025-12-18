@@ -298,7 +298,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--test_set",
         type=Path,
-        default=Path("test_set/eth_questions_100.json"),
+        default=Path("data/test_set/eth_questions_100.json"),
         help="Test set JSON file with ground truth",
     )
     parser.add_argument(

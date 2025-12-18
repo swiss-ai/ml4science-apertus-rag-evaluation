@@ -8,7 +8,7 @@ This plan evaluates RAG performance and compares it against baseline results. Th
 
 ## Test Set Structure
 
-The `test_set/eth_questions_100.json` has this structure:
+The `data/test_set/eth_questions_100.json` has this structure:
 
 ```json
 {
@@ -34,7 +34,7 @@ Run the same 100 questions through the RAG pipeline for each model:
 ```bash
 python scripts/run_rag_evaluation.py \
     --model swiss-ai/Apertus-8B-Instruct-2509 \
-    --test_set test_set/eth_questions_100.json \
+    --test_set data/test_set/eth_questions_100.json \
     --output results/rag_evaluation/
 ```
 
