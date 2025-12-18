@@ -1,52 +1,63 @@
 #!/bin/bash
 #SBATCH --job-name=warc-index
-#SBATCH --time=04:00:00
+#SBATCH --time=12:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
-#SBATCH --account=infra01
+#SBATCH --account="<account>"
+#SBATCH --array=0-3
 
 set -euo pipefail
 
 # --- Paths on CSCS filesystem ---
-JSONL_DIR=/capstor/scratch/cscs/$USER/ethz_jsonl
-FAILED_INDEX=/capstor/scratch/cscs/$USER/failed_warcs_indexing.txt
+export JSONL_DIR=/iopsstor/scratch/cscs/$USER/warc_ethz_jsonl_filtered_ethz_only
+export FAILED_WARCS_INDEXING_FILE=/iopsstor/scratch/cscs/$USER/ml4science_ethz_only_failed_indexing.txt
+
+# Map array task -> year
+YEARS_LIST=(2025 2024 2023 2022)
+export YEARS="${YEARS_LIST[$SLURM_ARRAY_TASK_ID]}"
+export MODALITIES=html,pdf
 
 # --- Elasticsearch config ---
-export JSONL_DIR="$JSONL_DIR"
 export ES_URL="https://es.swissai.cscs.ch"
-export ES_INDEX_NAME="ml4science_ethz_webarchive"
+export ES_INDEX_NAME="ml4science_ethz_19945_filtered"
+export ES_VERIFY_CERTS=true
+export NO_RECREATE_INDEX=1
 
-# --- Embedding backend (OpenAI-compatible on CSCS, or Ollama if local) ---
+# Indexing behavior
+export BATCH_SIZE=16
+export CHUNK_SIZE=768
+export CHUNK_OVERLAP=16
+
+# Bulk safety (anti-413)
+export ES_BULK_MAX_MB=5
+export ES_BULK_ACTIONS=1000
+export ES_USER="<account>"
+export ES_PASSWORD="<your-password>"
+
+# Optional text guard (disable = 0)
+export MAX_TEXT_CHARS=0
+
+# Progress + restart safety (per-year checkpoint file)
+export SKIP_COMPLETED_FILES=1
+export COMPLETED_FILES_FILE="/iopsstor/scratch/cscs/$USER/index_ethz_only_completed_${YEARS}.txt"
+export PROGRESS_EVERY=200
+
+export FAILED_WARCS_INDEXING_FILE="/iopsstor/scratch/cscs/$USER/index_ethz_only_failed_warcs_${YEARS}.txt"
+
+# --- Embedding backend ---
 # Example for SwissAI / CSCS:
-export EMBED_PROVIDER="cscs"
-export EMBED_MODEL="<model-name>"
+export EMBED_MODEL=Snowflake/snowflake-arctic-embed-l-v2.0-ml4science
 export EMBED_BASE_URL="https://api.swissai.cscs.ch/v1"
 export EMBED_API_KEY="<api-key>"
 
-# If using local Ollama instead (not on CSCS):
-# export EMBED_PROVIDER="ollama"
-# export EMBED_MODEL="nomic-embed-text"
-
-# Optional ES auth / TLS
-# export ES_USER="elastic"
-# export ES_PASSWORD="..."
-# export ES_VERIFY_CERTS=true
-
-# Indexing / chunking params
-export BATCH_SIZE=32
-export CHUNK_SIZE=1024
-export CHUNK_OVERLAP=128
-export FAILED_WARCS_INDEXING_FILE="$FAILED_INDEX"
-
-# Optional: do not recreate index if it exists
-# export NO_RECREATE_INDEX=1
-
+# Logging
 export LOG_LEVEL=INFO
-export LOG_FILE=/capstor/scratch/cscs/$USER/index_jsonl_${SLURM_JOB_ID}.log
-export DEV_MODE=0   # no .env inside container
 
-EDF_FILE=$SCRATCH/warc_tools.toml
+unset SSL_CERT_FILE
+
+# Path where EDF lives
+EDF_FILE=/capstor/scratch/cscs/$USER/ml4science-apertus-rag-evaluation/jobs/warc_tools.toml
 
 # --- Run inside EDF container ---
 set -x
