@@ -88,8 +88,8 @@ def find_all_score_files() -> List[Path]:
 def get_model_name_from_file(file_path: Path) -> str:
     """Extract model name from file path."""
     name = file_path.stem.replace("_scores", "")
-    # Clean up model names
-    name = name.replace("_", "/").replace("swiss-ai/", "swiss-ai/")
+    # Clean up model names: convert underscores to slashes for display
+    name = name.replace("_", "/")
     return name
 
 def create_visualizations(all_metrics: Dict[str, Dict], output_dir: Path):

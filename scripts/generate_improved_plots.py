@@ -38,12 +38,12 @@ def load_data():
         test_set = json.load(f)
     
     baseline_scores = {}
-    for model in ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-Next-80B-A3B-Instruct"]:
+    for model in ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-8B"]:
         with open(f"results/baseline_evaluation/{model}_scores.json", "r", encoding="utf-8") as f:
             baseline_scores[model] = json.load(f)
     
     rag_scores = {}
-    for model in ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-Next-80B-A3B-Instruct"]:
+    for model in ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-8B"]:
         with open(f"results/rag_evaluation/{model}_rag_scores.json", "r", encoding="utf-8") as f:
             rag_scores[model] = json.load(f)
     
@@ -56,12 +56,12 @@ def plot_performance_comparison(baseline_scores, rag_scores, output_dir):
     fig = plt.figure(figsize=(18, 12))
     gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
     
-    fig.suptitle('Model Performance Comparison: Qwen3-80B vs Apertus-8B', 
+    fig.suptitle('Model Performance Comparison: Qwen3-8B vs Apertus-8B', 
                  fontsize=20, fontweight='bold', y=0.98)
     
-    models = ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-Next-80B-A3B-Instruct"]
-    model_labels = ["Apertus-8B", "Qwen3-80B"]
-    model_colors = {'Apertus-8B': '#e74c3c', 'Qwen3-80B': '#3498db'}
+    models = ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-8B"]
+    model_labels = ["Apertus-8B", "Qwen3-8B"]
+    model_colors = {'Apertus-8B': '#e74c3c', 'Qwen3-8B': '#3498db'}
     
     # Subplot 1: LLM-as-Judge Quality Scores (larger, more prominent)
     ax1 = fig.add_subplot(gs[0:2, 0:2])
@@ -375,8 +375,8 @@ def plot_rag_improvement_analysis(baseline_scores, rag_scores, output_dir):
     fig.suptitle('RAG Improvement Analysis', 
                  fontsize=20, fontweight='bold', y=0.98)
     
-    models = ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-Next-80B-A3B-Instruct"]
-    model_labels = ["Apertus-8B", "Qwen3-80B"]
+    models = ["swiss-ai_Apertus-8B-Instruct-2509", "Qwen_Qwen3-8B"]
+    model_labels = ["Apertus-8B", "Qwen3-8B"]
     model_colors = ['#e74c3c', '#9b59b6']
     
     # Subplot 1: RAG vs Baseline: Winner Distribution (pie chart style)

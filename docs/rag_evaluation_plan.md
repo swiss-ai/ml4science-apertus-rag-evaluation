@@ -40,7 +40,7 @@ python scripts/run_rag_evaluation.py \
 
 This generates:
 - `results/rag_evaluation/swiss-ai_Apertus-8B-Instruct-2509_rag_responses.json`
-- `results/rag_evaluation/Qwen_Qwen3-Next-80B-A3B-Instruct_rag_responses.json`
+- `results/rag_evaluation/Qwen_Qwen3-8B_rag_responses.json`
 
 **Note**: RAG evaluation is run for models that support the RAG pipeline. Baseline results from all models (including cloud models) are used for comparison.
 
@@ -223,7 +223,7 @@ Based on baseline results, expected RAG performance:
 | Model | Baseline | Expected RAG | Improvement |
 |-------|----------|--------------|-------------|
 | Apertus-8B | 0.000 | 0.50-0.65 | +∞ (from 0) |
-| Qwen3-80B | 0.000 | 0.60-0.75 | +∞ (from 0) |
+| Qwen3-8B | 0.000 | 0.60-0.75 | +∞ (from 0) |
 
 **Note**: Cloud models (Claude, GPT) have baseline results but are not evaluated with RAG in this phase.
 

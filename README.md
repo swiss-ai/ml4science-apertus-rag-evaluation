@@ -12,7 +12,7 @@ This project evaluates various Large Language Models (LLMs) on their ability to 
 ### Evaluated Models
 
 - **Apertus-8B**: `swiss-ai/Apertus-8B-Instruct-2509` (self-hosted on CSCS)
-- **Qwen3-80B**: `Qwen/Qwen3-Next-80B-A3B-Instruct` (self-hosted on CSCS)
+- **Qwen3-8B**: `Qwen/Qwen3-8B` (self-hosted on CSCS)
 - **Claude Sonnet 4.5**: Anthropic (manual collection via official interface)
 - **GPT-5.2**: OpenAI (manual collection via official interface)
 
@@ -51,6 +51,15 @@ ml4science-apertus-rag-evaluation/
         ├── indexer/                # Elasticsearch indexing
         └── baseline/               # Baseline tools
 ```
+
+## Important: Source Code vs Evaluation Results
+
+**Note**: The evaluation framework does **not** directly use the source code in `src/warc_tools/baseline/` and `src/warc_tools/rag/`. 
+
+- **`src/warc_tools/baseline/`**: Library code for baseline LLM calls (not used directly in evaluation)
+- **`scripts/run_evaluation.py` and `results/baseline_evaluation/`**: Evaluation scripts and results used for baseline evaluation
+- **`src/warc_tools/rag/`**: Library code for RAG pipeline (not used directly in evaluation)
+- **`scripts/run_rag_evaluation.py` and `results/rag_evaluation/`**: Evaluation scripts and results used for RAG evaluation
 
 ## Evaluation Methodology
 
@@ -187,7 +196,7 @@ Comprehensive comparison available in:
 
 **Key Findings**:
 - RAG significantly improves performance (60-70% of questions improved)
-- Apertus-8B shows better RAG integration than Qwen3-80B
+- Apertus-8B shows better RAG integration than Qwen3-8B
 - Retrieved documents enable models to provide ETH-specific information
 
 ## Documentation

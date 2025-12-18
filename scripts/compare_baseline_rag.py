@@ -94,7 +94,7 @@ def generate_report(
     # Models to compare (RAG models only)
     rag_models = [
         "swiss-ai_Apertus-8B-Instruct-2509",
-        "Qwen_Qwen3-Next-80B-A3B-Instruct",
+        "Qwen_Qwen3-8B",
     ]
     
     # Also include baseline-only models for reference

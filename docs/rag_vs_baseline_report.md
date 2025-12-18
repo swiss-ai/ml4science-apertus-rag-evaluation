@@ -1,15 +1,15 @@
-# RAG Evaluation Analysis: Qwen3-80B vs Apertus-8B
+# RAG Evaluation Analysis: Qwen3-8B vs Apertus-8B
 ## Executive Summary
 
-This document presents a comprehensive analysis of the RAG (Retrieval-Augmented Generation) evaluation results comparing **Qwen3-80B** and **Apertus-8B** models on a dataset of 100 questions from the ETH Zurich web archive.
+This document presents a comprehensive analysis of the RAG (Retrieval-Augmented Generation) evaluation results comparing **Qwen3-8B** and **Apertus-8B** models on a dataset of 100 questions from the ETH Zurich web archive.
 
 **Evaluation Method**: All responses are scored using **LLM-as-Judge** with `moonshotai/Kimi-K2-Thinking` as the judge model. The judge uses structured prompts (`judge_prompt_baseline.txt` for baseline, `judge_prompt_rag.txt` for RAG) to provide consistent, automated scoring.
 
-**Key Finding**: Apertus-8B shows stronger RAG improvement (71.00% of questions improved) compared to Qwen3-80B (61.00%), suggesting better integration with retrieved context.
+**Key Finding**: Apertus-8B shows stronger RAG improvement (71.00% of questions improved) compared to Qwen3-8B (61.00%), suggesting better integration with retrieved context.
 
 ---
 
-## 1. Apertus-8B vs Qwen3-80B - Baseline Test Results
+## 1. Apertus-8B vs Qwen3-8B - Baseline Test Results
 
 ### Dataset Coverage
 - **Total Questions**: 100
@@ -22,7 +22,7 @@ This document presents a comprehensive analysis of the RAG (Retrieval-Augmented 
 - **LLM-as-Judge Score**: 0.185 (out of 1.0)
 - **Correct/Partial Answers**: 44 questions
 
-#### Qwen3-80B Baseline
+#### Qwen3-8B Baseline
 - **LLM-as-Judge Score**: 0.223 (out of 1.0)
 - **Correct/Partial Answers**: 50 questions
 
@@ -33,20 +33,20 @@ This document presents a comprehensive analysis of the RAG (Retrieval-Augmented 
 - **RAG Improvement**: 71.00% of questions
 - **Score Change**: +0.275 (+27.5 points)
 
-#### Qwen3-80B with RAG
+#### Qwen3-8B with RAG
 - **LLM-as-Judge Score**: 0.438 (out of 1.0)
 - **RAG Improvement**: 61.00% of questions
 - **Score Change**: +0.215 (+21.5 points)
 
 ### Head-to-Head Comparison
 
-| Metric | Qwen3-80B | Apertus-8B | Winner |
+| Metric | Qwen3-8B | Apertus-8B | Winner |
 |--------|-----------|------------|--------|
 | Baseline LLM Judge Score | 0.223 | 0.185 | Qwen |
 | RAG LLM Judge Score | 0.438 | 0.460 | Apertus |
 | RAG Improvement Rate | 61.00% | 71.00% | **Apertus** |
 
-**Key Insight**: While Qwen3-80B may have a higher baseline score, **Apertus-8B shows better RAG integration** with 71.00% of questions improved vs 61.00% for Qwen.
+**Key Insight**: While Qwen3-8B may have a higher baseline score, **Apertus-8B shows better RAG integration** with 71.00% of questions improved vs 61.00% for Qwen.
 
 ---
 
@@ -68,7 +68,7 @@ This document presents a comprehensive analysis of the RAG (Retrieval-Augmented 
 - rag: 71 questions (71.0%)
 - baseline: 8 questions (8.0%)
 
-### Qwen3-80B
+### Qwen3-8B
 
 **Baseline (Parametric Only)**:
 - LLM Judge Score: 0.223/1.0
@@ -136,7 +136,7 @@ For detailed analysis of all visualizations, see [`plot_analysis.md`](plot_analy
 1. **Performance Comparison** (`results/plots/performance_comparison.png`):
    - Shows aggregate scores, correctness, completeness, and improvement rates
    - Demonstrates consistent RAG improvement across all metrics
-   - Apertus-8B shows 45% improvement rate, Qwen3-80B shows 35%
+   - Apertus-8B shows 45% improvement rate, Qwen3-8B shows 35%
 
 2. **Language Analysis** (`results/plots/language_analysis.png`):
    - Analyzes performance by question language (English vs German)
