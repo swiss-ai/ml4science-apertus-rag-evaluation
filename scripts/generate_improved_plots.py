@@ -34,7 +34,7 @@ plt.rcParams['axes.facecolor'] = 'white'
 
 def load_data():
     """Load all necessary data."""
-    with open("test_set/eth_questions_100.json", "r", encoding="utf-8") as f:
+    with open("data/test_set/eth_questions_100.json", "r", encoding="utf-8") as f:
         test_set = json.load(f)
     
     baseline_scores = {}

@@ -37,7 +37,7 @@ ml4science-apertus-rag-evaluation/
 ├── prompts/                       # Judge prompts
 │   ├── judge_prompt_baseline.txt  # Prompt for baseline scoring
 │   └── judge_prompt_rag.txt       # Prompt for RAG scoring
-├── test_set/                      # Test dataset
+├── data/test_set/                 # Test dataset
 │   ├── eth_questions_100.json     # 100 ETH questions (JSON)
 │   └── eth_questions_100.xlsx     # 100 ETH questions (Excel)
 ├── results/                       # Evaluation results
@@ -179,7 +179,7 @@ python scripts/compare_models.py
 ```bash
 python scripts/run_rag_evaluation.py \
     --model swiss-ai/Apertus-8B-Instruct-2509 \
-    --test_set test_set/eth_questions_100.json \
+    --test_set data/test_set/eth_questions_100.json \
     --output results/rag_evaluation/
 ```
 

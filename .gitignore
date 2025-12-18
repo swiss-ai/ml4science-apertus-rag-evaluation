@@ -208,6 +208,4 @@ __marimo__/
 
 .DS_Store
 
-data_sample/jsonl_out/*
-
 *.egg-info/*

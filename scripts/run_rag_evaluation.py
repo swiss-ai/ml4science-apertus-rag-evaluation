@@ -188,7 +188,7 @@ def main():
     parser.add_argument(
         "--test_set",
         type=Path,
-        default=Path("test_set/eth_questions_100.json"),
+        default=Path("data/test_set/eth_questions_100.json"),
         help="Path to test set JSON file",
     )
     parser.add_argument(

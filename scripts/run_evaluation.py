@@ -231,7 +231,7 @@ def run_evaluation(
         api_provider: API provider ("cscs", "anthropic", "openai", "google", "ollama")
         output_file: Optional output file path (defaults to results/baseline_evaluation/)
     """
-    questions_path = Path(__file__).parent.parent / "test_set" / "eth_questions_100.json"
+    questions_path = Path(__file__).parent.parent / "data" / "test_set" / "eth_questions_100.json"
     if not questions_path.exists():
         print(f"Error: Questions file not found: {questions_path}", file=sys.stderr)
         sys.exit(1)
