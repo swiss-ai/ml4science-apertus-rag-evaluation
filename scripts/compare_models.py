@@ -86,14 +86,25 @@ def find_all_score_files() -> List[Path]:
     return list(results_dir.glob("*_scores.json"))
 
 def get_model_name_from_file(file_path: Path) -> str:
-    """Extract model name from file path."""
+    """Extract model name from file path and format for display.
+    
+    Args:
+        file_path: Path to score file (e.g., "Qwen_Qwen3-8B_scores.json")
+        
+    Returns:
+        Formatted model name (e.g., "Qwen/Qwen3-8B")
+    """
     name = file_path.stem.replace("_scores", "")
-    # Clean up model names: convert underscores to slashes for display
     name = name.replace("_", "/")
     return name
 
-def create_visualizations(all_metrics: Dict[str, Dict], output_dir: Path):
-    """Create good-looking visualizations."""
+def create_visualizations(all_metrics: Dict[str, Dict], output_dir: Path) -> None:
+    """Create visualization plots for model comparison.
+    
+    Args:
+        all_metrics: Dictionary mapping model names to their metrics
+        output_dir: Directory to save plot files
+    """
     output_dir.mkdir(parents=True, exist_ok=True)
     
     models = list(all_metrics.keys())
@@ -140,8 +151,13 @@ def create_visualizations(all_metrics: Dict[str, Dict], output_dir: Path):
     
     print(f"Created visualizations in {output_dir}")
 
-def generate_markdown_report(all_metrics: Dict[str, Dict], output_file: Path):
-    """Generate comprehensive markdown comparison report."""
+def generate_markdown_report(all_metrics: Dict[str, Dict], output_file: Path) -> None:
+    """Generate comprehensive markdown comparison report.
+    
+    Args:
+        all_metrics: Dictionary mapping model names to their metrics
+        output_file: Path to output markdown file
+    """
     models = sorted(all_metrics.keys())
     
     report = "# Baseline Evaluation: Model Comparison Report\n\n"

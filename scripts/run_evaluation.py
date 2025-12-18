@@ -51,7 +51,14 @@ RANDOM_SEED = 42
 
 
 def load_questions(json_path: Path) -> list[Dict[str, Any]]:
-    """Load questions from JSON file."""
+    """Load questions from JSON file.
+    
+    Args:
+        json_path: Path to JSON file containing questions
+        
+    Returns:
+        List of question dictionaries
+    """
     with open(json_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -62,7 +69,20 @@ def call_cscs_model(
     question: str,
     system_prompt: Optional[str] = None,
 ) -> str:
-    """Call a CSCS-hosted model via OpenAI-compatible API."""
+    """Call a CSCS-hosted model via OpenAI-compatible API.
+    
+    Args:
+        client: OpenAI client configured for CSCS API
+        model: Model name/identifier
+        question: User question
+        system_prompt: Optional system prompt
+        
+    Returns:
+        Model response text
+        
+    Raises:
+        Exception: If API call fails
+    """
     messages = []
     if system_prompt:
         messages.append({"role": "system", "content": system_prompt})
@@ -89,7 +109,20 @@ def call_anthropic_model(
     question: str,
     system_prompt: Optional[str] = None,
 ) -> str:
-    """Call Anthropic Claude model (tools disabled)."""
+    """Call Anthropic Claude model with tools disabled for baseline evaluation.
+    
+    Args:
+        client: Anthropic client
+        model: Claude model name
+        question: User question
+        system_prompt: Optional system prompt
+        
+    Returns:
+        Model response text
+        
+    Raises:
+        Exception: If API call fails
+    """
     messages = [{"role": "user", "content": question}]
     
     try:
@@ -113,7 +146,20 @@ def call_openai_model(
     question: str,
     system_prompt: Optional[str] = None,
 ) -> str:
-    """Call OpenAI model (function calling disabled)."""
+    """Call OpenAI model with function calling disabled for baseline evaluation.
+    
+    Args:
+        client: OpenAI client
+        model: OpenAI model name
+        question: User question
+        system_prompt: Optional system prompt
+        
+    Returns:
+        Model response text
+        
+    Raises:
+        Exception: If API call fails
+    """
     messages = []
     if system_prompt:
         messages.append({"role": "system", "content": system_prompt})
@@ -141,8 +187,20 @@ def call_google_model(
     question: str,
     system_prompt: Optional[str] = None,
 ) -> str:
-    """Call Google Gemini model (grounding/search disabled)."""
-    # Note: Google API structure may vary, adjust as needed
+    """Call Google Gemini model with grounding/search disabled for baseline evaluation.
+    
+    Args:
+        client: Google Generative AI client
+        model: Gemini model name
+        question: User question
+        system_prompt: Optional system prompt
+        
+    Returns:
+        Model response text
+        
+    Raises:
+        Exception: If API call fails
+    """
     try:
         # CRITICAL: Disable grounding and search
         resp = client.models.generate_content(
@@ -166,8 +224,13 @@ def run_evaluation(
     api_provider: Optional[str] = None,
     output_file: Optional[Path] = None,
 ) -> None:
-    """Run evaluation for a single model."""
-    # Load questions
+    """Run baseline evaluation for a single model.
+    
+    Args:
+        model_name: Model identifier (e.g., "swiss-ai/Apertus-8B-Instruct-2509")
+        api_provider: API provider ("cscs", "anthropic", "openai", "google", "ollama")
+        output_file: Optional output file path (defaults to results/baseline_evaluation/)
+    """
     questions_path = Path(__file__).parent.parent / "test_set" / "eth_questions_100.json"
     if not questions_path.exists():
         print(f"Error: Questions file not found: {questions_path}", file=sys.stderr)
