@@ -1,0 +1,1702 @@
+[
+  {
+    "question_id": 1,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 2,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 3,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.2,
+      "recall": 0.5,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 4,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 5,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 6,
+    "correctness": 1,
+    "completeness": 0,
+    "aggregate_score": 0.25,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 7,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 8,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 9,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 10,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 2
+    }
+  },
+  {
+    "question_id": 11,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 12,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 13,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 14,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 15,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 16,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 2
+    }
+  },
+  {
+    "question_id": 17,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 18,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 19,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 20,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 21,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 22,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 23,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.2,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 24,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 25,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 26,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 27,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 28,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.2,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 29,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 30,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 31,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.2,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 32,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 33,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 34,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 35,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.2,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 36,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "ignored_context",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": true,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 37,
+    "correctness": 1,
+    "completeness": 0,
+    "aggregate_score": 0.25,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 38,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 39,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 40,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 41,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 42,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 43,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 44,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 45,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 46,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 47,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 48,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 49,
+    "correctness": 1,
+    "completeness": 0,
+    "aggregate_score": 0.25,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 50,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 51,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 52,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 53,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 0,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 54,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 0,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 55,
+    "correctness": 1,
+    "completeness": 0,
+    "aggregate_score": 0.25,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 56,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 57,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 58,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 59,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 60,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 61,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 62,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 63,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 64,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 65,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 66,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 67,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 68,
+    "correctness": 2,
+    "completeness": 2,
+    "aggregate_score": 1.0,
+    "result_tag": "Correct",
+    "reasoning": "Response evaluated with lenient criteria. Response correctly mentions ETH-specific tools and provides comprehensive information.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 69,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 0,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 70,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 71,
+    "correctness": 1,
+    "completeness": 0,
+    "aggregate_score": 0.25,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 72,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 73,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 74,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 75,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.2,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 76,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 77,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 78,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 79,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 2
+    }
+  },
+  {
+    "question_id": 80,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 81,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 82,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 83,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 84,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 85,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 2
+    }
+  },
+  {
+    "question_id": 86,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 87,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 88,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 89,
+    "correctness": 0,
+    "completeness": 0,
+    "aggregate_score": 0.0,
+    "result_tag": "retrieval_failure",
+    "reasoning": "Response evaluated with lenient criteria. Response provides only general advice without ETH-specific context.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 90,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 3
+    }
+  },
+  {
+    "question_id": 91,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 92,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 93,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 94,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 2,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 95,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 96,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 97,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  },
+  {
+    "question_id": 98,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 99,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "found_relevant_doc_1": false,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 0,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 5
+    }
+  },
+  {
+    "question_id": 100,
+    "correctness": 1,
+    "completeness": 1,
+    "aggregate_score": 0.5,
+    "result_tag": "Partial",
+    "reasoning": "Response evaluated with lenient criteria. Response provides useful ETH-relevant information or context that helps answer the question.",
+    "retrieval_metrics": {
+      "precision": 0.25,
+      "recall": 1.0,
+      "found_relevant_doc_1": true,
+      "found_relevant_doc_2": false,
+      "num_relevant_found": 1,
+      "num_ground_truth_relevant": 1,
+      "retrieved_doc_count": 4
+    }
+  }
+]

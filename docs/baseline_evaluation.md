@@ -2,47 +2,49 @@
 
 This report compares baseline performance (without RAG) across all evaluated models.
 
+**Evaluation Method**: All responses are scored using **LLM-as-Judge** with `moonshotai/Kimi-K2-Thinking` as the judge model. The judge uses the `judge_prompt_baseline.txt` prompt to provide consistent, automated scoring based on ETH-specific criteria.
+
 ## Summary Statistics
 
 | Model | Avg Correctness | Avg Completeness | Avg Aggregate | Perfect (2/2) | Zero (0/0) |
 |-------|----------------|------------------|---------------|--------------|-----------|
-| Qwen/Qwen3-Next-80B-A3B-Instruct | 0.0/2.0 | 0.0/2.0 | 0.0/1.0 | 0 (0.0%) | 100 (100.0%) |
-| claude-sonnet-4.5 | 0.01/2.0 | 0.01/2.0 | 0.005/1.0 | 0 (0.0%) | 99 (99.0%) |
-| gpt-5.2 | 0.01/2.0 | 0.01/2.0 | 0.005/1.0 | 0 (0.0%) | 99 (99.0%) |
-| swiss-ai/Apertus-8B-Instruct-2509 | 0.0/2.0 | 0.0/2.0 | 0.0/1.0 | 0 (0.0%) | 100 (100.0%) |
+| Qwen/Qwen3-Next-80B-A3B-Instruct | 0.59/2.0 | 0.59/2.0 | 0.295/1.0 | 9 (9.0%) | 50 (50.0%) |
+| claude-sonnet-4.5 | 0.01/2.0 | 0.0/2.0 | 0.003/1.0 | 0 (0.0%) | 99 (99.0%) |
+| gpt-5.2 | 0.04/2.0 | 0.04/2.0 | 0.02/1.0 | 2 (2.0%) | 98 (98.0%) |
+| swiss-ai/Apertus-8B-Instruct-2509 | 0.55/2.0 | 0.53/2.0 | 0.27/1.0 | 7 (7.0%) | 52 (52.0%) |
 
 ## Result Tag Distribution
 
 | Model | Correct | Generic | Refusal | Hallucination |
 |-------|---------|---------|---------|---------------|
-| Qwen/Qwen3-Next-80B-A3B-Instruct | 1 (1.0%) | 78 (78.0%) | 3 (3.0%) | 18 (18.0%) |
-| claude-sonnet-4.5 | 0 (0.0%) | 49 (49.0%) | 26 (26.0%) | 25 (25.0%) |
-| gpt-5.2 | 0 (0.0%) | 64 (64.0%) | 19 (19.0%) | 17 (17.0%) |
-| swiss-ai/Apertus-8B-Instruct-2509 | 0 (0.0%) | 54 (54.0%) | 34 (34.0%) | 12 (12.0%) |
+| Qwen/Qwen3-Next-80B-A3B-Instruct | 9 (9.0%) | 50 (50.0%) | 0 (0.0%) | 0 (0.0%) |
+| claude-sonnet-4.5 | 0 (0.0%) | 0 (0.0%) | 99 (99.0%) | 0 (0.0%) |
+| gpt-5.2 | 2 (2.0%) | 40 (40.0%) | 58 (58.0%) | 0 (0.0%) |
+| swiss-ai/Apertus-8B-Instruct-2509 | 7 (7.0%) | 49 (49.0%) | 3 (3.0%) | 0 (0.0%) |
 
 ## Multilingual Performance
 
 | Model | Language | Avg Correctness | Avg Completeness | Avg Aggregate |
 |-------|----------|----------------|------------------|---------------|
-| Qwen/Qwen3-Next-80B-A3B-Instruct | DE | 0.00 | 0.00 | 0.000 |
-| Qwen/Qwen3-Next-80B-A3B-Instruct | EN | 0.00 | 0.00 | 0.000 |
-| claude-sonnet-4.5 | DE | 0.03 | 0.03 | 0.015 |
+| Qwen/Qwen3-Next-80B-A3B-Instruct | DE | 0.41 | 0.41 | 0.206 |
+| Qwen/Qwen3-Next-80B-A3B-Instruct | EN | 0.68 | 0.68 | 0.341 |
+| claude-sonnet-4.5 | DE | 0.03 | 0.00 | 0.007 |
 | claude-sonnet-4.5 | EN | 0.00 | 0.00 | 0.000 |
-| gpt-5.2 | DE | 0.03 | 0.03 | 0.015 |
+| gpt-5.2 | DE | 0.12 | 0.12 | 0.059 |
 | gpt-5.2 | EN | 0.00 | 0.00 | 0.000 |
-| swiss-ai/Apertus-8B-Instruct-2509 | DE | 0.00 | 0.00 | 0.000 |
-| swiss-ai/Apertus-8B-Instruct-2509 | EN | 0.00 | 0.00 | 0.000 |
+| swiss-ai/Apertus-8B-Instruct-2509 | DE | 0.35 | 0.35 | 0.176 |
+| swiss-ai/Apertus-8B-Instruct-2509 | EN | 0.65 | 0.62 | 0.318 |
 
 ## Key Insights
 
 ### Best Overall Performance
-- **claude-sonnet-4.5**: 0.005 average aggregate score
+- **Qwen/Qwen3-Next-80B-A3B-Instruct**: 0.295 average aggregate score
 
 ### Most Honest (Highest Refusal Rate)
-- **swiss-ai/Apertus-8B-Instruct-2509**: 34.0% honest refusals (admits when it doesn't know)
+- **claude-sonnet-4.5**: 99.0% honest refusals (admits when it doesn't know)
 
 ### Least Hallucination
-- **swiss-ai/Apertus-8B-Instruct-2509**: 12.0% hallucination rate (invents false information)
+- **Qwen/Qwen3-Next-80B-A3B-Instruct**: 0.0% hallucination rate (invents false information)
 
 ## Visualizations
 

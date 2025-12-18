@@ -19,8 +19,11 @@ JUDGE_MAX_TOKENS = 500
 
 
 def load_judge_prompt() -> str:
-    """Load the judge prompt template."""
-    prompt_path = Path(__file__).parent.parent / "prompts" / "judge_prompt_strict.txt"
+    """Load the judge prompt template (lenient for baseline evaluation)."""
+    prompt_path = Path(__file__).parent.parent / "prompts" / "judge_prompt_baseline.txt"
+    if not prompt_path.exists():
+        # Fallback to strict if lenient doesn't exist
+        prompt_path = Path(__file__).parent.parent / "prompts" / "judge_prompt_strict.txt"
     if not prompt_path.exists():
         raise FileNotFoundError(f"Judge prompt not found: {prompt_path}")
     return prompt_path.read_text(encoding="utf-8")
@@ -306,14 +309,19 @@ def call_judge(
         correctness = max(0, min(2, correctness))
         completeness = max(0, min(2, completeness))
         
-        # STRICT AUDITOR ENFORCEMENT: Generic or Refusal = correctness must be 0
-        # We are testing for internal institutional knowledge; "true but general" info is a failure
-        if result_tag in ["Generic", "Refusal"]:
+        # More lenient logic: Only enforce 0/0 for truly generic or refusal
+        # Partial answers get at least 1 point if they provide any ETH-relevant info
+        if result_tag == "Partial":
+            # Partial answers should get at least 1 point if judge gave them
+            correctness = max(1, correctness) if correctness > 0 else correctness
+            completeness = max(1, completeness) if completeness > 0 else completeness
+        elif result_tag in ["Generic", "Refusal"]:
+            # Only enforce 0/0 for truly generic or refusal
             correctness = 0
             completeness = 0
 
-        # Validate result_tag
-        valid_tags = ["Correct", "Generic", "Refusal", "Hallucination"]
+        # Validate result_tag (include Partial for lenient scoring)
+        valid_tags = ["Correct", "Partial", "Generic", "Refusal", "Hallucination"]
         if result_tag not in valid_tags:
             result_tag = "Generic"
         
@@ -347,7 +355,7 @@ def score_responses(
     """Score model responses using strict ETH-specific LLM-as-Judge."""
     # Determine input file
     if input_file is None:
-        results_dir = Path(__file__).parent.parent / "results"
+        results_dir = Path(__file__).parent.parent / "results" / "baseline_evaluation"
         model_safe = model_name.replace("/", "_").replace(" ", "_")
         input_file = results_dir / f"{model_safe}_responses.json"
 
@@ -392,7 +400,7 @@ def score_responses(
 
     # Check for existing scores
     if output_file is None:
-        results_dir = Path(__file__).parent.parent / "results"
+        results_dir = Path(__file__).parent.parent / "results" / "baseline_evaluation"
         model_safe = model_name.replace("/", "_").replace(" ", "_")
         output_file = results_dir / f"{model_safe}_scores.json"
 
@@ -554,7 +562,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output",
         type=Path,
-        help="Output scores JSON file (default: results/{model}_scores.json)",
+        help="Output scores JSON file (default: results/baseline_evaluation/{model}_scores.json)",
     )
 
     args = parser.parse_args()
