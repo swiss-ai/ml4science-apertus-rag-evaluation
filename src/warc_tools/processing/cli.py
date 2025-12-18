@@ -1,3 +1,16 @@
+"""
+Processing CLI Module
+
+Command-line interface for content deduplication.
+Reads configuration from environment variables and processes JSONL files
+to remove duplicate content based on content hashing.
+
+Environment Variables:
+    - DEDUP_INPUT_ROOT: Root directory containing JSONL files to deduplicate
+    - DEDUP_OUTPUT_ROOT: Root directory for deduplicated output
+    - DEDUP_MODE: "html", "pdf", or "all"
+    - DEDUP_DB_DIR: Directory for deduplication database
+"""
 from __future__ import annotations
 
 import logging

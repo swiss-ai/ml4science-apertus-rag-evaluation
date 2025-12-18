@@ -1,3 +1,9 @@
+"""
+WARC Extractor Module
+
+Main extraction logic for processing WARC files and extracting HTML/PDF content.
+Handles WARC file parsing, content extraction, and JSONL output generation.
+"""
 from __future__ import annotations
 
 import gzip

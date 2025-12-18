@@ -1,3 +1,9 @@
+"""
+Indexer Module
+
+Main indexing logic for processing JSONL files and indexing them into Elasticsearch.
+Handles document chunking, embedding generation, and batch indexing with vector search support.
+"""
 from __future__ import annotations
 
 import hashlib

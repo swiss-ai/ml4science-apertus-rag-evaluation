@@ -1,3 +1,9 @@
+"""
+Deduplication Module
+
+Main deduplication logic for removing duplicate content from extracted JSONL files.
+Uses SQLite database to track content hashes and identify duplicates across files.
+"""
 from __future__ import annotations
 
 import json

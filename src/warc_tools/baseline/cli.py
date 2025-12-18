@@ -1,3 +1,12 @@
+"""
+Baseline CLI Module
+
+Command-line interface for running baseline LLM evaluations on Excel datasets.
+Processes questions through CSCS-hosted models without RAG context.
+
+Usage:
+    python -m warc_tools.baseline.cli input.xlsx output.xlsx MODEL_NAME
+"""
 # src/warc_tools/baseline/cli.py
 from __future__ import annotations
 

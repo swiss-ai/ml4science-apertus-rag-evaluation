@@ -1,3 +1,9 @@
+"""
+Extractor Configuration Module
+
+Defines the configuration dataclass for WARC extraction process.
+Contains settings for input/output directories, extraction modes, and sharding.
+"""
 from __future__ import annotations
 
 from dataclasses import dataclass

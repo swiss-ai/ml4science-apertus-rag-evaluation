@@ -1,3 +1,13 @@
+"""
+Indexer Utilities Module
+
+Utility functions for Elasticsearch indexing including:
+- Embedding model initialization (CSCS, OpenAI, Ollama, HuggingFace)
+- Elasticsearch client setup
+- Index creation and management
+- Batch processing utilities
+- Environment variable handling
+"""
 from __future__ import annotations
 
 import logging
