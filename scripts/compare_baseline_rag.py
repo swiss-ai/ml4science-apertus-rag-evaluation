@@ -20,7 +20,14 @@ import numpy as np
 
 
 def load_scores(scores_file: Path) -> List[Dict[str, Any]]:
-    """Load scores from JSON file."""
+    """Load scores from JSON file.
+    
+    Args:
+        scores_file: Path to JSON file containing scores
+        
+    Returns:
+        List of score dictionaries, or empty list if file doesn't exist
+    """
     if not scores_file.exists():
         return []
     with open(scores_file, "r", encoding="utf-8") as f:
@@ -28,7 +35,14 @@ def load_scores(scores_file: Path) -> List[Dict[str, Any]]:
 
 
 def calculate_metrics(scores: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Calculate aggregate metrics from scores."""
+    """Calculate aggregate metrics from scores.
+    
+    Args:
+        scores: List of score dictionaries with correctness, completeness, etc.
+        
+    Returns:
+        Dictionary containing aggregated metrics (averages, distributions, etc.)
+    """
     if not scores:
         return {}
     
@@ -63,7 +77,16 @@ def calculate_metrics(scores: List[Dict[str, Any]]) -> Dict[str, Any]:
 def calculate_improvements(
     baseline_scores: List[Dict[str, Any]], rag_scores: List[Dict[str, Any]]
 ) -> List[Dict[str, Any]]:
-    """Calculate per-question improvements."""
+    """Calculate per-question improvements between baseline and RAG.
+    
+    Args:
+        baseline_scores: List of baseline score dictionaries
+        rag_scores: List of RAG score dictionaries
+        
+    Returns:
+        List of improvement dictionaries with question_id, baseline_aggregate, 
+        rag_aggregate, improvement, and tags
+    """
     baseline_map = {s["question_id"]: s for s in baseline_scores}
     improvements = []
     
@@ -89,7 +112,13 @@ def calculate_improvements(
 def generate_report(
     baseline_dir: Path, rag_dir: Path, output_file: Path
 ) -> None:
-    """Generate comprehensive comparison report."""
+    """Generate comprehensive comparison report between baseline and RAG.
+    
+    Args:
+        baseline_dir: Directory containing baseline score files
+        rag_dir: Directory containing RAG score files
+        output_file: Path to output markdown report file
+    """
     
     # Models to compare (RAG models only)
     rag_models = [

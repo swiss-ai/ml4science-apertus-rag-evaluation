@@ -23,21 +23,20 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from warc_tools.rag.rag_pipeline import RAGConfig, run_rag_query
 from warc_tools.indexer.utils import setup_logging
+from evaluation_utils import normalize_url
 
 load_dotenv()
 
 
-def normalize_url(url: str) -> str:
-    """Normalize URL for comparison (remove trailing slash, normalize http/https)."""
-    if not url:
-        return ""
-    url = url.strip().rstrip("/")
-    # Normalize http vs https (optional - may want to keep separate)
-    return url
-
-
 def extract_retrieved_docs(nodes) -> List[Dict[str, Any]]:
-    """Extract document information from retrieved nodes."""
+    """Extract document information from retrieved nodes.
+    
+    Args:
+        nodes: List of NodeWithScore objects from RAG retrieval
+        
+    Returns:
+        List of dictionaries with url, normalized_url, score, and text_preview
+    """
     retrieved_docs = []
     retrieved_urls = []
     
@@ -68,9 +67,15 @@ def run_rag_evaluation_for_model(
     config: RAGConfig,
     logger,
 ) -> None:
-    """Run RAG evaluation for one model."""
+    """Run RAG evaluation for one model on the test set.
     
-    # Load test set
+    Args:
+        model_name: Model identifier
+        test_set_path: Path to test set JSON file
+        output_dir: Directory to save results
+        config: RAG configuration
+        logger: Logger instance
+    """
     with open(test_set_path, "r", encoding="utf-8") as f:
         test_set = json.load(f)
     

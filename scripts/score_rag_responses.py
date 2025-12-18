@@ -1,33 +1,24 @@
 """Score RAG responses using LLM-as-Judge with retrieval quality metrics."""
 import argparse
 import json
-import os
-import re
 import sys
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from urllib.parse import urlparse
 
-import openai
-from dotenv import load_dotenv
+from evaluation_utils import (
+    call_judge,
+    load_judge_prompt,
+    load_responses_with_cleaning,
+    normalize_url,
+    save_scores_progress,
+    setup_judge_client,
+)
 
-load_dotenv()
 
-# Judge settings
-JUDGE_TEMPERATURE = 0.0
-JUDGE_MAX_TOKENS = 500
-
-
-def normalize_url(url: str) -> str:
-    """Normalize URL for comparison."""
-    if not url:
-        return ""
-    url = url.strip().rstrip("/")
-    # Remove protocol for comparison
-    parsed = urlparse(url)
-    normalized = f"{parsed.netloc}{parsed.path}".rstrip("/")
-    return normalized.lower()
+def normalize_url_for_retrieval(url: str) -> str:
+    """Normalize URL for retrieval metrics comparison."""
+    return normalize_url(url)
 
 
 def calculate_retrieval_metrics(
@@ -35,7 +26,16 @@ def calculate_retrieval_metrics(
     relevant_doc_1: Optional[str],
     relevant_doc_2: Optional[str],
 ) -> Dict[str, Any]:
-    """Calculate retrieval quality metrics."""
+    """Calculate retrieval quality metrics (precision, recall, matches).
+    
+    Args:
+        retrieved_docs: List of retrieved document dictionaries
+        relevant_doc_1: First ground truth relevant document URL
+        relevant_doc_2: Second ground truth relevant document URL
+        
+    Returns:
+        Dictionary with precision, recall, found flags, and counts
+    """
     if not retrieved_docs:
         return {
             "precision": None,
@@ -50,30 +50,30 @@ def calculate_retrieval_metrics(
     # Normalize ground truth URLs
     ground_truth_urls = []
     if relevant_doc_1:
-        ground_truth_urls.append(normalize_url(relevant_doc_1))
+        ground_truth_urls.append(normalize_url_for_retrieval(relevant_doc_1))
     if relevant_doc_2:
-        ground_truth_urls.append(normalize_url(relevant_doc_2))
+        ground_truth_urls.append(normalize_url_for_retrieval(relevant_doc_2))
     
     # Extract retrieved URLs
     retrieved_urls = []
     for doc in retrieved_docs:
         url = doc.get("url", "") or doc.get("normalized_url", "")
         if url:
-            retrieved_urls.append(normalize_url(url))
+            retrieved_urls.append(normalize_url_for_retrieval(url))
     
     # Check which relevant docs were found
     found_relevant_1 = False
     found_relevant_2 = False
     
     if relevant_doc_1:
-        normalized_gt1 = normalize_url(relevant_doc_1)
+        normalized_gt1 = normalize_url_for_retrieval(relevant_doc_1)
         found_relevant_1 = any(
             normalized_gt1 in ret_url or ret_url in normalized_gt1
             for ret_url in retrieved_urls
         )
     
     if relevant_doc_2:
-        normalized_gt2 = normalize_url(relevant_doc_2)
+        normalized_gt2 = normalize_url_for_retrieval(relevant_doc_2)
         found_relevant_2 = any(
             normalized_gt2 in ret_url or ret_url in normalized_gt2
             for ret_url in retrieved_urls
@@ -109,7 +109,17 @@ def auto_suggest_rag_tag(
     completeness: int,
     result_tag: str,
 ) -> str:
-    """Suggest RAG-specific tag based on retrieval metrics and scores."""
+    """Suggest RAG-specific tag based on retrieval metrics and scores.
+    
+    Args:
+        retrieval_metrics: Dictionary with retrieval quality metrics
+        correctness: Correctness score (0-2)
+        completeness: Completeness score (0-2)
+        result_tag: Base result tag from judge
+        
+    Returns:
+        RAG-specific tag (Correct, Partial, retrieval_failure, ignored_context, etc.)
+    """
     recall = retrieval_metrics.get("recall", 0)
     if recall is None:
         recall = 0.0
@@ -136,204 +146,9 @@ def auto_suggest_rag_tag(
     return result_tag
 
 
-def load_judge_prompt() -> str:
-    """Load the judge prompt template (favorable for RAG evaluation)."""
-    prompt_path = Path(__file__).parent.parent / "prompts" / "judge_prompt_rag.txt"
-    if not prompt_path.exists():
-        # Fallback to strict if favorable doesn't exist
-        prompt_path = Path(__file__).parent.parent / "prompts" / "judge_prompt_strict.txt"
-    if not prompt_path.exists():
-        raise FileNotFoundError(f"Judge prompt not found: {prompt_path}")
-    return prompt_path.read_text(encoding="utf-8")
-
-
 def load_rag_responses(json_path: Path) -> List[Dict[str, Any]]:
-    """Load RAG responses from JSON file."""
-    with open(json_path, "r", encoding="utf-8") as f:
-        responses = json.load(f)
-    
-    # Strip thinking blocks from responses if present
-    for response in responses:
-        model_response = response.get("model_response", "")
-        if model_response:
-            model_response = re.sub(
-                r"<think>.*?</think>",
-                "",
-                model_response,
-                flags=re.DOTALL | re.IGNORECASE,
-            )
-            model_response = re.sub(
-                r"<reasoning>.*?</reasoning>",
-                "",
-                model_response,
-                flags=re.DOTALL | re.IGNORECASE,
-            )
-            model_response = re.sub(r"\n\s*\n", "\n\n", model_response).strip()
-            response["model_response"] = model_response
-    
-    return responses
-
-
-def call_judge(
-    client: openai.Client,
-    judge_model: str,
-    question: str,
-    ground_truth: str,
-    model_response: str,
-    prompt_template: str,
-) -> Dict[str, Any]:
-    """Call the judge LLM to score a response (same logic as baseline)."""
-    # Format the prompt
-    prompt = prompt_template.format(
-        question=question,
-        ground_truth=ground_truth,
-        model_response=model_response,
-    )
-
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a Strict Auditor for ETH Zurich. Respond only with valid JSON, no additional text.",
-        },
-        {"role": "user", "content": prompt},
-    ]
-
-    try:
-        resp = client.chat.completions.create(
-            model=judge_model,
-            messages=messages,
-            temperature=JUDGE_TEMPERATURE,
-            max_tokens=JUDGE_MAX_TOKENS,
-        )
-
-        # Handle thinking models
-        message = resp.choices[0].message
-        response_text = None
-        if hasattr(message, "reasoning_content") and message.reasoning_content:
-            response_text = message.reasoning_content.strip()
-        elif hasattr(message, "content") and message.content:
-            response_text = message.content.strip()
-
-        if not response_text:
-            response_text = str(message) if message else ""
-            if not response_text:
-                raise ValueError(
-                    "No content or reasoning_content in judge response."
-                )
-
-        # Extract scores (same logic as baseline score_responses.py)
-        scores = None
-
-        # Strategy 1: Try to find JSON block
-        json_match = re.search(r"\{[^{}]*\"correctness\"[^{}]*\}", response_text, re.DOTALL)
-        if json_match:
-            try:
-                scores = json.loads(json_match.group(0))
-            except json.JSONDecodeError:
-                pass
-
-        # Strategy 2: Extract individual fields with regex
-        if scores is None:
-            correctness_match = None
-            completeness_match = None
-            result_tag = None
-
-            # Try to find correctness
-            corr_match = re.search(
-                r'"correctness"\s*:\s*(\d+)', response_text, re.IGNORECASE
-            )
-            if corr_match:
-                correctness_match = int(corr_match.group(1))
-
-            # Try to find completeness
-            comp_match = re.search(
-                r'"completeness"\s*:\s*(\d+)', response_text, re.IGNORECASE
-            )
-            if comp_match:
-                completeness_match = int(comp_match.group(1))
-
-            # Try to find result_tag
-            tag_match = re.search(
-                r'"result_tag"\s*:\s*"([^"]+)"', response_text, re.IGNORECASE
-            )
-            if tag_match:
-                result_tag = tag_match.group(1)
-
-            if correctness_match is not None and completeness_match is not None:
-                scores = {
-                    "correctness": correctness_match,
-                    "completeness": completeness_match,
-                    "result_tag": result_tag if result_tag else "Generic",
-                    "reasoning": response_text,
-                }
-            elif correctness_match is not None:
-                completeness_match = max(0, correctness_match - 1) if correctness_match > 0 else 0
-                scores = {
-                    "correctness": correctness_match,
-                    "completeness": completeness_match,
-                    "result_tag": result_tag if result_tag else "Generic",
-                    "reasoning": response_text,
-                }
-            elif completeness_match is not None:
-                correctness_match = max(0, completeness_match - 1) if completeness_match > 0 else 0
-                scores = {
-                    "correctness": correctness_match,
-                    "completeness": completeness_match,
-                    "result_tag": result_tag if result_tag else "Generic",
-                    "reasoning": response_text,
-                }
-
-        # Strategy 3: Try to parse entire response as JSON
-        if scores is None:
-            try:
-                scores = json.loads(response_text)
-            except json.JSONDecodeError:
-                pass
-
-        # Fallback: use defaults
-        if scores is None:
-            scores = {
-                "correctness": 0,
-                "completeness": 0,
-                "result_tag": "Generic",
-                "reasoning": response_text,
-            }
-
-        # Validate and normalize scores (0-2 integer scale)
-        correctness = int(scores.get("correctness", 0))
-        completeness = int(scores.get("completeness", 0))
-        result_tag = scores.get("result_tag", "Generic")
-
-        # More lenient logic for RAG: Only enforce 0/0 for truly generic or refusal
-        # Partial answers get at least 1 point if they provide any ETH-relevant info
-        if result_tag == "Partial":
-            # Partial answers should get at least 1 point if judge gave them
-            correctness = max(1, correctness) if correctness > 0 else correctness
-            completeness = max(1, completeness) if completeness > 0 else completeness
-        elif result_tag in ["Generic", "Refusal"]:
-            # Only enforce 0/0 for truly generic or refusal
-            correctness = 0
-            completeness = 0
-
-        # Clamp to valid range
-        correctness = max(0, min(2, correctness))
-        completeness = max(0, min(2, completeness))
-
-        return {
-            "correctness": correctness,
-            "completeness": completeness,
-            "result_tag": result_tag,
-            "reasoning": scores.get("reasoning", response_text),
-        }
-
-    except Exception as e:
-        print(f"ERROR: Judge call failed: {e}")
-        return {
-            "correctness": 0,
-            "completeness": 0,
-            "result_tag": "Generic",
-            "reasoning": f"Judge error: {str(e)}",
-        }
+    """Load RAG responses from JSON file and clean thinking blocks."""
+    return load_responses_with_cleaning(json_path)
 
 
 def score_rag_responses(
@@ -343,7 +158,15 @@ def score_rag_responses(
     test_set_file: Path,
     output_file: Path,
 ) -> None:
-    """Score RAG responses using LLM-as-Judge."""
+    """Score RAG responses using LLM-as-Judge with retrieval metrics.
+    
+    Args:
+        model_name: Model identifier
+        judge_model: Judge model identifier
+        responses_file: Path to RAG responses JSON file
+        test_set_file: Path to test set JSON file with ground truth
+        output_file: Path to output scores JSON file
+    """
     # Load data
     responses = load_rag_responses(responses_file)
     with open(test_set_file, "r", encoding="utf-8") as f:
@@ -352,19 +175,13 @@ def score_rag_responses(
     # Create map for ground truth
     ground_truth_map = {item["question_id"]: item for item in test_set}
     
-    # Load judge prompt
-    judge_prompt = load_judge_prompt()
+    judge_prompt = load_judge_prompt("rag")
     
-    # Setup judge client (same logic as baseline score_responses.py)
-    judge_base_url = os.getenv("JUDGE_BASE_URL") or os.getenv("CSCS_BASE_URL") or "https://api.swissai.cscs.ch/v1"
-    judge_api_key = os.getenv("JUDGE_API_KEY") or os.getenv("CSCS_API_KEY") or os.getenv("LLM_API_KEY")
-    
-    if not judge_api_key:
-        raise ValueError(
-            "JUDGE_API_KEY, CSCS_API_KEY, or LLM_API_KEY must be set"
-        )
-    
-    client = openai.Client(base_url=judge_base_url, api_key=judge_api_key)
+    try:
+        client = setup_judge_client(judge_model)
+    except ValueError as e:
+        print(f"ERROR: {e}")
+        sys.exit(1)
     
     # Load existing scores if resuming
     existing_scores = {}
@@ -396,7 +213,6 @@ def score_rag_responses(
         
         print(f"[{i}/{len(responses)}] Scoring Q{q_id}...")
         
-        # Call judge
         judge_result = call_judge(
             client,
             judge_model,
@@ -438,19 +254,10 @@ def score_rag_responses(
         
         scores.append(score_entry)
         
-        # Rate limiting
-        time.sleep(0.5)
+        time.sleep(0.5)  # Rate limiting
         
-        # Save progress every 10 questions
         if i % 10 == 0:
-            all_scores = existing_scores.copy()
-            for score in scores:
-                all_scores[score["question_id"]] = score
-            
-            output_file.parent.mkdir(parents=True, exist_ok=True)
-            with open(output_file, "w", encoding="utf-8") as f:
-                json.dump(list(all_scores.values()), f, indent=2, ensure_ascii=False)
-            print(f"Progress saved ({i}/{len(responses)} questions)")
+            save_scores_progress(output_file, existing_scores, scores, i, len(responses))
     
     # Final save
     all_scores = existing_scores.copy()

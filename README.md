@@ -89,36 +89,68 @@ All responses are automatically scored using **LLM-as-Judge** with:
 
 ### Prerequisites
 
-- Python 3.8+
+- **Python 3.8 or higher** (Python 3.9+ recommended)
+- **pip** (Python package manager)
 - Access to CSCS cluster (for self-hosted models)
 - API keys for cloud models (if evaluating)
-- Environment variables configured (see `env.example`)
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
 ```bash
 git clone <repository-url>
 cd ml4science-apertus-rag-evaluation
 ```
 
-2. Create virtual environment:
+2. **Create and activate virtual environment:**
 ```bash
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Activate virtual environment
+# On Linux/Mac:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
 ```
 
-3. Install dependencies:
+3. **Install required Python packages:**
 ```bash
-pip install -r requirements.txt  # If available
-# Or install manually: openai, anthropic, google-generativeai, etc.
+# Upgrade pip first
+pip install --upgrade pip
+
+# Install all dependencies from requirements.txt
+pip install -r requirements.txt
+
+# Or install manually (if requirements.txt is not available):
+pip install openai>=1.0.0
+pip install python-dotenv>=1.0.0
+pip install numpy>=1.24.0
+pip install matplotlib>=3.7.0
+
+# Optional: For cloud model evaluation (uncomment in requirements.txt)
+# pip install anthropic>=0.18.0  # For Claude models
+# pip install google-generativeai>=0.3.0  # For Gemini models
+
+# Optional: For RAG evaluation (uncomment in requirements.txt if using src/warc_tools)
+# pip install llama-index>=0.9.0
+# pip install llama-index-vector-stores-elasticsearch>=0.1.0
+# pip install pandas>=2.0.0
 ```
 
-4. Configure environment variables:
+4. **Configure environment variables:**
 ```bash
+# Copy example environment file
 cp env.example .env
-# Edit .env with your API keys and configuration
+
+# Edit .env file with your API keys and configuration
+# Required variables:
+#   - CSCS_API_KEY (for self-hosted models and judge)
+#   - ES_URL (for RAG evaluation)
+#   - ES_INDEX_NAME (for RAG evaluation)
 ```
+
+**Note:** See the [Environment Variables](#environment-variables) section below for a complete list of required and optional variables.
 
 ### Running Baseline Evaluation
 
